@@ -10,9 +10,10 @@ import ru.samgtu.monolith.folklore.service.FolkloreService;
 import ru.samgtu.monolith.tag.model.persistence.Tag;
 import ru.samgtu.monolith.tag.service.TagService;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Set;
 
 /**
  * Creation date: 07.08.2021
@@ -29,18 +30,19 @@ public class FolkloreServiceImpl implements FolkloreService {
     private final BuildingRepository repository;
 
     @Override
-    public List<Building> getBuildingsByTags(List<Tag> tags,
-                                             Pageable pageable) {
+    public Set<Building> getBuildingsByTags(Set<Tag> tags,
+                                            Pageable pageable) {
         // ToDo: Load from DB
-        ArrayList<Building> list = new ArrayList<>();
-        list.add(getBuildingById(0L));
-        return list;
+        HashSet<Building> set = new HashSet<>();
+        set.add(getBuildingById(0L));
+        return set;
     }
 
     @Override
-    public List<Building> getBuildingsByName(String name,
+    public Set<Building> getBuildingsByName(String name,
                                              Pageable pageable) {
-        return repository.findByNameStartsWithIgnoreCase(name, pageable).getContent();
+        List<Building> content = repository.findByNameStartsWithIgnoreCase(name, pageable).getContent();
+        return new HashSet<>(content);
     }
 
     @Override

@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.samgtu.monolith.folklore.model.dto.BuildingDto;
 import ru.samgtu.monolith.tag.model.dto.TagDto;
 
-import java.util.List;
+import java.util.Set;
 
 /**
  * Creation date: 06.08.2021
@@ -24,7 +24,7 @@ public interface FolkloreController {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "", responseContainer = "List", response = BuildingDto.class)
     })
-    List<BuildingDto> getBuildingsByTags(@RequestBody List<TagDto> tags,
+    Set<BuildingDto> getBuildingsByTags(@RequestBody Set<TagDto> tags,
                                          @RequestParam(defaultValue = "0") int page,
                                          @RequestParam(defaultValue = "10") int size);
 
@@ -33,7 +33,7 @@ public interface FolkloreController {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "", responseContainer = "List", response = BuildingDto.class)
     })
-    List<BuildingDto> getBuildingsByName(@RequestParam String name,
+    Set<BuildingDto> getBuildingsByName(@RequestParam String name,
                                          @RequestParam(defaultValue = "0") int page,
                                          @RequestParam(defaultValue = "10") int size);
 

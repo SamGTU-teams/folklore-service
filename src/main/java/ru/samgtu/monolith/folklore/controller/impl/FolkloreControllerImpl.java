@@ -13,7 +13,7 @@ import ru.samgtu.monolith.folklore.service.FolkloreService;
 import ru.samgtu.monolith.tag.model.dto.TagDto;
 import ru.samgtu.monolith.tag.model.persistence.Tag;
 
-import java.util.List;
+import java.util.Set;
 
 /**
  * Creation date: 07.08.2021
@@ -30,22 +30,22 @@ public class FolkloreControllerImpl implements FolkloreController {
     private final MapperFacade mapper;
 
     @Override
-    public List<BuildingDto> getBuildingsByTags(List<TagDto> tagsDto,
+    public Set<BuildingDto> getBuildingsByTags(Set<TagDto> tagsDto,
                                                 int page,
                                                 int size) {
         PageRequest pageRequest = createPageRequest(page, size);
-        List<Tag> tags = mapper.mapAsList(tagsDto, Tag.class);
-        List<Building> buildings = service.getBuildingsByTags(tags, pageRequest);
-        return mapper.mapAsList(buildings, BuildingDto.class);
+        Set<Tag> tags = mapper.mapAsSet(tagsDto, Tag.class);
+        Set<Building> buildings = service.getBuildingsByTags(tags, pageRequest);
+        return mapper.mapAsSet(buildings, BuildingDto.class);
     }
 
     @Override
-    public List<BuildingDto> getBuildingsByName(String name,
+    public Set<BuildingDto> getBuildingsByName(String name,
                                                 int page,
                                                 int size) {
         PageRequest pageRequest = createPageRequest(page, size);
-        List<Building> buildings = service.getBuildingsByName(name, pageRequest);
-        return mapper.mapAsList(buildings, BuildingDto.class);
+        Set<Building> buildings = service.getBuildingsByName(name, pageRequest);
+        return mapper.mapAsSet(buildings, BuildingDto.class);
     }
 
     @Override
