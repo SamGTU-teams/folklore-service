@@ -2,6 +2,7 @@ package ru.samgtu.monolith.folklore.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import ru.samgtu.monolith.folklore.model.persistence.Building;
@@ -28,17 +29,15 @@ public class FolkloreServiceImpl implements FolkloreService {
     private final BuildingRepository repository;
 
     @Override
-    public Set<Building> getBuildingsByTags(Set<Tag> tags,
-                                            Pageable pageable) {
-        List<Building> content = repository.findByTagsIn(tags, pageable).getContent();
-        return new HashSet<>(content);
+    public Page<Building> getBuildingsByTags(Set<Tag> tags,
+                                             Pageable pageable) {
+        return repository.findByTagsIn(tags, pageable);
     }
 
     @Override
-    public Set<Building> getBuildingsByName(String name,
+    public Page<Building> getBuildingsByName(String name,
                                              Pageable pageable) {
-        List<Building> content = repository.findByNameStartsWithIgnoreCase(name, pageable).getContent();
-        return new HashSet<>(content);
+        return repository.findByNameStartsWithIgnoreCase(name, pageable);
     }
 
     @Override

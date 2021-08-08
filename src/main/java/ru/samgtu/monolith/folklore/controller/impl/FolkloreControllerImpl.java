@@ -3,6 +3,7 @@ package ru.samgtu.monolith.folklore.controller.impl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import ma.glasnost.orika.MapperFacade;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.RestController;
@@ -30,22 +31,22 @@ public class FolkloreControllerImpl implements FolkloreController {
     private final MapperFacade mapper;
 
     @Override
-    public Set<BuildingDto> getBuildingsByTags(Set<TagDto> tagsDto,
+    public Page<BuildingDto> getBuildingsByTags(Set<TagDto> tagsDto,
                                                 int page,
                                                 int size) {
         PageRequest pageRequest = createPageRequest(page, size);
         Set<Tag> tags = mapper.mapAsSet(tagsDto, Tag.class);
-        Set<Building> buildings = service.getBuildingsByTags(tags, pageRequest);
-        return mapper.mapAsSet(buildings, BuildingDto.class);
+        Page<Building> buildings = service.getBuildingsByTags(tags, pageRequest);
+        return mapPage(buildings);
     }
 
     @Override
-    public Set<BuildingDto> getBuildingsByName(String name,
+    public Page<BuildingDto> getBuildingsByName(String name,
                                                 int page,
                                                 int size) {
         PageRequest pageRequest = createPageRequest(page, size);
-        Set<Building> buildings = service.getBuildingsByName(name, pageRequest);
-        return mapper.mapAsSet(buildings, BuildingDto.class);
+        Page<Building> buildings = service.getBuildingsByName(name, pageRequest);
+        return mapPage(buildings);
     }
 
     @Override
@@ -56,5 +57,9 @@ public class FolkloreControllerImpl implements FolkloreController {
 
     private PageRequest createPageRequest(int page, int size) {
         return PageRequest.of(page, size, Sort.by("id").ascending());
+    }
+
+    private Page<BuildingDto> mapPage(Page<Building> page) {
+        return page.map(building -> mapper.map(building, BuildingDto.class));
     }
 }
