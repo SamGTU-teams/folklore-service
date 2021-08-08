@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import ma.glasnost.orika.BoundMapperFacade;
 import ma.glasnost.orika.MapperFacade;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.RestController;
 import ru.samgtu.monolith.tag.controller.TagController;
 import ru.samgtu.monolith.tag.model.dto.TagDto;
@@ -28,17 +29,15 @@ public class TagControllerImpl implements TagController {
     private final MapperFacade mapper;
 
     @Override
-    public List<TagDto> getTags(int page,
-                                int size) {
-        List<Tag> tags = service.getTags(page, size);
+    public List<TagDto> getTags(Pageable pageable) {
+        List<Tag> tags = service.getTags(pageable);
         return mapper.mapAsList(tags, TagDto.class);
     }
 
     @Override
     public List<TagDto> getTagsByName(String name,
-                                      int page,
-                                      int size) {
-        List<Tag> tags = service.getTagsByName(name, page, size);
+                                      Pageable pageable) {
+        List<Tag> tags = service.getTagsByName(name, pageable);
         return mapper.mapAsList(tags, TagDto.class);
     }
 

@@ -1,5 +1,6 @@
 package ru.samgtu.monolith.tag.service;
 
+import org.springframework.data.domain.Pageable;
 import ru.samgtu.monolith.tag.model.persistence.Tag;
 
 import java.util.List;
@@ -11,12 +12,10 @@ import java.util.List;
  * @version 1.0
  */
 public interface TagService {
-    List<Tag> getTags(int page,
-                      int size);
+    List<Tag> getTags(Pageable pageable);
 
     List<Tag> getTagsByName(String name,
-                            int page,
-                            int size);
+                            Pageable pageable);
 
     Tag getTagById(Long id);
 }
