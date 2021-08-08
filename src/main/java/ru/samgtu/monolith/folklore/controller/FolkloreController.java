@@ -23,7 +23,7 @@ public interface FolkloreController {
     @PostMapping
     @ApiOperation(value = "Get buildings by tags")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "", responseContainer = "Page", response = BuildingDto.class)
+            @ApiResponse(code = 200, message = "")
     })
     Page<BuildingDto> getBuildingsByTags(@RequestBody Set<TagDto> tags,
                                          @RequestParam(defaultValue = "0") int page,
@@ -32,7 +32,7 @@ public interface FolkloreController {
     @GetMapping("/search")
     @ApiOperation(value = "Get buildings by tags")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "", responseContainer = "Page", response = BuildingDto.class)
+            @ApiResponse(code = 200, message = "")
     })
     Page<BuildingDto> getBuildingsByName(@RequestParam String name,
                                          @RequestParam(defaultValue = "0") int page,
