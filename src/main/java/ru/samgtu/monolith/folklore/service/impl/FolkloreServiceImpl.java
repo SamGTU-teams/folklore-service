@@ -32,10 +32,8 @@ public class FolkloreServiceImpl implements FolkloreService {
     @Override
     public Set<Building> getBuildingsByTags(Set<Tag> tags,
                                             Pageable pageable) {
-        // ToDo: Load from DB
-        HashSet<Building> set = new HashSet<>();
-        set.add(getBuildingById(0L));
-        return set;
+        List<Building> content = repository.findByTagsIn(tags, pageable).getContent();
+        return new HashSet<>(content);
     }
 
     @Override
