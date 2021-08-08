@@ -1,0 +1,17 @@
+server.port: ${SERVER_PORT}
+spring:
+    application.name: folklore-service
+    # DB properties
+    datasource:
+        driverClassName: org.postgresql.Driver
+        url: jdbc:${DATABASE_URL}
+        username: ${DATABASE_USER}
+        password: ${DATABASE_PASSWORD}
+    jpa:
+        database-platform: org.hibernate.dialect.PostgreSQLDialect
+        hibernate.ddl-auto: validate
+    liquibase.change-log: classpath:db/changelog/changelog-master.xml
+---
+spring:
+    config.activate.on-profile: dev
+    liquibase.change-log: classpath:db/changelog/changelog-master-dev.xml
