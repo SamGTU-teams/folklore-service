@@ -38,10 +38,10 @@ public class Building {
     @Column(name = "address", length = 80, nullable = false)
     private String address;
 
-    @Column(name = "imageUrl", nullable = false)
+    @Column(name = "image_url", nullable = false)
     private String imageUrl;
 
-    @Column(name = "labelUrl", nullable = false)
+    @Column(name = "label_url", nullable = false)
     private String labelUrl;
 
     @ManyToMany

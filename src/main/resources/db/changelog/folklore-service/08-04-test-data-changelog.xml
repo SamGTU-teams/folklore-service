@@ -7,40 +7,36 @@
 
     <changeSet id="test-data-folklore-1" author="rassafel">
         <insert tableName="building">
-            <column name="id"/>
             <column name="name" value="Test building 1"/>
             <column name="lat" value="1"/>
             <column name="lon" value="1"/>
             <column name="address" value="Test address 1"/>
-            <column name="imageUrl" value="Test url 1.1"/>
-            <column name="labelUrl" value="Test url 1.2"/>
+            <column name="image_url" value="Test url 1.1"/>
+            <column name="label_url" value="Test url 1.2"/>
         </insert>
         <insert tableName="building">
-            <column name="id"/>
             <column name="name" value="Test building 2"/>
             <column name="lat" value="1"/>
             <column name="lon" value="1"/>
             <column name="address" value="Test address 1"/>
-            <column name="imageUrl" value="Test url 2.1"/>
-            <column name="labelUrl" value="Test url 2.2"/>
+            <column name="image_url" value="Test url 2.1"/>
+            <column name="label_url" value="Test url 2.2"/>
         </insert>
         <insert tableName="building">
-            <column name="id"/>
             <column name="name" value="Test building 3"/>
             <column name="lat" value="1"/>
             <column name="lon" value="1"/>
             <column name="address" value="Test address 3"/>
-            <column name="imageUrl" value="Test url 3.1"/>
-            <column name="labelUrl" value="Test url 3.2"/>
+            <column name="image_url" value="Test url 3.1"/>
+            <column name="label_url" value="Test url 3.2"/>
         </insert>
         <insert tableName="building">
-            <column name="id"/>
             <column name="name" value="Test building 4"/>
             <column name="lat" value="1"/>
             <column name="lon" value="1"/>
             <column name="address" value="Test address 4"/>
-            <column name="imageUrl" value="Test url 4.1"/>
-            <column name="labelUrl" value="Test url 4.2"/>
+            <column name="image_url" value="Test url 4.1"/>
+            <column name="label_url" value="Test url 4.2"/>
         </insert>
 
         <insert tableName="building_tag">
@@ -72,8 +68,8 @@
             <column name="tag_id" value="2"/>
         </insert>
         <insert tableName="building_tag">
-            <column name="building_id" value="5"/>
-            <column name="tag_id" value="1"/>
+            <column name="building_id" value="4"/>
+            <column name="tag_id" value="7"/>
         </insert>
     </changeSet>
 </databaseChangeLog>
