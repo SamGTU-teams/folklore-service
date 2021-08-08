@@ -4,7 +4,7 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
-    <changeSet id="test-data-1" author="rassafel">
+    <changeSet id="test-data-tag-1" author="rassafel">
         <insert tableName="tag">
             <column name="name" value="Test tag 1"/>
         </insert>
