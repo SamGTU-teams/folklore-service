@@ -2,6 +2,7 @@ package ru.samgtu.monolith.folklore.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import ru.samgtu.monolith.folklore.model.persistence.Building;
 import ru.samgtu.monolith.folklore.service.FolkloreService;
@@ -25,8 +26,7 @@ public class FolkloreServiceImpl implements FolkloreService {
 
     @Override
     public List<Building> getBuildingsByTags(List<Tag> tags,
-                                             int page,
-                                             int size) {
+                                             Pageable pageable) {
         ArrayList<Building> list = new ArrayList<>();
         list.add(getBuildingById(0L));
         return list;
@@ -34,9 +34,8 @@ public class FolkloreServiceImpl implements FolkloreService {
 
     @Override
     public List<Building> getBuildingsByName(String name,
-                                             int page,
-                                             int size) {
-        return getBuildingsByTags(null, page, size);
+                                             Pageable pageable) {
+        return getBuildingsByTags(null, pageable);
     }
 
     @Override

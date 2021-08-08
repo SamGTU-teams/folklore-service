@@ -4,6 +4,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import ma.glasnost.orika.BoundMapperFacade;
 import ma.glasnost.orika.MapperFacade;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.RestController;
 import ru.samgtu.monolith.folklore.controller.FolkloreController;
 import ru.samgtu.monolith.folklore.model.dto.BuildingDto;
@@ -31,18 +33,16 @@ public class FolkloreControllerImpl implements FolkloreController {
 
     @Override
     public List<BuildingDto> getBuildingsByTags(List<TagDto> tagsDto,
-                                                int page,
-                                                int size) {
+                                                Pageable pageable) {
         List<Tag> tags = mapper.mapAsList(tagsDto, Tag.class);
-        List<Building> buildings = service.getBuildingsByTags(tags, page, size);
+        List<Building> buildings = service.getBuildingsByTags(tags, pageable);
         return mapper.mapAsList(buildings, BuildingDto.class);
     }
 
     @Override
     public List<BuildingDto> getBuildingsByName(String name,
-                                                int page,
-                                                int size) {
-        List<Building> buildings = service.getBuildingsByName(name, page, size);
+                                                Pageable pageable) {
+        List<Building> buildings = service.getBuildingsByName(name, pageable);
         return mapper.mapAsList(buildings, BuildingDto.class);
     }
 
