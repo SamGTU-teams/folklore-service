@@ -2,9 +2,7 @@ package ru.samgtu.monolith.folklore.controller.impl;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import ma.glasnost.orika.BoundMapperFacade;
 import ma.glasnost.orika.MapperFacade;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.RestController;
 import ru.samgtu.monolith.folklore.controller.FolkloreController;
@@ -15,7 +13,6 @@ import ru.samgtu.monolith.tag.model.dto.TagDto;
 import ru.samgtu.monolith.tag.model.persistence.Tag;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Creation date: 07.08.2021

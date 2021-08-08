@@ -2,7 +2,6 @@ package ru.samgtu.monolith.tag.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import ru.samgtu.monolith.tag.model.persistence.Tag;
@@ -24,7 +23,6 @@ import java.util.List;
 public class TagServiceImpl implements TagService {
     @Override
     public List<Tag> getTags(Pageable pageable) {
-//        Page<Tag> tags = repository.findAll(pageable);
         ArrayList<Tag> list = new ArrayList<>();
         list.add(getTagById(1L));
         return list;
