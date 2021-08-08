@@ -16,7 +16,8 @@
 
 ## Swagger UI
 
-- [Folklore service API][1]
+- [Heroku Folklore service API][1]
+- [Local Folklore service API][2]
 
 ## JVM options
 
@@ -30,4 +31,5 @@ Example:
 - default
 - 'dev'
 
-[1]: http://localhost:8080/swagger-ui.html
+[1]: https://rassafel-folklore-service.herokuapp.com/swagger-ui.html
+[2]: http://localhost:8080/swagger-ui.html
