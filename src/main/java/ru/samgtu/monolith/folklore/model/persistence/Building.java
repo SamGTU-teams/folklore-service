@@ -35,10 +35,6 @@ public class Building {
     @Column(name = "lon", nullable = false)
     private Double lon;
 
-    @ManyToMany
-    @ToString.Exclude
-    private Set<Tag> tags;
-
     @Column(name = "address", length = 80, nullable = false)
     private String address;
 
@@ -47,4 +43,11 @@ public class Building {
 
     @Column(name = "labelUrl", nullable = false)
     private String labelUrl;
+
+    @ManyToMany
+    @JoinTable(name = "building_tag",
+            joinColumns = @JoinColumn(name = "building_id"),
+            inverseJoinColumns = @JoinColumn(name = "tag_id"))
+    @ToString.Exclude
+    private Set<Tag> tags;
 }

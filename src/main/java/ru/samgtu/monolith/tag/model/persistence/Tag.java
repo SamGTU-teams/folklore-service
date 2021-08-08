@@ -29,7 +29,7 @@ public class Tag {
     @Column(name = "name", nullable = false, length = 20, unique = true)
     private String name;
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "tags")
     @ToString.Exclude
     private Set<Building> buildings;
 }
