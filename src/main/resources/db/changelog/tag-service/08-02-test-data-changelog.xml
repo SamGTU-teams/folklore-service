@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+    <changeSet id="test-data-1" author="rassafel">
+        <insert tableName="tag">
+            <column name="name" value="Test tag 1"/>
+        </insert>
+        <insert tableName="tag">
+            <column name="name" value="Test tag 2"/>
+        </insert>
+        <insert tableName="tag">
+            <column name="name" value="Test tag 3"/>
+        </insert>
+        <insert tableName="tag">
+            <column name="name" value="Test tag 4"/>
+        </insert>
+        <insert tableName="tag">
+            <column name="name" value="Test tag 6"/>
+        </insert>
+        <insert tableName="tag">
+            <column name="name" value="Test tag 7"/>
+        </insert>
+        <insert tableName="tag">
+            <column name="name" value="Test tag 8"/>
+        </insert>
+        <insert tableName="tag">
+            <column name="name" value="Test tag 9"/>
+        </insert>
+        <insert tableName="tag">
+            <column name="name" value="Test tag 10"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>
