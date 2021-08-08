@@ -3,8 +3,6 @@ package ru.samgtu.monolith.folklore.controller;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 import ru.samgtu.monolith.folklore.model.dto.BuildingDto;
 import ru.samgtu.monolith.tag.model.dto.TagDto;
@@ -27,7 +25,8 @@ public interface FolkloreController {
             @ApiResponse(code = 200, message = "", responseContainer = "List", response = BuildingDto.class)
     })
     List<BuildingDto> getBuildingsByTags(@RequestBody List<TagDto> tags,
-                                         @PageableDefault Pageable pageable);
+                                         @RequestParam(defaultValue = "0") int page,
+                                         @RequestParam(defaultValue = "10") int size);
 
     @GetMapping("/search")
     @ApiOperation(value = "Get buildings by tags")
@@ -35,7 +34,8 @@ public interface FolkloreController {
             @ApiResponse(code = 200, message = "", responseContainer = "List", response = BuildingDto.class)
     })
     List<BuildingDto> getBuildingsByName(@RequestParam String name,
-                                         @PageableDefault Pageable pageable);
+                                         @RequestParam(defaultValue = "0") int page,
+                                         @RequestParam(defaultValue = "10") int size);
 
     @GetMapping("/{id}")
     @ApiOperation(value = "Get building by id")

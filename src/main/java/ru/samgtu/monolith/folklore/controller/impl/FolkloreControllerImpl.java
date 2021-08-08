@@ -3,7 +3,8 @@ package ru.samgtu.monolith.folklore.controller.impl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import ma.glasnost.orika.MapperFacade;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.RestController;
 import ru.samgtu.monolith.folklore.controller.FolkloreController;
 import ru.samgtu.monolith.folklore.model.dto.BuildingDto;
@@ -30,16 +31,20 @@ public class FolkloreControllerImpl implements FolkloreController {
 
     @Override
     public List<BuildingDto> getBuildingsByTags(List<TagDto> tagsDto,
-                                                Pageable pageable) {
+                                                int page,
+                                                int size) {
+        PageRequest pageRequest = createPageRequest(page, size);
         List<Tag> tags = mapper.mapAsList(tagsDto, Tag.class);
-        List<Building> buildings = service.getBuildingsByTags(tags, pageable);
+        List<Building> buildings = service.getBuildingsByTags(tags, pageRequest);
         return mapper.mapAsList(buildings, BuildingDto.class);
     }
 
     @Override
     public List<BuildingDto> getBuildingsByName(String name,
-                                                Pageable pageable) {
-        List<Building> buildings = service.getBuildingsByName(name, pageable);
+                                                int page,
+                                                int size) {
+        PageRequest pageRequest = createPageRequest(page, size);
+        List<Building> buildings = service.getBuildingsByName(name, pageRequest);
         return mapper.mapAsList(buildings, BuildingDto.class);
     }
 
@@ -47,5 +52,9 @@ public class FolkloreControllerImpl implements FolkloreController {
     public BuildingDto getBuildingById(Long id) {
         Building building = service.getBuildingById(id);
         return mapper.map(building, BuildingDto.class);
+    }
+
+    private PageRequest createPageRequest(int page, int size) {
+        return PageRequest.of(page, size, Sort.by("id").ascending());
     }
 }
