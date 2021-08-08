@@ -20,7 +20,7 @@ import java.util.Set;
 public interface FolkloreController {
     String MAPPING = "folklores";
 
-    @GetMapping
+    @PostMapping
     @ApiOperation(value = "Get buildings by tags")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "", responseContainer = "Page", response = BuildingDto.class)
