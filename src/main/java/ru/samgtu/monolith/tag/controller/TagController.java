@@ -1,15 +1,12 @@
 package ru.samgtu.monolith.tag.controller;
 
 import io.swagger.annotations.ApiOperation;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.samgtu.monolith.tag.model.dto.TagDto;
-
-import java.util.List;
 
 /**
  * Creation date: 06.08.2021
@@ -23,12 +20,14 @@ public interface TagController {
 
     @GetMapping
     @ApiOperation(value = "Get tags", responseContainer = "List", response = TagDto.class)
-    List<TagDto> getTags(@PageableDefault Pageable pageable);
+    Page<TagDto> getTags(@RequestParam(defaultValue = "0") int page,
+                         @RequestParam(defaultValue = "10") int size);
 
     @GetMapping("/search")
     @ApiOperation(value = "Get tags by name", response = TagDto.class)
-    List<TagDto> getTagsByName(@RequestParam String name,
-                               @PageableDefault Pageable pageable);
+    Page<TagDto> getTagsByName(@RequestParam String name,
+                               @RequestParam(defaultValue = "0") int page,
+                               @RequestParam(defaultValue = "10") int size);
 
     @GetMapping("/{id}")
     @ApiOperation(value = "Get tag by id", response = TagDto.class)

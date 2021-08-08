@@ -9,7 +9,6 @@ import ru.samgtu.monolith.tag.model.persistence.Tag;
 import ru.samgtu.monolith.tag.repository.TagRepository;
 import ru.samgtu.monolith.tag.service.TagService;
 
-import java.util.List;
 import java.util.NoSuchElementException;
 
 /**
@@ -25,16 +24,14 @@ public class TagServiceImpl implements TagService {
     private final TagRepository repository;
 
     @Override
-    public List<Tag> getTags(Pageable pageable) {
-        Page<Tag> tags = repository.findAll(pageable);
-        return tags.getContent();
+    public Page<Tag> getTags(Pageable pageable) {
+        return repository.findAll(pageable);
     }
 
     @Override
-    public List<Tag> getTagsByName(String name,
+    public Page<Tag> getTagsByName(String name,
                                    Pageable pageable) {
-        Page<Tag> tags = repository.findByNameIgnoreCase(name, pageable);
-        return tags.getContent();
+        return repository.findByNameStartsWithIgnoreCase(name, pageable);
     }
 
     @Override
