@@ -31,5 +31,13 @@ Example:
 - default
 - 'dev'
 
+## Environment variables:
+
+- DATABASE_URL
+- DATABASE_USER
+- DATABASE_PASSWORD
+- PORT
+
 [1]: https://rassafel-folklore-service.herokuapp.com/swagger-ui.html
+
 [2]: http://localhost:8080/swagger-ui.html
