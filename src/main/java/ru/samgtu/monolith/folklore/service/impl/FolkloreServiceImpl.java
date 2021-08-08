@@ -9,10 +9,7 @@ import ru.samgtu.monolith.folklore.model.persistence.Building;
 import ru.samgtu.monolith.folklore.repository.BuildingRepository;
 import ru.samgtu.monolith.folklore.service.FolkloreService;
 import ru.samgtu.monolith.tag.model.persistence.Tag;
-import ru.samgtu.monolith.tag.service.TagService;
 
-import java.util.HashSet;
-import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Set;
 
