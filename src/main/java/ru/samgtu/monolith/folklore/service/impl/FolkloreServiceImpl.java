@@ -25,8 +25,6 @@ import java.util.Set;
 @RequiredArgsConstructor
 @Slf4j
 public class FolkloreServiceImpl implements FolkloreService {
-    private final TagService tagService;
-
     private final BuildingRepository repository;
 
     @Override
