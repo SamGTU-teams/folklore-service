@@ -52,7 +52,7 @@ public class FolkloreServiceImpl implements FolkloreService {
     public BuildingLob getBuildingInfoById(Long id) {
         return lobRepository.findById(id).orElseThrow(() -> {
             log.warn("Building with id = {} does not exists", id);
-            return new NoSuchElementException("Building does not exists");
+            return new NoSuchBuildingException("Building does not exists");
         });
     }
 }
