@@ -1,5 +1,6 @@
 package ru.samgtu.monolith.folklore.model.dto;
 
+import io.swagger.annotations.ApiModel;
 import lombok.Data;
 import ru.samgtu.monolith.tag.model.dto.TagDto;
 
@@ -11,6 +12,7 @@ import java.util.List;
  * @author rassafel
  * @version 1.0
  */
+@ApiModel("Tag")
 @Data
 public class BuildingDto {
     private Long id;
