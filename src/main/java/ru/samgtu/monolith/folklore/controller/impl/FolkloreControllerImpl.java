@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import ru.samgtu.monolith.folklore.controller.FolkloreController;
 import ru.samgtu.monolith.folklore.model.dto.BuildingDto;
 import ru.samgtu.monolith.folklore.model.persistence.Building;
+import ru.samgtu.monolith.folklore.model.persistence.BuildingLob;
 import ru.samgtu.monolith.folklore.service.FolkloreService;
 import ru.samgtu.monolith.tag.model.dto.TagDto;
 import ru.samgtu.monolith.tag.model.persistence.Tag;
@@ -52,6 +53,12 @@ public class FolkloreControllerImpl implements FolkloreController {
     @Override
     public BuildingDto getBuildingById(Long id) {
         Building building = service.getBuildingById(id);
+        return mapper.map(building, BuildingDto.class);
+    }
+
+    @Override
+    public BuildingDto getBuildingInfoById(Long id) {
+        BuildingLob building = service.getBuildingInfoById(id);
         return mapper.map(building, BuildingDto.class);
     }
 
