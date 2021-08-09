@@ -23,7 +23,8 @@ public interface FolkloreController {
     @PostMapping
     @ApiOperation(value = "Get buildings by tags")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "")
+            @ApiResponse(code = 200, message = ""),
+            @ApiResponse(code = 404, message = "")
     })
     Page<BuildingDto> getBuildingsByTags(@RequestBody Set<TagDto> tags,
                                          @RequestParam(defaultValue = "0") int page,
@@ -32,7 +33,8 @@ public interface FolkloreController {
     @GetMapping("/search")
     @ApiOperation(value = "Get buildings by tags")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "")
+            @ApiResponse(code = 200, message = ""),
+            @ApiResponse(code = 404, message = "")
     })
     Page<BuildingDto> getBuildingsByName(@RequestParam String name,
                                          @RequestParam(defaultValue = "0") int page,
@@ -41,7 +43,8 @@ public interface FolkloreController {
     @GetMapping("/{id}")
     @ApiOperation(value = "Get building by id")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Get building by id", response = BuildingDto.class)
+            @ApiResponse(code = 200, message = "", response = BuildingDto.class),
+            @ApiResponse(code = 404, message = "")
     })
     BuildingDto getBuildingById(@PathVariable("id") Long id);
 }
