@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import ru.samgtu.monolith.folklore.exception.NoSuchBuildingException;
 import ru.samgtu.monolith.folklore.model.persistence.Building;
 import ru.samgtu.monolith.folklore.model.persistence.BuildingLob;
 import ru.samgtu.monolith.folklore.repository.BuildingLobRepository;
@@ -12,7 +13,6 @@ import ru.samgtu.monolith.folklore.repository.BuildingRepository;
 import ru.samgtu.monolith.folklore.service.FolkloreService;
 import ru.samgtu.monolith.tag.model.persistence.Tag;
 
-import java.util.NoSuchElementException;
 import java.util.Set;
 
 /**
@@ -44,7 +44,7 @@ public class FolkloreServiceImpl implements FolkloreService {
     public Building getBuildingById(Long id) {
         return repository.findById(id).orElseThrow(() -> {
             log.warn("Building with id = {} does not exists", id);
-            return new NoSuchElementException("Building does not exists");
+            return new NoSuchBuildingException("Building does not exists");
         });
     }
 
