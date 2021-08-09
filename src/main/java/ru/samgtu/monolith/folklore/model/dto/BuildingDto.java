@@ -1,7 +1,7 @@
 package ru.samgtu.monolith.folklore.model.dto;
 
 import lombok.Data;
-import ru.samgtu.monolith.folklore.model.MimeObject;
+import ru.samgtu.monolith.model.MimeObject;
 import ru.samgtu.monolith.tag.model.dto.TagDto;
 
 import java.util.List;
