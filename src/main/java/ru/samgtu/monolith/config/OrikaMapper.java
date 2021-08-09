@@ -6,10 +6,10 @@ import ma.glasnost.orika.MappingContext;
 import ma.glasnost.orika.impl.ConfigurableMapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import ru.samgtu.monolith.folklore.model.MimeObject;
 import ru.samgtu.monolith.folklore.model.dto.BuildingDto;
 import ru.samgtu.monolith.folklore.model.persistence.Building;
 import ru.samgtu.monolith.folklore.model.persistence.BuildingLob;
+import ru.samgtu.monolith.model.MimeObject;
 import ru.samgtu.monolith.tag.model.dto.TagDto;
 import ru.samgtu.monolith.tag.model.persistence.Tag;
 
