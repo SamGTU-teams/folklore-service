@@ -2,14 +2,14 @@ package ru.samgtu.monolith.tag.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import ru.samgtu.monolith.tag.model.persistence.Tag;
 import ru.samgtu.monolith.tag.repository.TagRepository;
 import ru.samgtu.monolith.tag.service.TagService;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.NoSuchElementException;
 
 /**
  * Creation date: 07.08.2021
@@ -21,24 +21,26 @@ import java.util.List;
 @RequiredArgsConstructor
 @Slf4j
 public class TagServiceImpl implements TagService {
+    private final TagRepository repository;
+
     @Override
-    public List<Tag> getTags(Pageable pageable) {
-        ArrayList<Tag> list = new ArrayList<>();
-        list.add(getTagById(1L));
-        return list;
+    public Page<Tag> getTags(Pageable pageable) {
+        return repository.findAll(pageable);
     }
 
     @Override
-    public List<Tag> getTagsByName(String name,
+    public Page<Tag> getTagsByName(String name,
                                    Pageable pageable) {
-        return getTags(pageable);
+        return repository.findByNameStartsWithIgnoreCase(name, pageable);
     }
 
     @Override
     public Tag getTagById(Long id) {
-        Tag tag = new Tag();
-        tag.setName("default Tag by id");
-        tag.setId(1L);
-        return tag;
+        return repository
+                .findById(id)
+                .orElseThrow(() -> {
+                    log.warn("Tag with id = {} does not exists", id);
+                    return new NoSuchElementException("Tag does not exists");
+                });
     }
 }

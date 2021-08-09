@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="test-data-folklore-1" author="rassafel">
+        <insert tableName="building">
+            <column name="name" value="Test building 1"/>
+            <column name="lat" value="1"/>
+            <column name="lon" value="1"/>
+            <column name="address" value="Test address 1"/>
+            <column name="image_url" value="Test url 1.1"/>
+            <column name="label_url" value="Test url 1.2"/>
+        </insert>
+        <insert tableName="building">
+            <column name="name" value="Test building 2"/>
+            <column name="lat" value="1"/>
+            <column name="lon" value="1"/>
+            <column name="address" value="Test address 1"/>
+            <column name="image_url" value="Test url 2.1"/>
+            <column name="label_url" value="Test url 2.2"/>
+        </insert>
+        <insert tableName="building">
+            <column name="name" value="Test building 3"/>
+            <column name="lat" value="1"/>
+            <column name="lon" value="1"/>
+            <column name="address" value="Test address 3"/>
+            <column name="image_url" value="Test url 3.1"/>
+            <column name="label_url" value="Test url 3.2"/>
+        </insert>
+        <insert tableName="building">
+            <column name="name" value="Test building 4"/>
+            <column name="lat" value="1"/>
+            <column name="lon" value="1"/>
+            <column name="address" value="Test address 4"/>
+            <column name="image_url" value="Test url 4.1"/>
+            <column name="label_url" value="Test url 4.2"/>
+        </insert>
+
+        <insert tableName="building_tag">
+            <column name="building_id" value="1"/>
+            <column name="tag_id" value="1"/>
+        </insert>
+        <insert tableName="building_tag">
+            <column name="building_id" value="1"/>
+            <column name="tag_id" value="2"/>
+        </insert>
+        <insert tableName="building_tag">
+            <column name="building_id" value="1"/>
+            <column name="tag_id" value="3"/>
+        </insert>
+        <insert tableName="building_tag">
+            <column name="building_id" value="2"/>
+            <column name="tag_id" value="1"/>
+        </insert>
+        <insert tableName="building_tag">
+            <column name="building_id" value="3"/>
+            <column name="tag_id" value="2"/>
+        </insert>
+        <insert tableName="building_tag">
+            <column name="building_id" value="3"/>
+            <column name="tag_id" value="4"/>
+        </insert>
+        <insert tableName="building_tag">
+            <column name="building_id" value="4"/>
+            <column name="tag_id" value="2"/>
+        </insert>
+        <insert tableName="building_tag">
+            <column name="building_id" value="4"/>
+            <column name="tag_id" value="7"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

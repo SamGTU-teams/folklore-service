@@ -3,13 +3,12 @@ package ru.samgtu.monolith.folklore.controller;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 import ru.samgtu.monolith.folklore.model.dto.BuildingDto;
 import ru.samgtu.monolith.tag.model.dto.TagDto;
 
-import java.util.List;
+import java.util.Set;
 
 /**
  * Creation date: 06.08.2021
@@ -21,21 +20,23 @@ import java.util.List;
 public interface FolkloreController {
     String MAPPING = "folklores";
 
-    @GetMapping
+    @PostMapping
     @ApiOperation(value = "Get buildings by tags")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "", responseContainer = "List", response = BuildingDto.class)
+            @ApiResponse(code = 200, message = "")
     })
-    List<BuildingDto> getBuildingsByTags(@RequestBody List<TagDto> tags,
-                                         @PageableDefault Pageable pageable);
+    Page<BuildingDto> getBuildingsByTags(@RequestBody Set<TagDto> tags,
+                                         @RequestParam(defaultValue = "0") int page,
+                                         @RequestParam(defaultValue = "10") int size);
 
     @GetMapping("/search")
     @ApiOperation(value = "Get buildings by tags")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "", responseContainer = "List", response = BuildingDto.class)
+            @ApiResponse(code = 200, message = "")
     })
-    List<BuildingDto> getBuildingsByName(@RequestParam String name,
-                                         @PageableDefault Pageable pageable);
+    Page<BuildingDto> getBuildingsByName(@RequestParam String name,
+                                         @RequestParam(defaultValue = "0") int page,
+                                         @RequestParam(defaultValue = "10") int size);
 
     @GetMapping("/{id}")
     @ApiOperation(value = "Get building by id")
