@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import ru.samgtu.monolith.model.ExceptionInfo;
 import ru.samgtu.monolith.tag.model.dto.TagDto;
 
 /**
@@ -31,7 +32,8 @@ public interface TagController {
     @GetMapping("/search")
     @ApiOperation(value = "Get tags by name")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "")
+            @ApiResponse(code = 200, message = ""),
+            @ApiResponse(code = 404, message = "", response = ExceptionInfo.class)
     })
     Page<TagDto> getTagsByName(@RequestParam String name,
                                @RequestParam(defaultValue = "0") int page,
@@ -40,7 +42,8 @@ public interface TagController {
     @GetMapping("/{id}")
     @ApiOperation(value = "Get tag by id")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "", response = TagDto.class)
+            @ApiResponse(code = 200, message = "", response = TagDto.class),
+            @ApiResponse(code = 404, message = "", response = ExceptionInfo.class)
     })
     TagDto getTagById(@PathVariable("id") Long id);
 }
