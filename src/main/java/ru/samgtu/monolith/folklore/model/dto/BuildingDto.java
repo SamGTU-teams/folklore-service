@@ -1,7 +1,6 @@
 package ru.samgtu.monolith.folklore.model.dto;
 
 import lombok.Data;
-import ru.samgtu.monolith.model.MimeObject;
 import ru.samgtu.monolith.tag.model.dto.TagDto;
 
 import java.util.List;
@@ -30,7 +29,7 @@ public class BuildingDto {
 
     private String labelUrl;
 
-    private List<MimeObject> mimeObjects;
+    private List<String> urls;
 
     private String description;
 }

@@ -9,15 +9,10 @@ import org.springframework.stereotype.Component;
 import ru.samgtu.monolith.folklore.model.dto.BuildingDto;
 import ru.samgtu.monolith.folklore.model.persistence.Building;
 import ru.samgtu.monolith.folklore.model.persistence.BuildingLob;
-import ru.samgtu.monolith.model.MimeObject;
 import ru.samgtu.monolith.tag.model.dto.TagDto;
 import ru.samgtu.monolith.tag.model.persistence.Tag;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
+import java.util.*;
 
 import static java.util.Objects.isNull;
 
@@ -29,11 +24,8 @@ import static java.util.Objects.isNull;
  */
 @Component
 public class OrikaMapper extends ConfigurableMapper {
-    @Value("${media.separator:\\s+N\\s+}")
-    private String mediaSeparator;
-
-    @Value("${media.type.separator:\\s+}")
-    private String mediaTypeSeparator;
+    @Value("${url.separator:\\s+}")
+    private String urlSeparator;
 
     @Override
     protected void configure(MapperFactory factory) {
@@ -49,29 +41,10 @@ public class OrikaMapper extends ConfigurableMapper {
                 .customize(new CustomMapper<BuildingLob, BuildingDto>() {
                     @Override
                     public void mapAtoB(BuildingLob building, BuildingDto buildingDto, MappingContext context) {
-                        String urls = building.getMediaUrls();
-                        if (isNull(urls) || (urls = urls.trim()).isEmpty()) {
-                            buildingDto.setMimeObjects(Collections.emptyList());
-                        }
-                        List<MimeObject> mimeObjects = Arrays
-                                .stream(urls.split(mediaSeparator))
-                                .map(s -> {
-                                    if (isNull(s) || s.trim().isEmpty()) {
-                                        return null;
-                                    }
-
-                                    String[] split = s.split(mediaTypeSeparator);
-                                    if (split.length != 2) {
-                                        return null;
-                                    }
-                                    MimeObject mimeObject = new MimeObject();
-                                    mimeObject.setMimeType(split[0]);
-                                    mimeObject.setUrl(split[1]);
-                                    return mimeObject;
-                                })
-                                .filter(Objects::nonNull)
-                                .collect(Collectors.toList());
-                        buildingDto.setMimeObjects(mimeObjects);
+                        String clob = building.getMediaUrls();
+                        List<String> urls = (isNull(clob) || (clob = clob.trim()).isEmpty()) ?
+                                Collections.emptyList() : Arrays.asList(clob.split(urlSeparator));
+                        buildingDto.setUrls(urls);
                     }
                 })
                 .field("building.id", "id")
