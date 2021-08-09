@@ -47,4 +47,11 @@ public interface FolkloreController {
             @ApiResponse(code = 404, message = "")
     })
     BuildingDto getBuildingById(@PathVariable("id") Long id);
+
+    @GetMapping("/{id}/info")
+    @ApiOperation(value = "Get building info by id")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Get building by id", response = BuildingDto.class)
+    })
+    BuildingDto getBuildingInfoById(@PathVariable("id") Long id);
 }

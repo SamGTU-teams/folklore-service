@@ -30,4 +30,8 @@ public class BuildingDto {
     private String imageUrl;
 
     private String labelUrl;
+
+    private List<String> urls;
+
+    private String description;
 }

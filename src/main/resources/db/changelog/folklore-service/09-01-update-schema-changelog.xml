@@ -4,6 +4,10 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
-    <include file="db/changelog/folklore-service/08-03-init-schema-changelog.xml"/>
-    <include file="db/changelog/folklore-service/09-01-update-schema-changelog.xml"/>
+    <changeSet id="update-schema-folklore" author="rassafel">
+        <addColumn tableName="building">
+            <column name="description" type="CLOB" defaultValue=""/>
+            <column name="media_urls" type="CLOB" defaultValue=""/>
+        </addColumn>
+    </changeSet>
 </databaseChangeLog>
