@@ -2,6 +2,8 @@ package ru.samgtu.monolith.model;
 
 import lombok.Data;
 
+import java.time.LocalDateTime;
+
 /**
  * Creation date: 09.08.2021
  *
@@ -9,8 +11,8 @@ import lombok.Data;
  * @version 1.0
  */
 @Data
-public class MimeObject {
-    private String url;
+public class ExceptionInfo {
+    private String message;
 
-    private String mimeType;
+    private LocalDateTime timestamp;
 }

@@ -5,11 +5,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import ru.samgtu.monolith.tag.exception.NoSuchTagException;
 import ru.samgtu.monolith.tag.model.persistence.Tag;
 import ru.samgtu.monolith.tag.repository.TagRepository;
 import ru.samgtu.monolith.tag.service.TagService;
-
-import java.util.NoSuchElementException;
 
 /**
  * Creation date: 07.08.2021
@@ -40,7 +39,7 @@ public class TagServiceImpl implements TagService {
                 .findById(id)
                 .orElseThrow(() -> {
                     log.warn("Tag with id = {} does not exists", id);
-                    return new NoSuchElementException("Tag does not exists");
+                    return new NoSuchTagException("Tag does not exists");
                 });
     }
 }
