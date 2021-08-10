@@ -55,6 +55,9 @@ public class Activity {
     @ToString.Exclude
     private Set<Tag> tags;
 
+    @OneToMany(mappedBy = "activity")
+    private List<ScheduledActivity> scheduledActivities;
+
     @OneToOne
     @JoinColumn(name = "building_id")
     private Building building;
