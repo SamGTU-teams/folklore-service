@@ -15,6 +15,8 @@ import java.util.Set;
  * @version 1.0
  */
 public interface FolkloreService {
+    Page<Building> getBuildings(Pageable pageable);
+
     Page<Building> getBuildingsByTags(Set<Tag> tags,
                                       Pageable pageable);
 

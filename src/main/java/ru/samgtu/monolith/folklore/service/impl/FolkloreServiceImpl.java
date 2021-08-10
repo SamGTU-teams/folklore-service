@@ -29,6 +29,11 @@ public class FolkloreServiceImpl implements FolkloreService {
     private final BuildingLobRepository lobRepository;
 
     @Override
+    public Page<Building> getBuildings(Pageable pageable) {
+        return repository.findAll(pageable);
+    }
+
+    @Override
     public Page<Building> getBuildingsByTags(Set<Tag> tags,
                                              Pageable pageable) {
         return repository.findByTagsIn(tags, pageable);
