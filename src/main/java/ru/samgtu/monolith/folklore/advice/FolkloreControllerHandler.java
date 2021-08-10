@@ -4,6 +4,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import ru.samgtu.monolith.folklore.controller.FolkloreController;
 import ru.samgtu.monolith.folklore.exception.NoSuchBuildingException;
 import ru.samgtu.monolith.model.ExceptionInfo;
 
@@ -15,7 +16,7 @@ import java.time.LocalDateTime;
  * @author rassafel
  * @version 1.0
  */
-@RestControllerAdvice
+@RestControllerAdvice(assignableTypes = FolkloreController.class)
 public class FolkloreControllerHandler {
     @ExceptionHandler(NoSuchBuildingException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
