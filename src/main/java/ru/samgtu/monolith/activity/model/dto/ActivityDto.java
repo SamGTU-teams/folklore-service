@@ -3,7 +3,6 @@ package ru.samgtu.monolith.activity.model.dto;
 import lombok.Data;
 import ru.samgtu.monolith.activity.model.InteractionType;
 import ru.samgtu.monolith.folklore.model.dto.BuildingDto;
-import ru.samgtu.monolith.model.MimeObject;
 import ru.samgtu.monolith.tag.model.dto.TagDto;
 
 import java.time.Duration;
@@ -39,7 +38,7 @@ public class ActivityDto {
 
     private InteractionType interactionType;
 
-    private List<MimeObject> mimeObjects;
+    private List<String> urls;
 
     private String description;
 }
