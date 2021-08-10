@@ -3,6 +3,7 @@ package ru.samgtu.monolith.folklore.service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import ru.samgtu.monolith.folklore.model.persistence.Building;
+import ru.samgtu.monolith.folklore.model.persistence.BuildingLob;
 import ru.samgtu.monolith.tag.model.persistence.Tag;
 
 import java.util.Set;
@@ -14,6 +15,8 @@ import java.util.Set;
  * @version 1.0
  */
 public interface FolkloreService {
+    Page<Building> getBuildings(Pageable pageable);
+
     Page<Building> getBuildingsByTags(Set<Tag> tags,
                                       Pageable pageable);
 
@@ -21,4 +24,6 @@ public interface FolkloreService {
                                       Pageable pageable);
 
     Building getBuildingById(Long id);
+
+    BuildingLob getBuildingInfoById(Long id);
 }
