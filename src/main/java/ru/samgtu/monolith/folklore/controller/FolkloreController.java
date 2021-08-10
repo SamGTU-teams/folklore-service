@@ -1,6 +1,7 @@
 package ru.samgtu.monolith.folklore.controller;
 
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.data.domain.Page;
@@ -23,12 +24,13 @@ public interface FolkloreController {
     String MAPPING = "folklores";
 
     @PostMapping
-    @ApiOperation(value = "Get buildings by tags")
+    @ApiOperation(value = "Get buildings by tags",
+            notes = "If tags is null returns all buildings")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = ""),
             @ApiResponse(code = 404, message = "", response = ExceptionInfo.class)
     })
-    Page<BuildingDto> getBuildingsByTags(@RequestBody Set<TagDto> tags,
+    Page<BuildingDto> getBuildingsByTags(@RequestBody(required = false) Set<TagDto> tags,
                                          @RequestParam(defaultValue = "0") int page,
                                          @RequestParam(defaultValue = "10") int size);
 
