@@ -17,6 +17,8 @@ import ru.samgtu.monolith.tag.model.persistence.Tag;
 
 import java.util.Set;
 
+import static java.util.Objects.isNull;
+
 /**
  * Creation date: 07.08.2021
  *
@@ -35,9 +37,14 @@ public class FolkloreControllerImpl implements FolkloreController {
     public Page<BuildingDto> getBuildingsByTags(Set<TagDto> tagsDto,
                                                 int page,
                                                 int size) {
+        Page<Building> buildings;
         PageRequest pageRequest = createPageRequest(page, size);
-        Set<Tag> tags = mapper.mapAsSet(tagsDto, Tag.class);
-        Page<Building> buildings = service.getBuildingsByTags(tags, pageRequest);
+        if (isNull(tagsDto)) {
+            buildings = service.getBuildings(pageRequest);
+        } else {
+            Set<Tag> tags = mapper.mapAsSet(tagsDto, Tag.class);
+            buildings = service.getBuildingsByTags(tags, pageRequest);
+        }
         return mapPage(buildings);
     }
 
