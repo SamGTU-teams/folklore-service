@@ -57,7 +57,7 @@ public class Activity {
     private Set<Tag> tags;
 
     @OneToOne
-    @Column(name = "building_id")
+    @JoinColumn(name = "building_id")
     private BuildingDto building;
 
     @Column(name = "duration", nullable = false)
