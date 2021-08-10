@@ -27,7 +27,7 @@ public interface ActivityController {
     @GetMapping
     @ApiOperation(value = "Get activities by tags")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "", responseContainer = "Page", response = ActivityDto.class)
+            @ApiResponse(code = 200, message = "")
     })
     Page<ActivityDto> getActivitiesByTags(@RequestBody List<TagDto> tagsDto,
                                           @PageableDefault Pageable pageable);
@@ -35,7 +35,7 @@ public interface ActivityController {
     @GetMapping("/search")
     @ApiOperation(value = "Get activities by time")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "", responseContainer = "Page", response = ActivityDto.class)
+            @ApiResponse(code = 200, message = "")
     })
     Page<ActivityDto> getActivitiesByTime(@RequestParam LocalDateTime from,
                                           @RequestParam LocalDateTime to,
@@ -44,7 +44,7 @@ public interface ActivityController {
     @GetMapping("/search")
     @ApiOperation(value = "Get activities by name")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "", responseContainer = "Page", response = ActivityDto.class)
+            @ApiResponse(code = 200, message = "")
     })
     Page<ActivityDto> getActivitiesByName(@RequestParam String name,
                                           @PageableDefault Pageable pageable);
@@ -52,7 +52,7 @@ public interface ActivityController {
     @GetMapping("/{id}")
     @ApiOperation(value = "Get activities by building id")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "", responseContainer = "Page", response = ActivityDto.class)
+            @ApiResponse(code = 200, message = "")
     })
     Page<ActivityDto> getActivitiesByBuildingId(@PathVariable("id") Long id);
 
