@@ -2,8 +2,7 @@ package ru.samgtu.monolith.activity.model.persistence;
 
 import lombok.*;
 import ru.samgtu.monolith.activity.model.InteractionType;
-import ru.samgtu.monolith.folklore.model.dto.BuildingDto;
-import ru.samgtu.monolith.tag.model.dto.TagDto;
+import ru.samgtu.monolith.folklore.model.persistence.Building;
 import ru.samgtu.monolith.tag.model.persistence.Tag;
 
 import javax.persistence.*;
@@ -58,7 +57,7 @@ public class Activity {
 
     @OneToOne
     @JoinColumn(name = "building_id")
-    private BuildingDto building;
+    private Building building;
 
     @Column(name = "duration", nullable = false)
     private Duration duration;
