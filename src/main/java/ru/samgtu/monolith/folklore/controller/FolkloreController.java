@@ -18,6 +18,7 @@ import java.util.Set;
  * @version 1.0
  */
 @RequestMapping(FolkloreController.MAPPING)
+@CrossOrigin("*")
 public interface FolkloreController {
     String MAPPING = "folklores";
 
