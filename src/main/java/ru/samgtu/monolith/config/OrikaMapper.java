@@ -12,7 +12,9 @@ import ru.samgtu.monolith.folklore.model.persistence.BuildingLob;
 import ru.samgtu.monolith.tag.model.dto.TagDto;
 import ru.samgtu.monolith.tag.model.persistence.Tag;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 import static java.util.Objects.isNull;
 
