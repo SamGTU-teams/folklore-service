@@ -1,5 +1,6 @@
 package ru.samgtu.monolith.activity.model.dto;
 
+import io.swagger.annotations.ApiModel;
 import lombok.Data;
 import ru.samgtu.monolith.activity.model.InteractionType;
 import ru.samgtu.monolith.folklore.model.dto.BuildingDto;
@@ -14,6 +15,7 @@ import java.util.List;
  * @author rassafel
  * @version 1.0
  */
+@ApiModel("Activity")
 @Data
 public class ActivityDto {
     private Long id;
