@@ -19,7 +19,7 @@ import java.util.Set;
  * @version 1.0
  */
 @RequestMapping(FolkloreController.MAPPING)
-@CrossOrigin("*")
+@CrossOrigin("${settings.cors_origin}")
 public interface FolkloreController {
     String MAPPING = "folklores";
 

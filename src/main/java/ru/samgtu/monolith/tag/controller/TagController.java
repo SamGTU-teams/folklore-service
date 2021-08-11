@@ -15,7 +15,7 @@ import ru.samgtu.monolith.tag.model.dto.TagDto;
  * @version 1.0
  */
 @RequestMapping(TagController.MAPPING)
-@CrossOrigin("*")
+@CrossOrigin("${settings.cors_origin}")
 public interface TagController {
     String MAPPING = "tags";
 
