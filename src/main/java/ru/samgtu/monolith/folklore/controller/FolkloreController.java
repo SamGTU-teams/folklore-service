@@ -27,7 +27,7 @@ public interface FolkloreController {
             notes = "If tags is null returns all buildings")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = ""),
-            @ApiResponse(code = 404, message = "")
+            @ApiResponse(code = 404, message = "", response = ExceptionInfo.class)
     })
     Page<BuildingDto> getBuildingsByTags(@RequestBody(required = false) Set<TagDto> tags,
                                          @RequestParam(defaultValue = "0") int page,
@@ -37,7 +37,7 @@ public interface FolkloreController {
     @ApiOperation(value = "Get buildings by name")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = ""),
-            @ApiResponse(code = 404, message = "")
+            @ApiResponse(code = 404, message = "", response = ExceptionInfo.class)
     })
     Page<BuildingDto> getBuildingsByName(@RequestParam String name,
                                          @RequestParam(defaultValue = "0") int page,
