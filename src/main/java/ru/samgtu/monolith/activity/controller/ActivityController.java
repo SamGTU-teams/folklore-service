@@ -42,22 +42,13 @@ public interface ActivityController {
             @ApiResponse(code = 200, message = ""),
             @ApiResponse(code = 404, message = "", response = ExceptionInfo.class)
     })
-    Page<ActivityDto> getActivitiesByTime(@RequestParam LocalDateTime from,
-                                          @RequestParam LocalDateTime to,
-                                          @RequestParam(defaultValue = "0") int page,
-                                          @RequestParam(defaultValue = "10") int size);
+    Page<ActivityDto> getActivitiesByParams(@RequestParam(required = false) String name,
+                                            @RequestParam(required = false) LocalDateTime from,
+                                            @RequestParam(required = false) LocalDateTime to,
+                                            @RequestParam(defaultValue = "0") int page,
+                                            @RequestParam(defaultValue = "10") int size);
 
-    @GetMapping("/search")
-    @ApiOperation(value = "Get activities by name")
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = ""),
-            @ApiResponse(code = 404, message = "", response = ExceptionInfo.class)
-    })
-    Page<ActivityDto> getActivitiesByName(@RequestParam String name,
-                                          @RequestParam(defaultValue = "0") int page,
-                                          @RequestParam(defaultValue = "10") int size);
-
-    @GetMapping("/{id}")
+    @GetMapping("/building/{id}")
     @ApiOperation(value = "Get activities by building id")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = ""),

@@ -28,12 +28,7 @@ public class ActivityControllerImpl implements ActivityController {
     }
 
     @Override
-    public Page<ActivityDto> getActivitiesByTime(LocalDateTime from, LocalDateTime to, int page, int size) {
-        return null;
-    }
-
-    @Override
-    public Page<ActivityDto> getActivitiesByName(String name, int page, int size) {
+    public Page<ActivityDto> getActivitiesByParams(String name, LocalDateTime from, LocalDateTime to, int page, int size) {
         return null;
     }
 
