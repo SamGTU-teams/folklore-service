@@ -6,25 +6,11 @@
                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
     <changeSet id="load-data-folklore" author="rassafel">
         <loadData tableName="building"
-                  file="db/csv/BUILDING_DATA.csv"
-                  usePreparedStatements="true">
-            <column header="id" name="id" type="NUMERIC"/>
-            <column header="name" name="name" type="STRING"/>
-            <column header="lat" name="lat" type="NUMERIC"/>
-            <column header="lon" name="lon" type="NUMERIC"/>
-            <column header="address" name="address" type="STRING"/>
-            <column header="imageUrl" name="image_url" type="STRING"/>
-            <column header="labelUrl" name="label_url" type="STRING"/>
-            <column header="description" name="description" type="STRING" defaultValue=""/>
-            <column header="mediaUrl" name="media_urls" type="STRING" defaultValue=""/>
-        </loadData>
+                  file="db/csv/building.csv"
+                  usePreparedStatements="true"/>
 
         <loadData tableName="building_tag"
-                  file="db/csv/BUILDING_TAG_DATA.csv"
-                  usePreparedStatements="true">
-            <column header="id" name="building_id" type="NUMERIC"/>
-            <column header="name" name="tag_id" type="NUMERIC"/>
-        </loadData>
+                  file="db/csv/building_tag.csv"
+                  usePreparedStatements="true"/>
     </changeSet>
-
 </databaseChangeLog>
