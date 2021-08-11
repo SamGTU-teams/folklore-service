@@ -21,6 +21,7 @@ import java.util.Set;
  * @version 1.0
  */
 @RequestMapping(ActivityController.MAPPING)
+@CrossOrigin("*")
 public interface ActivityController {
     String MAPPING = "activities";
 
