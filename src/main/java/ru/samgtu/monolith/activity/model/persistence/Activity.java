@@ -48,8 +48,8 @@ public class Activity {
     private String labelUrl;
 
     @ManyToMany
-    @JoinTable(name = "building_tag",
-            joinColumns = @JoinColumn(name = "building_id"),
+    @JoinTable(name = "activity_tag",
+            joinColumns = @JoinColumn(name = "activity_tag"),
             inverseJoinColumns = @JoinColumn(name = "tag_id"))
     @ToString.Exclude
     private Set<Tag> tags;
