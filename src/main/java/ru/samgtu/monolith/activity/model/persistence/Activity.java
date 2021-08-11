@@ -49,7 +49,7 @@ public class Activity {
 
     @ManyToMany
     @JoinTable(name = "activity_tag",
-            joinColumns = @JoinColumn(name = "activity_tag"),
+            joinColumns = @JoinColumn(name = "activity_id"),
             inverseJoinColumns = @JoinColumn(name = "tag_id"))
     @ToString.Exclude
     private Set<Tag> tags;
