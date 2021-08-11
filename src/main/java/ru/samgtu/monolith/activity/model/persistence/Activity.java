@@ -1,7 +1,6 @@
 package ru.samgtu.monolith.activity.model.persistence;
 
 import lombok.*;
-import ru.samgtu.monolith.activity.model.InteractionType;
 import ru.samgtu.monolith.folklore.model.persistence.Building;
 import ru.samgtu.monolith.tag.model.persistence.Tag;
 
@@ -64,7 +63,4 @@ public class Activity {
 
     @Column(name = "duration", nullable = false)
     private Duration duration;
-
-    @Column(name = "interaction", nullable = false)
-    private InteractionType interactionType;
 }

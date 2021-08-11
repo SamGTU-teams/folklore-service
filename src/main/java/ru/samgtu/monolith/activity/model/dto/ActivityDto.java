@@ -2,7 +2,6 @@ package ru.samgtu.monolith.activity.model.dto;
 
 import io.swagger.annotations.ApiModel;
 import lombok.Data;
-import ru.samgtu.monolith.activity.model.InteractionType;
 import ru.samgtu.monolith.folklore.model.dto.BuildingDto;
 import ru.samgtu.monolith.tag.model.dto.TagDto;
 
@@ -37,8 +36,6 @@ public class ActivityDto {
     private BuildingDto building;
 
     private Duration duration;
-
-    private InteractionType interactionType;
 
     private List<String> urls;
 
