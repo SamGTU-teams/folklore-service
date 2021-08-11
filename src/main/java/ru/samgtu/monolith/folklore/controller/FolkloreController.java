@@ -21,7 +21,7 @@ import java.util.Set;
 @RequestMapping(FolkloreController.MAPPING)
 @CrossOrigin("${settings.cors_origin}")
 public interface FolkloreController {
-    String MAPPING = "folklores";
+    String MAPPING = "api/folklores";
 
     @PostMapping
     @ApiOperation(value = "Get buildings by tags",
