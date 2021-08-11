@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+    <changeSet id="load-data-activity" author="rassafel">
+
+        <loadData tableName="activity"
+                  path="db/csv/activity.csv"
+                  usePreparedStatements="true"/>
+
+        <loadData tableName="activity_scheduled"
+                  path="db/csv/activity_scheduled.csv"
+                  usePreparedStatements="true"/>
+
+        <loadData tableName="activity_tag"
+                  file="db/csv/activity_tag.csv"
+                  usePreparedStatements="true"/>
+    </changeSet>
+</databaseChangeLog>
