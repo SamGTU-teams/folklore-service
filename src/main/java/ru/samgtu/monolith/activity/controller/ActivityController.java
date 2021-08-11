@@ -29,8 +29,10 @@ public interface ActivityController {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "")
     })
-    Page<ActivityDto> getActivitiesByTags(@RequestBody List<TagDto> tagsDto,
-                                          @PageableDefault Pageable pageable);
+    Page<ActivityDto> getActivitiesByTags(@ApiParam(name = "tags", value = "tags")
+                                          @RequestBody(required = false) Set<TagDto> tags,
+                                          @RequestParam(defaultValue = "0") int page,
+                                          @RequestParam(defaultValue = "10") int size);
 
     @GetMapping("/search")
     @ApiOperation(value = "Get activities by time")
@@ -39,7 +41,8 @@ public interface ActivityController {
     })
     Page<ActivityDto> getActivitiesByTime(@RequestParam LocalDateTime from,
                                           @RequestParam LocalDateTime to,
-                                          @PageableDefault Pageable pageable);
+                                          @RequestParam(defaultValue = "0") int page,
+                                          @RequestParam(defaultValue = "10") int size);
 
     @GetMapping("/search")
     @ApiOperation(value = "Get activities by name")
@@ -47,7 +50,8 @@ public interface ActivityController {
             @ApiResponse(code = 200, message = "")
     })
     Page<ActivityDto> getActivitiesByName(@RequestParam String name,
-                                          @PageableDefault Pageable pageable);
+                                          @RequestParam(defaultValue = "0") int page,
+                                          @RequestParam(defaultValue = "10") int size);
 
     @GetMapping("/{id}")
     @ApiOperation(value = "Get activities by building id")
@@ -69,5 +73,6 @@ public interface ActivityController {
             @ApiResponse(code = 200, message = "", response = ActivityDto.class)
     })
     Page<ScheduledActivityDto> getActivitySchedule(@PathVariable("id") Long id,
-                                                   @PageableDefault Pageable pageable);
+                                                   @RequestParam(defaultValue = "0") int page,
+                                                   @RequestParam(defaultValue = "10") int size);
 }
