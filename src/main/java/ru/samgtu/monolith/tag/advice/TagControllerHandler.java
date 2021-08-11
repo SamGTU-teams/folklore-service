@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import ru.samgtu.monolith.model.ExceptionInfo;
+import ru.samgtu.monolith.tag.controller.TagController;
 import ru.samgtu.monolith.tag.exception.NoSuchTagException;
 
 import java.time.LocalDateTime;
@@ -15,7 +16,7 @@ import java.time.LocalDateTime;
  * @author rassafel
  * @version 1.0
  */
-@RestControllerAdvice
+@RestControllerAdvice(assignableTypes = TagController.class)
 public class TagControllerHandler {
     @ExceptionHandler(NoSuchTagException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)

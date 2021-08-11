@@ -41,6 +41,10 @@ public class OrikaMapper extends ConfigurableMapper {
                 .byDefault()
                 .register();
 
+        factory.classMap(Activity.class, ActivityDto.class)
+                .byDefault()
+                .register();
+
         factory.classMap(BuildingLob.class, BuildingDto.class)
                 .customize(new CustomMapper<BuildingLob, BuildingDto>() {
                     @Override

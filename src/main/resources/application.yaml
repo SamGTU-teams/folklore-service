@@ -1,5 +1,7 @@
 server.port: 8082
 
+settings.cors_origin: ${CORS_ORIGINS:*}
+
 spring:
     profiles:
         active: dev
@@ -29,3 +31,10 @@ spring:
             web-allow-others: true
     config.activate.on-profile: dev
     liquibase.change-log: classpath:db/changelog/changelog-master-dev.xml
+    mvc:
+        static-path-pattern: /resources/static/**
+logging:
+    level:
+        org:
+            hibernate:
+                SQL: DEBUG

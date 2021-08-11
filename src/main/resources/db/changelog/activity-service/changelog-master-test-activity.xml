@@ -4,21 +4,5 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
-        <changeSet id="init_activity_table" author="romagr">
-            <createTable tableName="Activity">
-                <column autoIncrement="true" name="id" type="integer">
-                    <constraints primaryKey="true"/>
-                </column>
-                <column name="name" type="text"/>
-                <column name="lat" type="double"/>
-                <column name="lon" type="double"/>
-                <column name="address" type="text"/>
-                <column name="image_url" type="text"/>
-                <column name="label_url" type="text"/>
 
-            </createTable>
-            <insert tableName="Activity">
-                <column name="name">dffd</column>
-            </insert>
-        </changeSet>
 </databaseChangeLog>

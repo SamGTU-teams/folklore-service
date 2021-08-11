@@ -1,9 +1,9 @@
 package ru.samgtu.monolith.activity.model.dto;
 
+import io.swagger.annotations.ApiModel;
 import lombok.Data;
 import ru.samgtu.monolith.activity.model.InteractionType;
 import ru.samgtu.monolith.folklore.model.dto.BuildingDto;
-import ru.samgtu.monolith.model.ExceptionInfo;
 import ru.samgtu.monolith.tag.model.dto.TagDto;
 
 import java.time.Duration;
@@ -15,6 +15,7 @@ import java.util.List;
  * @author rassafel
  * @version 1.0
  */
+@ApiModel("Activity")
 @Data
 public class ActivityDto {
     private Long id;
@@ -39,7 +40,7 @@ public class ActivityDto {
 
     private InteractionType interactionType;
 
-    private List<ExceptionInfo> mimeObjects;
+    private List<String> urls;
 
     private String description;
 }

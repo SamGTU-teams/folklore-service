@@ -1,5 +1,6 @@
 package ru.samgtu.monolith.activity.model.dto;
 
+import io.swagger.annotations.ApiModel;
 import lombok.Data;
 import ru.samgtu.monolith.activity.model.ActivityStatus;
 
@@ -11,6 +12,7 @@ import java.time.LocalDateTime;
  * @author rassafel
  * @version 1.0
  */
+@ApiModel("ScheduledActivity")
 @Data
 public class ScheduledActivityDto {
     private ActivityDto activityDto;
