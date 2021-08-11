@@ -7,10 +7,23 @@
     <changeSet id="load-data-folklore" author="rassafel">
         <loadData tableName="building"
                   file="db/csv/building.csv"
-                  usePreparedStatements="true"/>
+                  usePreparedStatements="true">
+            <column name="id" type="numeric"/>
+            <column name="lat" type="numeric"/>
+            <column name="lon" type="numeric"/>
+            <column name="address" type="string"/>
+            <column name="label_url" type="string"/>
+            <column name="name" type="string"/>
+            <column name="image_url" type="string"/>
+            <column name="description" type="string"/>
+            <column name="media_urls" type="string"/>
+        </loadData>
 
         <loadData tableName="building_tag"
                   file="db/csv/building_tag.csv"
-                  usePreparedStatements="true"/>
+                  usePreparedStatements="true">
+            <column name="building_id" type="numeric"/>
+            <column name="tag_id" type="numeric"/>
+        </loadData>
     </changeSet>
 </databaseChangeLog>

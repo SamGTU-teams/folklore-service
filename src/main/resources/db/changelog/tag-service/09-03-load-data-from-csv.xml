@@ -8,6 +8,9 @@
     <changeSet id="load-data-tag" author="rassafel">
         <loadData tableName="tag"
                   file="db/csv/tag.csv"
-                  usePreparedStatements="true"/>
+                  usePreparedStatements="true">
+            <column name="id" type="numeric"/>
+            <column name="name" type="string"/>
+        </loadData>
     </changeSet>
 </databaseChangeLog>
