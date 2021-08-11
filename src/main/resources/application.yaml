@@ -1,5 +1,8 @@
-server.port: ${PORT}
+server.port: 8082
+
 spring:
+    profiles:
+        active: dev
     application.name: folklore-service
     # DB properties
     datasource:
@@ -8,10 +11,21 @@ spring:
         username: ${DATABASE_USER}
         password: ${DATABASE_PASSWORD}
     jpa:
-        database-platform: org.hibernate.dialect.PostgreSQLDialect
-        hibernate.ddl-auto: validate
+        database-platform: org.hibernate.dialect.H2Dialect
+        hibernate.ddl-auto: none
     liquibase.change-log: classpath:db/changelog/changelog-master.xml
 ---
 spring:
+    datasource:
+        driverClassName: org.h2.Driver
+        url: jdbc:h2:mem:test;DB_CLOSE_DELAY=-1
+        username: sa
+        password:
+    h2:
+        console:
+            path: /h2-console
+            enabled: true
+        settings:
+            web-allow-others: true
     config.activate.on-profile: dev
     liquibase.change-log: classpath:db/changelog/changelog-master-dev.xml

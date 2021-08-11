@@ -1,6 +1,8 @@
 package ru.samgtu.monolith.activity.config;
 
 import com.google.common.base.Predicate;
+import ma.glasnost.orika.MapperFactory;
+import ma.glasnost.orika.impl.DefaultMapperFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.RequestHandler;
@@ -26,5 +28,10 @@ public class ActivityConfiguration {
         apis.add(RequestHandlerSelectors.basePackage("ru.samgtu.monolith.activity.model.dto"));
 
         return or(apis);
+    }
+
+    @Bean
+    public MapperFactory mapperFactory(){
+        return new DefaultMapperFactory.Builder().build();
     }
 }

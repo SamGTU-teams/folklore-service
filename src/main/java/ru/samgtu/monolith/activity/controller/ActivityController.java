@@ -41,7 +41,7 @@ public interface ActivityController {
                                           @RequestParam LocalDateTime to,
                                           @PageableDefault Pageable pageable);
 
-    @GetMapping("/search")
+    @GetMapping("/search1")
     @ApiOperation(value = "Get activities by name")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "", responseContainer = "Page", response = ActivityDto.class)
@@ -49,7 +49,7 @@ public interface ActivityController {
     Page<ActivityDto> getActivitiesByName(@RequestParam String name,
                                           @PageableDefault Pageable pageable);
 
-    @GetMapping("/{id}")
+    @GetMapping("/{id}/building")
     @ApiOperation(value = "Get activities by building id")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "", responseContainer = "Page", response = ActivityDto.class)

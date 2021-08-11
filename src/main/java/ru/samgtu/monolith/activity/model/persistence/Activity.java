@@ -5,6 +5,8 @@ import ru.samgtu.monolith.activity.model.InteractionType;
 import ru.samgtu.monolith.folklore.model.dto.BuildingDto;
 import ru.samgtu.monolith.tag.model.dto.TagDto;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.time.Duration;
 import java.util.List;
 
@@ -19,8 +21,10 @@ import java.util.List;
 @Setter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @ToString
+@Entity
 public class Activity {
     @EqualsAndHashCode.Include
+    @Id
     private Long id;
 
     private String name;
