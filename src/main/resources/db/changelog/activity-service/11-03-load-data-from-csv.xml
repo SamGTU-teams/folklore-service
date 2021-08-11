@@ -8,14 +8,33 @@
 
         <loadData tableName="activity"
                   path="db/csv/activity.csv"
-                  usePreparedStatements="true"/>
+                  usePreparedStatements="true">
+            <column name="name" type="string"/>
+            <column name="image_url" type="string"/>
+            <column name="label_url" type="string"/>
+            <column name="address" type="string"/>
+            <column name="description" type="string"/>
+            <column name="media_urls" type="string"/>
+            <column name="id" type="numeric"/>
+            <column name="duration" type="numeric"/>
+            <column name="building_id" type="numeric"/>
+            <column name="lat" type="numeric"/>
+            <column name="lon" type="numeric"/>
+        </loadData>
 
         <loadData tableName="activity_scheduled"
                   path="db/csv/activity_scheduled.csv"
-                  usePreparedStatements="true"/>
+                  usePreparedStatements="true">
+            <column name="activity_id" type="numeric"/>
+            <column name="date_time"/>
+            <column name="status" type="string"/>
+        </loadData>
 
         <loadData tableName="activity_tag"
                   file="db/csv/activity_tag.csv"
-                  usePreparedStatements="true"/>
+                  usePreparedStatements="true">
+            <column name="activity_id" type="numeric"/>
+            <column name="tag_id" type="numeric"/>
+        </loadData>
     </changeSet>
 </databaseChangeLog>
