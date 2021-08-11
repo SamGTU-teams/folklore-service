@@ -6,28 +6,30 @@
                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
     <changeSet id="load-data-activity" author="rassafel">
 
+        <!--        ToDo: fix this-->
         <loadData tableName="activity"
                   path="db/csv/activity.csv"
                   usePreparedStatements="true">
-            <column name="name" type="string"/>
-            <column name="image_url" type="string"/>
-            <column name="label_url" type="string"/>
-            <column name="address" type="string"/>
-            <column name="description" type="string"/>
-            <column name="media_urls" type="string"/>
             <column name="id" type="numeric"/>
-            <column name="duration" type="numeric"/>
-            <column name="building_id" type="numeric"/>
+            <column name="name" type="string"/>
             <column name="lat" type="numeric"/>
             <column name="lon" type="numeric"/>
+            <column name="address" type="string"/>
+            <column name="image_url" type="string"/>
+            <column name="label_url" type="string"/>
+            <column name="building_id" type="numeric"/>
+            <column name="duration" type="numeric"/>
+            <column name="description" type="string"/>
+            <column name="media_urls" type="string"/>
         </loadData>
 
+        <!--        ToDo: fix this-->
         <loadData tableName="activity_scheduled"
                   path="db/csv/activity_scheduled.csv"
                   usePreparedStatements="true">
-            <column name="activity_id" type="numeric"/>
-            <column name="date_time"/>
             <column name="status" type="string"/>
+            <column name="activity_id" type="numeric"/>
+            <column name="date_time" type="date"/>
         </loadData>
 
         <loadData tableName="activity_tag"

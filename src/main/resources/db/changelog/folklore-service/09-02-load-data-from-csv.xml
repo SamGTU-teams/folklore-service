@@ -9,12 +9,12 @@
                   file="db/csv/building.csv"
                   usePreparedStatements="true">
             <column name="id" type="numeric"/>
+            <column name="name" type="string"/>
             <column name="lat" type="numeric"/>
             <column name="lon" type="numeric"/>
             <column name="address" type="string"/>
-            <column name="label_url" type="string"/>
-            <column name="name" type="string"/>
             <column name="image_url" type="string"/>
+            <column name="label_url" type="string"/>
             <column name="description" type="string"/>
             <column name="media_urls" type="string"/>
         </loadData>
