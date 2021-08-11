@@ -12,7 +12,7 @@ import java.util.List;
  * @author rassafel
  * @version 1.0
  */
-@ApiModel("Tag")
+@ApiModel("Building")
 @Data
 public class BuildingDto {
     private Long id;
