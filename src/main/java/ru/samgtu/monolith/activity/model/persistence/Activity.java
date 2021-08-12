@@ -66,6 +66,4 @@ public class Activity {
     @Column(name = "duration", nullable = false)
     private Duration duration;
 
-    @Column(name = "interaction", nullable = false)
-    private InteractionType interactionType;
 }
