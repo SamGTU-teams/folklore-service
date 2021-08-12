@@ -1,5 +1,4 @@
-server.port: ${PORT:8080}
-settings.cors_origin: ${CORS_ORIGINS:*}
+server.port: 8089
 spring:
     application.name: folklore-service
     # DB properties
