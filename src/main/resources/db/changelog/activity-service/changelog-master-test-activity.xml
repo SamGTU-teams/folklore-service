@@ -9,6 +9,6 @@
     <include file="db/changelog/activity-service/11-01-drop-interaction-changelog.xml"/>
     <include file="db/changelog/activity-service/11-02-init-activity-tag-changelog.xml"/>
 
+<!--    ToDo: fix load-->
 <!--    <include file="db/changelog/activity-service/11-03-load-data-from-csv.xml"/>-->
-
 </databaseChangeLog>
