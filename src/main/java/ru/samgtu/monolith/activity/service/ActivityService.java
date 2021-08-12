@@ -1,29 +1,22 @@
 package ru.samgtu.monolith.activity.service;
 
-import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Service;
 import ru.samgtu.monolith.activity.model.persistence.Activity;
-import ru.samgtu.monolith.activity.repository.ActivityRepository;
 
 import java.time.LocalDateTime;
 
-@Service
-@AllArgsConstructor
-public class ActivityService {
+/**
+ * Creation date: 12.08.2021
+ *
+ * @author rassafel
+ * @version 1.0
+ */
+public interface ActivityService {
+    void getByTags();
 
-    private final ActivityRepository activityRepository;
-
-    public void getByTags(){
-
-    }
-
-    public Page<Activity> findByPars(String name,
-                                     LocalDateTime from,
-                                     LocalDateTime to,
-                                     Pageable pageable){
-        return null;
-    }
-
+    Page<Activity> findByPars(String name,
+                              LocalDateTime from,
+                              LocalDateTime to,
+                              Pageable pageable);
 }
