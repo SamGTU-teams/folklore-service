@@ -47,6 +47,10 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>io.springfox</groupId>
@@ -69,10 +73,6 @@
             <scope>runtime</scope>
         </dependency>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-thymeleaf</artifactId>
-        </dependency>
-        <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
             <scope>runtime</scope>
@@ -81,36 +81,36 @@
 
     <build>
         <plugins>
-<!--            Clean plugin for heroku-->
-<!--            <plugin>-->
-<!--                <groupId>org.apache.maven.plugins</groupId>-->
-<!--                <artifactId>maven-clean-plugin</artifactId>-->
-<!--                <configuration>-->
-<!--                    <filesets>-->
-<!--                        <fileset>-->
-<!--                            <directory>target/</directory>-->
-<!--                            <includes>-->
-<!--                                <include>**/*</include>-->
-<!--                            </includes>-->
-<!--                            <excludes>-->
-<!--                                <exclude>*.jar</exclude>-->
-<!--                                <exclude>*.war</exclude>-->
-<!--                            </excludes>-->
-<!--                            <followSymlinks>false</followSymlinks>-->
-<!--                        </fileset>-->
-<!--                    </filesets>-->
-<!--                    <excludeDefaultDirectories>true</excludeDefaultDirectories>-->
-<!--                </configuration>-->
-<!--                <executions>-->
-<!--                    <execution>-->
-<!--                        <id>auto-clean</id>-->
-<!--                        <phase>install</phase>-->
-<!--                        <goals>-->
-<!--                            <goal>clean</goal>-->
-<!--                        </goals>-->
-<!--                    </execution>-->
-<!--                </executions>-->
-<!--            </plugin>-->
+            <!--            Clean plugin for heroku-->
+            <!--            <plugin>-->
+            <!--                <groupId>org.apache.maven.plugins</groupId>-->
+            <!--                <artifactId>maven-clean-plugin</artifactId>-->
+            <!--                <configuration>-->
+            <!--                    <filesets>-->
+            <!--                        <fileset>-->
+            <!--                            <directory>target/</directory>-->
+            <!--                            <includes>-->
+            <!--                                <include>**/*</include>-->
+            <!--                            </includes>-->
+            <!--                            <excludes>-->
+            <!--                                <exclude>*.jar</exclude>-->
+            <!--                                <exclude>*.war</exclude>-->
+            <!--                            </excludes>-->
+            <!--                            <followSymlinks>false</followSymlinks>-->
+            <!--                        </fileset>-->
+            <!--                    </filesets>-->
+            <!--                    <excludeDefaultDirectories>true</excludeDefaultDirectories>-->
+            <!--                </configuration>-->
+            <!--                <executions>-->
+            <!--                    <execution>-->
+            <!--                        <id>auto-clean</id>-->
+            <!--                        <phase>install</phase>-->
+            <!--                        <goals>-->
+            <!--                            <goal>clean</goal>-->
+            <!--                        </goals>-->
+            <!--                    </execution>-->
+            <!--                </executions>-->
+            <!--            </plugin>-->
 
             <plugin>
                 <groupId>org.springframework.boot</groupId>
