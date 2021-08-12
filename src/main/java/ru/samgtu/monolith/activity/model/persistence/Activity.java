@@ -1,7 +1,6 @@
 package ru.samgtu.monolith.activity.model.persistence;
 
 import lombok.*;
-import ru.samgtu.monolith.activity.model.InteractionType;
 import ru.samgtu.monolith.folklore.model.persistence.Building;
 import ru.samgtu.monolith.tag.model.persistence.Tag;
 
@@ -50,8 +49,8 @@ public class Activity {
     private String labelUrl;
 
     @ManyToMany
-    @JoinTable(name = "building_tag",
-            joinColumns = @JoinColumn(name = "building_id"),
+    @JoinTable(name = "activity_tag",
+            joinColumns = @JoinColumn(name = "activity_id"),
             inverseJoinColumns = @JoinColumn(name = "tag_id"))
     @ToString.Exclude
     private Set<Tag> tags;
@@ -65,5 +64,4 @@ public class Activity {
 
     @Column(name = "duration", nullable = false)
     private Duration duration;
-
 }
