@@ -44,7 +44,7 @@ public class Building {
     @Column(name = "label_url", nullable = false)
     private String labelUrl;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "building_tag",
             joinColumns = @JoinColumn(name = "building_id"),
             inverseJoinColumns = @JoinColumn(name = "tag_id"))

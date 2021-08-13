@@ -8,4 +8,6 @@
     <include file="db/changelog/folklore-service/changelog-master-test-folklore.xml"/>
 
     <include file="db/changelog/activity-service/changelog-master-test-activity.xml"/>
+
+
 </databaseChangeLog>

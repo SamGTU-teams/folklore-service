@@ -1,0 +1,16 @@
+spring:
+  application.name: folklore-service
+  datasource:
+    driverClassName: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5433/test
+    username: postgres
+    password: postgres
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate.ddl-auto: none
+  liquibase.change-log: classpath:db/changelog/changelog-master-dev.xml
+  h2:
+    console:
+      enabled: false
+  liquibase:
+    contexts: romzes

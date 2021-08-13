@@ -8,10 +8,13 @@ import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 import ru.samgtu.monolith.activity.model.dto.ActivityDto;
 import ru.samgtu.monolith.activity.model.dto.ScheduledActivityDto;
+import ru.samgtu.monolith.activity.model.persistence.Activity;
+import ru.samgtu.monolith.activity.model.persistence.ScheduledActivity;
 import ru.samgtu.monolith.model.ExceptionInfo;
 import ru.samgtu.monolith.tag.model.dto.TagDto;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -31,7 +34,7 @@ public interface ActivityController {
             @ApiResponse(code = 200, message = ""),
             @ApiResponse(code = 404, message = "", response = ExceptionInfo.class)
     })
-    Page<ActivityDto> getActivitiesByTags(@ApiParam(name = "tags", value = "tags")
+    List<ActivityDto> getActivitiesByTags(@ApiParam(name = "tags", value = "tags")
                                           @RequestBody(required = false) Set<TagDto> tags,
                                           @RequestParam(defaultValue = "0") int page,
                                           @RequestParam(defaultValue = "10") int size);
@@ -42,11 +45,10 @@ public interface ActivityController {
             @ApiResponse(code = 200, message = ""),
             @ApiResponse(code = 404, message = "", response = ExceptionInfo.class)
     })
-    Page<ActivityDto> getActivitiesByParams(@RequestParam(required = false) String name,
-                                            @RequestParam(required = false) LocalDateTime from,
-                                            @RequestParam(required = false) LocalDateTime to,
-                                            @RequestParam(defaultValue = "0") int page,
-                                            @RequestParam(defaultValue = "10") int size);
+    List<ActivityDto> getActivitiesByParams(@RequestParam(required = false) String name,
+                                                  @RequestParam(required = false) LocalDateTime from,
+                                                  @RequestParam(defaultValue = "0") int page,
+                                                  @RequestParam(defaultValue = "10") int size);
 
     @GetMapping("/building/{id}")
     @ApiOperation(value = "Get activities by building id")
@@ -54,7 +56,7 @@ public interface ActivityController {
             @ApiResponse(code = 200, message = ""),
             @ApiResponse(code = 404, message = "", response = ExceptionInfo.class)
     })
-    Page<ActivityDto> getActivitiesByBuildingId(@PathVariable("id") Long id);
+    List<ActivityDto> getActivitiesByBuildingId(@PathVariable("id") Long id, @RequestParam(defaultValue = "10") int size, @RequestParam(defaultValue = "0") int page);
 
     @GetMapping("/{id}")
     @ApiOperation(value = "Get activity by id")

@@ -12,6 +12,8 @@ spring:
         database-platform: org.hibernate.dialect.PostgreSQLDialect
         hibernate.ddl-auto: validate
     liquibase.change-log: classpath:db/changelog/changelog-master.xml
+    jackson:
+        default-property-inclusion: non_null
 ---
 spring:
     config.activate.on-profile: dev
