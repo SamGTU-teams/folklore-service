@@ -1,4 +1,4 @@
-interface Page<Type> {
+export default interface Page<Type> {
     content: Array<Type>,
     totalPages: number,
     totalElements: number,
@@ -6,5 +6,3 @@ interface Page<Type> {
     size: number,
     number: number
 }
-
-export { Page }

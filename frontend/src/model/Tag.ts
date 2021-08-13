@@ -1,6 +1,4 @@
-interface Tag{
+export default interface Tag{
     id: number,
     name: string
 }
-
-export { Tag }
