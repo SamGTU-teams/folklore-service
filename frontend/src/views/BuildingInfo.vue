@@ -2,16 +2,16 @@
   <div id="main">
     <div id="ObjectInfo">
       <div id="Image">
-        <img v-if="imageUrl" :src="imageUrl"/>
-        <img v-else src="@/assets/no-image.png"/>
+        <img v-if="building.imageUrl" :src="building.imageUrl" />
+        <img v-else src="@/assets/no-image.png" />
       </div>
       <div id="AboutObject">
-        <div id="NameObject">{{name}}</div>
-        <div id="Address">{{address}}</div>
-        <div id="GoToAfisha"><div>Afisha</div></div>
+        <div id="NameObject">{{ building.name }}</div>
+        <div id="Address">{{ building.address }}</div>
+        <div id="GoToAfisha">Go to Afisha Building id = {{ id }}</div>
       </div>
     </div>
-    <div id="Description"></div>
+    <div id="Description">{{ building.description }}</div>
 
     <div id="CloseObjects">
       <div style="padding-left: 15px">Рядом</div>
@@ -43,21 +43,31 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import { buildingApi, Building } from "@/api/backend-api";
 
 export default defineComponent({
   name: "BuildingInfo",
   props: ["id"],
   data() {
     return {
-      name: "",
-      address: "",
-      lat: 0,
-      lon: 0,
-      labelUrl: "",
-      imageUrl: "",
-      mediaUrls: [],
-      description: "",
+      building: {
+        id: -1,
+        name: "",
+        address: "",
+        lat: 0,
+        lon: 0,
+        labelUrl: "",
+        imageUrl: "",
+        tags: [],
+        mediaUrls: [],
+        description: "",
+      } as Building,
     };
+  },
+  created() {
+    buildingApi.getBuildingInfoById(this.id).then((response) => {
+      this.building = response.data;
+    });
   },
 });
 </script>
