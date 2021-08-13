@@ -2,6 +2,7 @@ import axios, { AxiosResponse } from "axios";
 import Tag from "@/model/Tag";
 import Page from "@/model/Page";
 import Building from "@/model/Building";
+import Activity from "@/model/Activity";
 
 const axiosApi = axios.create({
   baseURL: `/api`,
@@ -22,6 +23,7 @@ const axiosApi = axios.create({
 
 const tagUrl = "/api/tags";
 const buildingUrl = "/api/folklores";
+const activityUrl = "/api/activities";
 
 const tagApi = {
   getTags(size: number, page: number): Promise<AxiosResponse<Page<Tag>>> {
@@ -90,4 +92,37 @@ const buildingApi = {
   },
 };
 
-export { tagApi, buildingApi, Tag, Building, Page };
+const activityApi = {
+  getActivityById(id: number): Promise<AxiosResponse<Activity>> {
+    return axios.get(`${activityUrl}/${id}`);
+  },
+
+  getActivityInfoById(id: number): Promise<AxiosResponse<Activity>> {
+    return axios.get(`${activityUrl}/${id}/info`);
+  },
+
+  getActivitieByName(
+    name: string,
+    size: number,
+    page: number
+  ): Promise<AxiosResponse<Page<Activity>>> {
+    const params = new URLSearchParams();
+    params.set("name", name);
+    params.set("size", size.toString());
+    params.set("page", page.toString());
+    return axiosApi.get(`${activityUrl}/search?${params.toString()}`);
+  },
+
+  getActivitiesByTags(
+    tags: Tag[] | null,
+    size: number,
+    page: number
+  ): Promise<AxiosResponse<Page<Activity>>> {
+    const params = new URLSearchParams();
+    params.set("size", size.toString());
+    params.set("page", page.toString());
+    return axiosApi.post(`${activityUrl}?${params.toString()}`, tags);
+  },
+};
+
+export { tagApi, buildingApi, activityApi, Tag, Building, Page };
