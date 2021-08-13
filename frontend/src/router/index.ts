@@ -3,6 +3,7 @@ import Profile from "@/views/Profile.vue";
 import Afisha from "@/views/Afisha.vue";
 import Main from "@/views/Main.vue";
 import BuildingInfo from "@/views/BuildingInfo.vue";
+import ActivityInfo from "@/views/ActivityInfo.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -30,6 +31,18 @@ const routes: Array<RouteRecordRaw> = [
     component: BuildingInfo,
     props: true,
   },
+  {
+    path: "/activity/:id",
+    name: "ActivityInfo",
+    component: ActivityInfo,
+    props: true,
+  },
+
+
+  {
+    path: '/:pathMatch(.*)*',
+    redirect: '/',
+  }
 ];
 
 const router = createRouter({
