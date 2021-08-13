@@ -1,4 +1,4 @@
-server.port: 8089
+server.port: ${PORT}
 spring:
     application.name: folklore-service
     # DB properties
