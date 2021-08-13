@@ -1,6 +1,7 @@
-export interface Building {
+interface Building {
   id: number;
   name: string;
+  address: string,
   lat: number;
   lon: number;
   labelUrl: string;
@@ -8,3 +9,5 @@ export interface Building {
   mediaUrls?: Array<string>;
   description?: string;
 }
+
+export { Building }
