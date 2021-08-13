@@ -1,4 +1,6 @@
-interface Building {
+import Tag from "@/model/Tag";
+
+export default interface Building {
   id: number;
   name: string;
   address: string,
@@ -6,8 +8,7 @@ interface Building {
   lon: number;
   labelUrl: string;
   imageUrl: string;
-  mediaUrls?: Array<string>;
+  tags: Tag[],
+  mediaUrls?: string[];
   description?: string;
 }
-
-export { Building }
