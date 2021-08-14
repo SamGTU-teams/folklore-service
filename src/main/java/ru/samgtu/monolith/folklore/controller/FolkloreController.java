@@ -12,6 +12,7 @@ import ru.samgtu.monolith.folklore.model.dto.BuildingDto;
 import ru.samgtu.monolith.model.ExceptionInfo;
 import ru.samgtu.monolith.tag.model.dto.TagDto;
 
+import java.util.Collection;
 import java.util.Set;
 
 /**
@@ -66,4 +67,13 @@ public interface FolkloreController {
     })
     @JsonView(JacksonViews.DataWithLob.class)
     BuildingDto getBuildingInfoById(@PathVariable("id") Long id);
+
+    @PostMapping("/ids")
+    @ApiOperation(value = "Get buildings by ids")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = ""),
+            @ApiResponse(code = 404, message = "", response = ExceptionInfo.class)
+    })
+    @JsonView(JacksonViews.DataWithoutLob.class)
+    Collection<BuildingDto> getBuildingsByIds(@RequestBody Collection<Long> ids);
 }
