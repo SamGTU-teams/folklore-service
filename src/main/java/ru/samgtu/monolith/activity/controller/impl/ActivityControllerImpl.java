@@ -12,7 +12,9 @@ import ru.samgtu.monolith.activity.controller.ActivityController;
 import ru.samgtu.monolith.activity.model.dto.ActivityDto;
 import ru.samgtu.monolith.activity.model.dto.ScheduledActivityDto;
 import ru.samgtu.monolith.activity.model.persistence.Activity;
+import ru.samgtu.monolith.activity.model.persistence.ScheduledActivity;
 import ru.samgtu.monolith.activity.service.ActivityService;
+import ru.samgtu.monolith.activity.service.ScheduledActivityService;
 import ru.samgtu.monolith.tag.model.dto.TagDto;
 import ru.samgtu.monolith.tag.model.persistence.Tag;
 
@@ -34,6 +36,8 @@ import static java.util.Objects.nonNull;
 @Validated
 public class ActivityControllerImpl implements ActivityController {
     private final ActivityService activityService;
+
+    private final ScheduledActivityService scheduledActivityService;
 
     private final MapperFacade mapper;
 
@@ -63,6 +67,13 @@ public class ActivityControllerImpl implements ActivityController {
             return mapPage(activities);
         }
         throw new IllegalArgumentException("At least one parameter(from or name) must be in");
+    }
+
+    public Page<ScheduledActivityDto> getActivitiesByDateTime(LocalDateTime from, int page, int size) {
+//        ToDo: create endpoint
+        PageRequest pageRequest = createPageRequestForActivities(page, size);
+        Page<ScheduledActivity> scheduledActivities = scheduledActivityService.findByDateAfterThan(from, pageRequest);
+        return scheduledActivities.map(activity -> mapper.map(activity, ScheduledActivityDto.class));
     }
 
     @Override
