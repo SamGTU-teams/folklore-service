@@ -31,7 +31,7 @@ public class TagControllerImpl implements TagController {
                                 int size) {
         PageRequest pageRequest = createPageRequest(page, size);
         Page<Tag> tags = service.getTags(pageRequest);
-        return tags.map(tag -> mapper.map(tag, TagDto.class));
+        return mapPage(tags);
     }
 
     @Override
@@ -40,7 +40,7 @@ public class TagControllerImpl implements TagController {
                                       int size) {
         PageRequest pageRequest = createPageRequest(page, size);
         Page<Tag> tags = service.getTagsByName(name, pageRequest);
-        return tags.map(tag -> mapper.map(tag, TagDto.class));
+        return mapPage(tags);
     }
 
     @Override
@@ -51,5 +51,9 @@ public class TagControllerImpl implements TagController {
 
     private PageRequest createPageRequest(int page, int size) {
         return PageRequest.of(page, size, Sort.by("id").ascending());
+    }
+
+    private Page<TagDto> mapPage(Page<Tag> page) {
+        return page.map(tag -> mapper.map(tag, TagDto.class));
     }
 }
