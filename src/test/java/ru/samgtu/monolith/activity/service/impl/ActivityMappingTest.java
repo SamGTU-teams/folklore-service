@@ -20,7 +20,7 @@ public class ActivityMappingTest {
     @Test
     void testDtoMapping() {
         Page<ActivityDto> activityDtos = controller.
-                getActivitiesByParams(null, LocalDateTime.of(2021, 1, 1, 11, 0), 1, 2);
+                getActivitiesByName(null, LocalDateTime.of(2021, 1, 1, 11, 0), 1, 2);
         System.out.println();
     }
 

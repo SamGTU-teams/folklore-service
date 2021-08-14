@@ -46,10 +46,11 @@ public interface ActivityController {
             @ApiResponse(code = 404, message = "", response = ExceptionInfo.class)
     })
     @JsonView(JacksonViews.DataWithoutLob.class)
-    Page<ActivityDto> getActivitiesByParams(@RequestParam(required = false) String name,
-                                            @RequestParam(required = false) LocalDateTime from,
-                                            @RequestParam(defaultValue = "0") int page,
-                                            @RequestParam(defaultValue = "10") int size);
+//    ToDo: remove LocalDateTime, name required
+    Page<ActivityDto> getActivitiesByName(@RequestParam(required = false) String name,
+                                          @RequestParam(required = false) LocalDateTime from,
+                                          @RequestParam(defaultValue = "0") int page,
+                                          @RequestParam(defaultValue = "10") int size);
 
     @GetMapping("/building/{id}")
     @ApiOperation(value = "Get activities by building id")

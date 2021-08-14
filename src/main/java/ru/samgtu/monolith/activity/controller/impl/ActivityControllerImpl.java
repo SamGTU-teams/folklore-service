@@ -51,12 +51,13 @@ public class ActivityControllerImpl implements ActivityController {
     }
 
     @Override
-    public Page<ActivityDto> getActivitiesByParams(String name, LocalDateTime from, int page, int size) {
-        PageRequest pageRequest = createPageRequestForActivities(size, page);
+    public Page<ActivityDto> getActivitiesByName(String name, LocalDateTime from, int page, int size) {
+        PageRequest pageRequest = createPageRequestForActivities(page, size);
         if (nonNull(name)) {
             Page<Activity> activities = activityService.findByName(name, pageRequest);
             return mapPage(activities);
         }
+//        ToDo: extracted to getActivitiesByBuildingId
         if (nonNull(from)) {
             Page<Activity> activities = activityService.findByDateAfterThan(from, pageRequest);
             return mapPage(activities);
@@ -66,7 +67,8 @@ public class ActivityControllerImpl implements ActivityController {
 
     @Override
     public Page<ActivityDto> getActivitiesByBuildingId(Long id, int size, int page) {
-        PageRequest pageRequest = createPageRequestForActivities(size, page);
+
+        PageRequest pageRequest = createPageRequestForActivities(page, size);
         Page<Activity> activities = activityService.findByBuildingId(id, pageRequest);
         return mapPage(activities);
     }
@@ -79,6 +81,7 @@ public class ActivityControllerImpl implements ActivityController {
 
     @Override
     public Page<ScheduledActivityDto> getActivitySchedule(Long id, int page, int size) {
+        PageRequest pageRequest = createPageRequestForActivities(page, size);
         return null;
     }
 
