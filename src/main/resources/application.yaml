@@ -13,13 +13,16 @@ spring:
     jpa:
         database-platform: org.hibernate.dialect.PostgreSQLDialect
         hibernate.ddl-auto: validate
-    liquibase.change-log: classpath:db/changelog/changelog-master.xml
+    liquibase:
+        contexts: prod
+        change-log: classpath:db/changelog/changelog-master.xml
     jackson:
         default-property-inclusion: non_null
 ---
 spring:
     config.activate.on-profile: dev
-    liquibase.change-log: classpath:db/changelog/changelog-master-dev.xml
+    liquibase:
+        contexts: dev
 logging:
     level:
         org:
