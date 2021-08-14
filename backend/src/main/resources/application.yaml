@@ -1,5 +1,4 @@
-server.port: ${PORT:8080}
-settings.cors_origin: ${CORS_ORIGINS:*}
+server.port: ${PORT}
 spring:
     application.name: folklore-service
     # DB properties
@@ -12,6 +11,8 @@ spring:
         database-platform: org.hibernate.dialect.PostgreSQLDialect
         hibernate.ddl-auto: validate
     liquibase.change-log: classpath:db/changelog/changelog-master.xml
+springfox.documentation.swagger.v2.path: /api/v2/api-docs
+springdoc.documentation.swagger-ui.base-url: /api
 ---
 spring:
     config.activate.on-profile: dev
