@@ -18,4 +18,5 @@ public interface ActivityRepository extends JpaRepository<Activity, Long> {
 
     Page<Activity> findByTagsIn(Collection<Tag> tags, Pageable pageable);
 
+    List<Activity> findByDateAfterThan(LocalDateTime from, int size, int page);
 }
