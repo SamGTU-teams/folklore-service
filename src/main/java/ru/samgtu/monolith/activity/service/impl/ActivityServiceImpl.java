@@ -60,7 +60,7 @@ public class ActivityServiceImpl implements ActivityService {
         return activityRepository.findById(id)
                 .orElseThrow(() -> {
                     log.warn("Activity with id = {} does not exists", id);
-                    throw new NoSuchActivityException("Activity does not exists");
+                    return new NoSuchActivityException("Activity does not exists");
                 });
     }
 
