@@ -26,9 +26,6 @@ import java.util.Set;
 @NamedNativeQueries({
         @NamedNativeQuery(name = "select_by_date_more_than",
                 query = "SELECT a.* FROM activity a INNER JOIN activity_scheduled asch ON a.id = asch.activity_id where asch.date_time >= ? ORDER BY date_time limit ? offset ?",
-                resultClass = Activity.class),
-        @NamedNativeQuery(name = "findByDateAfterThan",
-                query = "SELECT a.* FROM activity a INNER JOIN activity_scheduled asch ON a.id = asch.activity_id where asch.date_time >= ? ORDER BY date_time limit ? offset ?",
                 resultClass = Activity.class)
 })
 
