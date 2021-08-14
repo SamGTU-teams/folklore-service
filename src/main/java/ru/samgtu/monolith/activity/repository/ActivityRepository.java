@@ -11,7 +11,6 @@ import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
 
-@Repository
 public interface ActivityRepository extends JpaRepository<Activity, Long> {
     List<Activity> findByNameStartsWithIgnoreCase(String name);
 
