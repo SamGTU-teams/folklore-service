@@ -20,7 +20,9 @@ spring:
         default-property-inclusion: non_null
 ---
 spring:
-    config.activate.on-profile: dev
+    config:
+        activate:
+            on-profile dev
     liquibase:
         contexts: dev
 logging:
@@ -31,7 +33,9 @@ logging:
 activity.status.rate: 30000
 ---
 spring:
-    config.activate.on-profile: test
+    config:
+        activate:
+            on-profile: test
     liquibase:
         contexts: test
 ---
