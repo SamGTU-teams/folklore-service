@@ -3,8 +3,6 @@ package ru.samgtu.monolith.activity.service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import ru.samgtu.monolith.activity.model.persistence.Activity;
-import ru.samgtu.monolith.activity.model.persistence.ScheduledActivity;
-import ru.samgtu.monolith.tag.model.dto.TagDto;
 import ru.samgtu.monolith.tag.model.persistence.Tag;
 
 import java.time.LocalDateTime;

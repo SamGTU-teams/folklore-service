@@ -8,8 +8,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 import ru.samgtu.monolith.activity.model.dto.ActivityDto;
 import ru.samgtu.monolith.activity.model.dto.ScheduledActivityDto;
-import ru.samgtu.monolith.activity.model.persistence.Activity;
-import ru.samgtu.monolith.activity.model.persistence.ScheduledActivity;
 import ru.samgtu.monolith.model.ExceptionInfo;
 import ru.samgtu.monolith.tag.model.dto.TagDto;
 

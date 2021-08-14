@@ -4,17 +4,14 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.jdbc.Sql;
 import ru.samgtu.monolith.activity.model.persistence.Activity;
-import ru.samgtu.monolith.activity.model.persistence.ScheduledActivity;
 import ru.samgtu.monolith.activity.service.ActivityService;
 
 import javax.persistence.EntityManager;
-import static org.junit.jupiter.api.Assertions.*;
-
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
 @ActiveProfiles("romzes")
