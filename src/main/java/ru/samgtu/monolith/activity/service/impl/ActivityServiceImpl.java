@@ -33,17 +33,13 @@ public class ActivityServiceImpl implements ActivityService {
 
     @Override
     public Page<Activity> findByDateAfterThan(LocalDateTime from, Pageable pageable) {
-//       ToDo: Check this solution
-
-//        return activityRepository.findByDateAfterThan(from, size, page);
-
         List<Activity> activities = entityManager.createNamedQuery("select_by_date_more_than", Activity.class).
                 setParameter(1, Timestamp.valueOf(from)).
                 setParameter(2, pageable.getPageSize())
                 .setParameter(3, pageable.getOffset())
                 .getResultList();
 
-        // ToDo: create query to count total activities
+//         ToDo: create query to count total activities
 
         Page<Activity> page = new PageImpl<>(activities, pageable, -1);
         return page;
