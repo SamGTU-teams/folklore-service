@@ -66,4 +66,9 @@ public class ActivityControllerImpl implements ActivityController {
     public Page<ScheduledActivityDto> getActivitySchedule(Long id, int page, int size) {
         return null;
     }
+
+    @Override
+    public ActivityDto getActivityInfoById(Long id) {
+        return null;
+    }
 }

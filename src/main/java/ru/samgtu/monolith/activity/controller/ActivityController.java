@@ -64,6 +64,14 @@ public interface ActivityController {
     })
     ActivityDto getActivityById(@PathVariable("id") Long id);
 
+    @GetMapping("/{id}/info")
+    @ApiOperation(value = "Get activity info by id")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = ""),
+            @ApiResponse(code = 404, message = "", response = ExceptionInfo.class)
+    })
+    ActivityDto getActivityInfoById(@PathVariable("id") Long id);
+
     @GetMapping("/{id}/scheduled")
     @ApiOperation(value = "Get activity schedule")
     @ApiResponses(value = {
