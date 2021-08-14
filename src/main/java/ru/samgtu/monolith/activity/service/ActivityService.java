@@ -5,14 +5,10 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import ru.samgtu.monolith.activity.model.dto.ScheduledActivityDto;
 import ru.samgtu.monolith.activity.model.persistence.Activity;
-import ru.samgtu.monolith.activity.model.persistence.ScheduledActivity;
-import ru.samgtu.monolith.tag.model.dto.TagDto;
 import ru.samgtu.monolith.tag.model.persistence.Tag;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
 
 /**
  * Creation date: 12.08.2021
@@ -22,15 +18,15 @@ import java.util.Optional;
  */
 public interface ActivityService {
 
-    List<Activity> findByTags(Collection<Tag> tags, Pageable pageable);
+    Page<Activity> findByTags(Collection<Tag> tags, Pageable pageable);
 
-    List<Activity> findByDateAfterThan(LocalDateTime from, int size, int page);
+    Page<Activity> findByDateAfterThan(LocalDateTime from, Pageable pageable);
 
-    List<Activity> findByName(String name);
+    Page<Activity> findByName(String name, Pageable pageable);
 
-    Optional<Activity> findById(Long id);
+    Activity findById(Long id);
 
     Page<Activity> findByBuildingId(Long id, Pageable pageable);
 
-    Page<ScheduledActivity> findScheduledById(Long id, Pageable of);
+    Page<Activity> getActivities(Pageable pageable);
 }

@@ -1,57 +1,65 @@
 package ru.samgtu.monolith.activity.service.impl;
 
 import lombok.AllArgsConstructor;
-import ma.glasnost.orika.MapperFacade;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import ru.samgtu.monolith.activity.model.dto.ScheduledActivityDto;
+import ru.samgtu.monolith.activity.NoSuchActivityException;
 import ru.samgtu.monolith.activity.model.persistence.Activity;
-import ru.samgtu.monolith.activity.model.persistence.ScheduledActivity;
 import ru.samgtu.monolith.activity.repository.ActivityRepository;
 import ru.samgtu.monolith.activity.repository.ScheduledActivityRepository;
 import ru.samgtu.monolith.activity.service.ActivityService;
-import ru.samgtu.monolith.tag.model.dto.TagDto;
 import ru.samgtu.monolith.tag.model.persistence.Tag;
 
 import javax.persistence.EntityManager;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Collection;
 import java.util.List;
-import java.util.Optional;
-import java.util.Set;
 
 @Service
 @AllArgsConstructor
+@Slf4j
 public class ActivityServiceImpl implements ActivityService {
-
     private final ActivityRepository activityRepository;
+
     private final EntityManager entityManager;
     private final ScheduledActivityRepository scheduledActivityRepository;
 
     @Override
-    public List<Activity> findByTags(Collection<Tag> tags, Pageable pageable){
-        return activityRepository.findByTagsIn(tags, pageable).toList();
+    public Page<Activity> findByTags(Collection<Tag> tags, Pageable pageable) {
+        return activityRepository.findByTagsIn(tags, pageable);
     }
 
     @Override
-    public List<Activity> findByDateAfterThan(LocalDateTime from, int size, int page){
-        return entityManager.createNamedQuery("select_by_date_more_than", Activity.class).
+    public Page<Activity> findByDateAfterThan(LocalDateTime from, Pageable pageable) {
+        List<Activity> activities = entityManager.createNamedQuery("select_by_date_more_than", Activity.class).
                 setParameter(1, Timestamp.valueOf(from)).
-                setParameter(2, size).setParameter(3, (page - 1) * size).getResultList();
+                setParameter(2, pageable.getPageSize())
+                .setParameter(3, pageable.getOffset())
+                .getResultList();
+
+//         ToDo: create query to count total activities
+
+        Page<Activity> page = new PageImpl<>(activities, pageable, -1);
+        return page;
     }
 
     @Override
-    public List<Activity> findByName(String name){
-        return activityRepository.findByNameStartsWithIgnoreCase(name);
+    public Page<Activity> findByName(String name, Pageable pageable) {
+        return activityRepository
+                .findByNameStartsWithIgnoreCase(name, pageable);
     }
 
     @Override
-    public Optional<Activity> findById(Long id) {
-        return activityRepository.findById(id);
+    public Activity findById(Long id) {
+        return activityRepository.findById(id)
+                .orElseThrow(() -> {
+                    log.warn("Activity with id = {} does not exists", id);
+                    return new NoSuchActivityException("Activity does not exists");
+                });
     }
 
     @Override
@@ -60,8 +68,7 @@ public class ActivityServiceImpl implements ActivityService {
     }
 
     @Override
-    public Page<ScheduledActivity> findScheduledById(Long id, Pageable of) {
-        return scheduledActivityRepository.findByActivityId(id, of);
+    public Page<Activity> getActivities(Pageable pageable) {
+        return activityRepository.findAll(pageable);
     }
-
 }

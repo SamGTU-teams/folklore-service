@@ -13,6 +13,7 @@ import ru.samgtu.monolith.folklore.repository.BuildingRepository;
 import ru.samgtu.monolith.folklore.service.FolkloreService;
 import ru.samgtu.monolith.tag.model.persistence.Tag;
 
+import java.util.Collection;
 import java.util.Set;
 
 /**
@@ -26,6 +27,7 @@ import java.util.Set;
 @Slf4j
 public class FolkloreServiceImpl implements FolkloreService {
     private final BuildingRepository repository;
+
     private final BuildingLobRepository lobRepository;
 
     @Override
@@ -59,5 +61,10 @@ public class FolkloreServiceImpl implements FolkloreService {
             log.warn("Building with id = {} does not exists", id);
             return new NoSuchBuildingException("Building does not exists");
         });
+    }
+
+    @Override
+    public Collection<Building> getBuildingsByIds(Collection<Long> ids) {
+        return repository.findAllById(ids);
     }
 }

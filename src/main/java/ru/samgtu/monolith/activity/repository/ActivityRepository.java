@@ -4,24 +4,13 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.repository.CrudRepository;
-import org.springframework.stereotype.Repository;
-import ru.samgtu.monolith.activity.model.dto.ScheduledActivityDto;
 import ru.samgtu.monolith.activity.model.persistence.Activity;
-import ru.samgtu.monolith.activity.model.persistence.ScheduledActivity;
-import ru.samgtu.monolith.tag.model.dto.TagDto;
 import ru.samgtu.monolith.tag.model.persistence.Tag;
 
-import java.time.Duration;
-import java.time.LocalDateTime;
 import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
 
-@Repository
 public interface ActivityRepository extends JpaRepository<Activity, Long> {
-
-    List<Activity> findByNameStartsWithIgnoreCase(String name);
+    Page<Activity> findByNameStartsWithIgnoreCase(String name, Pageable pageable);
 
     Page<Activity> findAllByBuildingId(Long id, Pageable pageable);
 

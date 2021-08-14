@@ -15,7 +15,7 @@ import ru.samgtu.monolith.folklore.service.FolkloreService;
 import ru.samgtu.monolith.tag.model.dto.TagDto;
 import ru.samgtu.monolith.tag.model.persistence.Tag;
 
-import java.lang.reflect.Type;
+import java.util.Collection;
 import java.util.Set;
 
 import static java.util.Objects.isNull;
@@ -68,6 +68,12 @@ public class FolkloreControllerImpl implements FolkloreController {
     public BuildingDto getBuildingInfoById(Long id) {
         BuildingLob building = service.getBuildingInfoById(id);
         return mapper.map(building, BuildingDto.class);
+    }
+
+    @Override
+    public Collection<BuildingDto> getBuildingsByIds(Collection<Long> ids) {
+        Collection<Building> buildings = service.getBuildingsByIds(ids);
+        return mapper.mapAsList(buildings, BuildingDto.class);
     }
 
     private PageRequest createPageRequest(int page, int size) {

@@ -12,6 +12,8 @@ import ru.samgtu.monolith.tag.model.dto.TagDto;
 import ru.samgtu.monolith.tag.model.persistence.Tag;
 import ru.samgtu.monolith.tag.service.TagService;
 
+import java.util.Collection;
+
 /**
  * Creation date: 07.08.2021
  *
@@ -31,7 +33,7 @@ public class TagControllerImpl implements TagController {
                                 int size) {
         PageRequest pageRequest = createPageRequest(page, size);
         Page<Tag> tags = service.getTags(pageRequest);
-        return tags.map(tag -> mapper.map(tag, TagDto.class));
+        return mapPage(tags);
     }
 
     @Override
@@ -40,7 +42,7 @@ public class TagControllerImpl implements TagController {
                                       int size) {
         PageRequest pageRequest = createPageRequest(page, size);
         Page<Tag> tags = service.getTagsByName(name, pageRequest);
-        return tags.map(tag -> mapper.map(tag, TagDto.class));
+        return mapPage(tags);
     }
 
     @Override
@@ -49,7 +51,17 @@ public class TagControllerImpl implements TagController {
         return mapper.map(tag, TagDto.class);
     }
 
+    @Override
+    public Collection<TagDto> getTagsByIds(Collection<Long> ids) {
+        Collection<Tag> tags = service.getTagsByIds(ids);
+        return mapper.mapAsList(tags, TagDto.class);
+    }
+
     private PageRequest createPageRequest(int page, int size) {
         return PageRequest.of(page, size, Sort.by("id").ascending());
+    }
+
+    private Page<TagDto> mapPage(Page<Tag> page) {
+        return page.map(tag -> mapper.map(tag, TagDto.class));
     }
 }

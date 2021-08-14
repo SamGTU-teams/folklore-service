@@ -6,6 +6,7 @@ import ru.samgtu.monolith.folklore.model.persistence.Building;
 import ru.samgtu.monolith.folklore.model.persistence.BuildingLob;
 import ru.samgtu.monolith.tag.model.persistence.Tag;
 
+import java.util.Collection;
 import java.util.Set;
 
 /**
@@ -26,4 +27,6 @@ public interface FolkloreService {
     Building getBuildingById(Long id);
 
     BuildingLob getBuildingInfoById(Long id);
+
+    Collection<Building> getBuildingsByIds(Collection<Long> ids);
 }

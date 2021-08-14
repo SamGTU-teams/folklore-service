@@ -5,19 +5,24 @@ import lombok.extern.slf4j.Slf4j;
 import ma.glasnost.orika.MapperFacade;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RestController;
 import ru.samgtu.monolith.activity.controller.ActivityController;
 import ru.samgtu.monolith.activity.model.dto.ActivityDto;
 import ru.samgtu.monolith.activity.model.dto.ScheduledActivityDto;
 import ru.samgtu.monolith.activity.model.persistence.Activity;
+import ru.samgtu.monolith.activity.model.persistence.ScheduledActivity;
 import ru.samgtu.monolith.activity.service.ActivityService;
+import ru.samgtu.monolith.activity.service.ScheduledActivityService;
 import ru.samgtu.monolith.tag.model.dto.TagDto;
 import ru.samgtu.monolith.tag.model.persistence.Tag;
 
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.Collection;
 import java.util.Set;
+
+import static java.util.Objects.isNull;
 
 /**
  * Creation date: 11.08.2021
@@ -30,40 +35,74 @@ import java.util.Set;
 @Slf4j
 @Validated
 public class ActivityControllerImpl implements ActivityController {
-
     private final ActivityService activityService;
-    private final MapperFacade mapperFacade;
+
+    private final ScheduledActivityService scheduledActivityService;
+
+    private final MapperFacade mapper;
 
     @Override
-    public List<ActivityDto> getActivitiesByTags(Set<TagDto> tags, int page, int size) {
-        Set<Tag> input = mapperFacade.mapAsSet(tags, Tag.class);
-        return mapperFacade.mapAsList(activityService.findByTags(input, PageRequest.of(page, size)), ActivityDto.class);
+    public Page<ActivityDto> getActivitiesByTags(Set<TagDto> tagsDto, int page, int size) {
+        Page<Activity> activities;
+        PageRequest pageRequest = createPageRequestForActivities(size, page);
+        if (isNull(tagsDto)) {
+            activities = activityService.getActivities(pageRequest);
+        } else {
+            Set<Tag> tags = mapper.mapAsSet(tagsDto, Tag.class);
+            activities = activityService.findByTags(tags, pageRequest);
+        }
+        return mapPage(activities);
     }
 
     @Override
-    public List<ActivityDto> getActivitiesByParams(String name, LocalDateTime from, int page, int size) {
-        if(name != null){
-            return mapperFacade.mapAsList(activityService.findByName(name), ActivityDto.class);
-        }
-        if(from != null) {
-            return mapperFacade.mapAsList(activityService.findByDateAfterThan(from, size, page), ActivityDto.class);
-        }
-        throw new IllegalArgumentException("At least one parameter(from or name) must be in");
+    public Page<ActivityDto> getActivitiesByName(String name, int page, int size) {
+        PageRequest pageRequest = createPageRequestForActivities(page, size);
+        Page<Activity> activities = activityService.findByName(name, pageRequest);
+        return mapPage(activities);
     }
 
     @Override
-    public List<ActivityDto> getActivitiesByBuildingId(Long id, int size, int page) {
-        return mapperFacade.mapAsList(activityService.
-                findByBuildingId(id, PageRequest.of(page, size)).toList(), ActivityDto.class);
+    public Page<ScheduledActivityDto> getActivitiesByDateTime(LocalDateTime from, int page, int size) {
+        PageRequest pageRequest = createPageRequestForActivities(page, size);
+        Page<ScheduledActivity> scheduledActivities = scheduledActivityService.findByDateAfterThan(from, pageRequest);
+        return scheduledActivities.map(activity -> mapper.map(activity, ScheduledActivityDto.class));
+    }
+
+    @Override
+    public Page<ActivityDto> getActivitiesByBuildingId(Long id, int size, int page) {
+
+        PageRequest pageRequest = createPageRequestForActivities(page, size);
+        Page<Activity> activities = activityService.findByBuildingId(id, pageRequest);
+        return mapPage(activities);
     }
 
     @Override
     public ActivityDto getActivityById(Long id) {
-        return mapperFacade.map(activityService.findById(id).orElse(new Activity()), ActivityDto.class);
+        Activity activity = activityService.findById(id);
+        return mapper.map(activity, ActivityDto.class);
     }
 
     @Override
-    public List<ScheduledActivityDto> getActivitySchedule(Long id, int page, int size) {
-        return mapperFacade.mapAsList(activityService.findScheduledById(id, PageRequest.of(page, size)).toList(), ScheduledActivityDto.class);
+    public Page<ScheduledActivityDto> getActivitySchedule(Long id, int page, int size) {
+        PageRequest pageRequest = createPageRequestForActivities(page, size);
+        return null;
+    }
+
+    @Override
+    public ActivityDto getActivityInfoById(Long id) {
+        return null;
+    }
+
+    @Override
+    public Collection<ActivityDto> getActivitiesByIds(Collection<Long> ids) {
+        return null;
+    }
+
+    private PageRequest createPageRequestForActivities(int page, int size) {
+        return PageRequest.of(page, size, Sort.by("id").ascending());
+    }
+
+    private Page<ActivityDto> mapPage(Page<Activity> page) {
+        return page.map(activity -> mapper.map(activity, ActivityDto.class));
     }
 }
