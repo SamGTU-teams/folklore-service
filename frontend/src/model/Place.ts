@@ -1,6 +1,6 @@
 import Tag from "@/model/Tag";
 
-export default interface Building {
+export default interface Place {
   id: number;
   name: string;
   address: string,

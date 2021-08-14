@@ -2,7 +2,7 @@ import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
 import Profile from "@/views/Profile.vue";
 import Afisha from "@/views/Afisha.vue";
 import Main from "@/views/Main.vue";
-import BuildingInfo from "@/views/BuildingInfo.vue";
+import PlaceInfo from "@/views/PlaceInfo.vue";
 import ActivityInfo from "@/views/ActivityInfo.vue";
 
 const routes: Array<RouteRecordRaw> = [
@@ -26,9 +26,9 @@ const routes: Array<RouteRecordRaw> = [
     component: Profile,
   },
   {
-    path: "/object/:id",
-    name: "BuildingInfo",
-    component: BuildingInfo,
+    path: "/place/:id",
+    name: "PlaceInfo",
+    component: PlaceInfo,
     props: true,
   },
   {

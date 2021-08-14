@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from "axios";
 import Tag from "@/model/Tag";
 import Page from "@/model/Page";
-import Building from "@/model/Building";
+import Place from "@/model/Place";
 import Activity from "@/model/Activity";
 
 const axiosApi = axios.create({
@@ -22,7 +22,7 @@ const axiosApi = axios.create({
 });
 
 const tagUrl = "/api/tags";
-const buildingUrl = "/api/folklores";
+const placeUrl = "/api/folklores";
 const activityUrl = "/api/activities";
 
 const tagApi = {
@@ -50,45 +50,45 @@ const tagApi = {
   },
 };
 
-const buildingApi = {
-  getBuildingById(id: number): Promise<AxiosResponse<Building>> {
-    return axios.get(`${buildingUrl}/${id}`);
+const placeApi = {
+  getPlaceById(id: number): Promise<AxiosResponse<Place>> {
+    return axios.get(`${placeUrl}/${id}`);
   },
 
-  getBuildingInfoById(id: number): Promise<AxiosResponse<Building>> {
-    return axios.get(`${buildingUrl}/${id}/info`);
+  getPlaceInfoById(id: number): Promise<AxiosResponse<Place>> {
+    return axios.get(`${placeUrl}/${id}/info`);
   },
 
-  getBuildingsByName(
+  getPlacesByName(
     name: string,
     size: number,
     page: number
-  ): Promise<AxiosResponse<Page<Building>>> {
+  ): Promise<AxiosResponse<Page<Place>>> {
     const params = new URLSearchParams();
     params.set("name", name);
     params.set("size", size.toString());
     params.set("page", page.toString());
-    return axiosApi.get(`${buildingUrl}/search?${params.toString()}`);
+    return axiosApi.get(`${placeUrl}/search?${params.toString()}`);
   },
 
-  getBuildingsByTags(
+  getPlacesByTags(
     tags: Tag[] | null,
     size: number,
     page: number
-  ): Promise<AxiosResponse<Page<Building>>> {
+  ): Promise<AxiosResponse<Page<Place>>> {
     const params = new URLSearchParams();
     params.set("size", size.toString());
     params.set("page", page.toString());
-    return axiosApi.post(`${buildingUrl}?${params.toString()}`, tags);
+    return axiosApi.post(`${placeUrl}?${params.toString()}`, tags);
   },
 
-  getNerbyBuildings(
+  getNerbyPlaces(
     lat: number,
     lon: number,
     size: number,
     page: number
-  ): Promise<AxiosResponse<Page<Building>>> {
-    return this.getBuildingsByTags(null, size, page);
+  ): Promise<AxiosResponse<Page<Place>>> {
+    return this.getPlacesByTags(null, size, page);
   },
 };
 
@@ -101,7 +101,7 @@ const activityApi = {
     return axios.get(`${activityUrl}/${id}/info`);
   },
 
-  getActivitieByName(
+  getActivitiesByName(
     name: string,
     size: number,
     page: number
@@ -125,4 +125,4 @@ const activityApi = {
   },
 };
 
-export { tagApi, buildingApi, activityApi, Tag, Building, Page };
+export { tagApi, placeApi, activityApi, Tag, Place, Page };
