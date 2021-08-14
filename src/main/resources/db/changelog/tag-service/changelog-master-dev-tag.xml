@@ -4,9 +4,7 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
-    <include file="db/changelog/tag-service/changelog-master-dev-tag.xml"/>
+    <include file="db/changelog/tag-service/08-01-init-schema-changelog.xml"/>
 
-    <include file="db/changelog/folklore-service/changelog-master-dev-folklore.xml"/>
-
-    <include file="db/changelog/activity-service/changelog-master-dev-activity.xml"/>
+    <include file="db/changelog/tag-service/09-03-load-data-from-csv.xml"/>
 </databaseChangeLog>
