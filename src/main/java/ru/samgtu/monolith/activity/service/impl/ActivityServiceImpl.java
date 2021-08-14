@@ -3,6 +3,7 @@ package ru.samgtu.monolith.activity.service.impl;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import ru.samgtu.monolith.activity.NoSuchActivityException;
@@ -26,28 +27,32 @@ public class ActivityServiceImpl implements ActivityService {
     private final EntityManager entityManager;
 
     @Override
-    public List<Activity> findByTags(Collection<Tag> tags, Pageable pageable) {
-        return activityRepository.findByTagsIn(tags, pageable).toList();
+    public Page<Activity> findByTags(Collection<Tag> tags, Pageable pageable) {
+        return activityRepository.findByTagsIn(tags, pageable);
     }
 
     @Override
-    public List<Activity> findByDateAfterThan(LocalDateTime from, Pageable pageable) {
+    public Page<Activity> findByDateAfterThan(LocalDateTime from, Pageable pageable) {
 //       ToDo: Check this solution
 
 //        return activityRepository.findByDateAfterThan(from, size, page);
 
-        return entityManager.createNamedQuery("select_by_date_more_than", Activity.class).
+        List<Activity> activities = entityManager.createNamedQuery("select_by_date_more_than", Activity.class).
                 setParameter(1, Timestamp.valueOf(from)).
                 setParameter(2, pageable.getPageSize())
                 .setParameter(3, pageable.getOffset())
                 .getResultList();
+
+        // ToDo: create query to count total activities
+
+        Page<Activity> page = new PageImpl<>(activities, pageable, -1);
+        return page;
     }
 
     @Override
-    public List<Activity> findByName(String name, Pageable pageable) {
+    public Page<Activity> findByName(String name, Pageable pageable) {
         return activityRepository
-                .findByNameStartsWithIgnoreCase(name, pageable)
-                .toList();
+                .findByNameStartsWithIgnoreCase(name, pageable);
     }
 
     @Override

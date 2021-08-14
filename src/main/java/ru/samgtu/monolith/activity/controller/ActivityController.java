@@ -12,7 +12,6 @@ import ru.samgtu.monolith.model.ExceptionInfo;
 import ru.samgtu.monolith.tag.model.dto.TagDto;
 
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -32,7 +31,7 @@ public interface ActivityController {
             @ApiResponse(code = 200, message = ""),
             @ApiResponse(code = 404, message = "", response = ExceptionInfo.class)
     })
-    List<ActivityDto> getActivitiesByTags(@ApiParam(name = "tags", value = "tags")
+    Page<ActivityDto> getActivitiesByTags(@ApiParam(name = "tags", value = "tags")
                                           @RequestBody(required = false) Set<TagDto> tags,
                                           @RequestParam(defaultValue = "0") int page,
                                           @RequestParam(defaultValue = "10") int size);
@@ -43,7 +42,7 @@ public interface ActivityController {
             @ApiResponse(code = 200, message = ""),
             @ApiResponse(code = 404, message = "", response = ExceptionInfo.class)
     })
-    List<ActivityDto> getActivitiesByParams(@RequestParam(required = false) String name,
+    Page<ActivityDto> getActivitiesByParams(@RequestParam(required = false) String name,
                                             @RequestParam(required = false) LocalDateTime from,
                                             @RequestParam(defaultValue = "0") int page,
                                             @RequestParam(defaultValue = "10") int size);
@@ -54,7 +53,7 @@ public interface ActivityController {
             @ApiResponse(code = 200, message = ""),
             @ApiResponse(code = 404, message = "", response = ExceptionInfo.class)
     })
-    List<ActivityDto> getActivitiesByBuildingId(@PathVariable("id") Long id, @RequestParam(defaultValue = "10") int size, @RequestParam(defaultValue = "0") int page);
+    Page<ActivityDto> getActivitiesByBuildingId(@PathVariable("id") Long id, @RequestParam(defaultValue = "10") int size, @RequestParam(defaultValue = "0") int page);
 
     @GetMapping("/{id}")
     @ApiOperation(value = "Get activity by id")

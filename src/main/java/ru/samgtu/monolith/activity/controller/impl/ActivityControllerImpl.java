@@ -16,7 +16,6 @@ import ru.samgtu.monolith.tag.model.dto.TagDto;
 import ru.samgtu.monolith.tag.model.persistence.Tag;
 
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Set;
 
 import static java.util.Objects.isNull;
@@ -35,46 +34,46 @@ import static java.util.Objects.nonNull;
 public class ActivityControllerImpl implements ActivityController {
     private final ActivityService activityService;
 
-    private final MapperFacade mapperFacade;
+    private final MapperFacade mapper;
 
     @Override
-    public List<ActivityDto> getActivitiesByTags(Set<TagDto> tagsDto, int page, int size) {
-        List<Activity> activities;
+    public Page<ActivityDto> getActivitiesByTags(Set<TagDto> tagsDto, int page, int size) {
+        Page<Activity> activities;
         PageRequest pageRequest = PageRequest.of(page, size);
         if (isNull(tagsDto)) {
-            activities = activityService.getActivities(pageRequest).getContent();
+            activities = activityService.getActivities(pageRequest);
         } else {
-            Set<Tag> tags = mapperFacade.mapAsSet(tagsDto, Tag.class);
+            Set<Tag> tags = mapper.mapAsSet(tagsDto, Tag.class);
             activities = activityService.findByTags(tags, pageRequest);
         }
-        return mapperFacade.mapAsList(activities, ActivityDto.class);
+        return mapPage(activities);
     }
 
     @Override
-    public List<ActivityDto> getActivitiesByParams(String name, LocalDateTime from, int page, int size) {
+    public Page<ActivityDto> getActivitiesByParams(String name, LocalDateTime from, int page, int size) {
         PageRequest pageRequest = PageRequest.of(page, size);
         if (nonNull(name)) {
-            List<Activity> activities = activityService.findByName(name, pageRequest);
-            return mapperFacade.mapAsList(activities, ActivityDto.class);
+            Page<Activity> activities = activityService.findByName(name, pageRequest);
+            return mapPage(activities);
         }
         if (nonNull(from)) {
-            List<Activity> activities = activityService.findByDateAfterThan(from, pageRequest);
-            return mapperFacade.mapAsList(activities, ActivityDto.class);
+            Page<Activity> activities = activityService.findByDateAfterThan(from, pageRequest);
+            return mapPage(activities);
         }
         throw new IllegalArgumentException("At least one parameter(from or name) must be in");
     }
 
     @Override
-    public List<ActivityDto> getActivitiesByBuildingId(Long id, int size, int page) {
+    public Page<ActivityDto> getActivitiesByBuildingId(Long id, int size, int page) {
         PageRequest pageRequest = PageRequest.of(page, size);
         Page<Activity> activities = activityService.findByBuildingId(id, pageRequest);
-        return mapperFacade.mapAsList(activities.toList(), ActivityDto.class);
+        return mapPage(activities);
     }
 
     @Override
     public ActivityDto getActivityById(Long id) {
         Activity activity = activityService.findById(id);
-        return mapperFacade.map(activity, ActivityDto.class);
+        return mapper.map(activity, ActivityDto.class);
     }
 
     @Override
@@ -85,5 +84,9 @@ public class ActivityControllerImpl implements ActivityController {
     @Override
     public ActivityDto getActivityInfoById(Long id) {
         return null;
+    }
+
+    private Page<ActivityDto> mapPage(Page<Activity> page) {
+        return page.map(activity -> mapper.map(activity, ActivityDto.class));
     }
 }
