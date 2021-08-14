@@ -1,4 +1,6 @@
 server.port: ${PORT:8082}
+# Activity properties
+activity.status.rate: 300000
 settings.cors_origin: ${CORS_ORIGINS:*}
 spring:
     application.name: folklore-service
@@ -23,3 +25,4 @@ logging:
         org:
             hibernate:
                 SQL: DEBUG
+activity.status.rate: 30000
