@@ -4,6 +4,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import ru.samgtu.monolith.tag.model.persistence.Tag;
 
+import java.util.Collection;
+
 /**
  * Creation date: 07.08.2021
  *
@@ -17,4 +19,6 @@ public interface TagService {
                             Pageable pageable);
 
     Tag getTagById(Long id);
+
+    Collection<Tag> getTagsByIds(Collection<Long> ids);
 }

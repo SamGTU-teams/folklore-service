@@ -10,6 +10,9 @@ import ru.samgtu.monolith.tag.model.persistence.Tag;
 import ru.samgtu.monolith.tag.repository.TagRepository;
 import ru.samgtu.monolith.tag.service.TagService;
 
+import java.util.Collection;
+import java.util.List;
+
 /**
  * Creation date: 07.08.2021
  *
@@ -41,5 +44,10 @@ public class TagServiceImpl implements TagService {
                     log.warn("Tag with id = {} does not exists", id);
                     return new NoSuchTagException("Tag does not exists");
                 });
+    }
+
+    @Override
+    public List<Tag> getTagsByIds(Collection<Long> ids) {
+        return repository.findAllById(ids);
     }
 }

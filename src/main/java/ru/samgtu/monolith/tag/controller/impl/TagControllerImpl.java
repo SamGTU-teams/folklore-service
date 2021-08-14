@@ -12,6 +12,8 @@ import ru.samgtu.monolith.tag.model.dto.TagDto;
 import ru.samgtu.monolith.tag.model.persistence.Tag;
 import ru.samgtu.monolith.tag.service.TagService;
 
+import java.util.Collection;
+
 /**
  * Creation date: 07.08.2021
  *
@@ -47,6 +49,12 @@ public class TagControllerImpl implements TagController {
     public TagDto getTagById(Long id) {
         Tag tag = service.getTagById(id);
         return mapper.map(tag, TagDto.class);
+    }
+
+    @Override
+    public Collection<TagDto> getTagsByIds(Collection<Long> ids) {
+        Collection<Tag> tags = service.getTagsByIds(ids);
+        return mapper.mapAsList(tags, TagDto.class);
     }
 
     private PageRequest createPageRequest(int page, int size) {
