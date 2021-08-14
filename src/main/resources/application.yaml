@@ -26,3 +26,7 @@ logging:
             hibernate:
                 SQL: DEBUG
 activity.status.rate: 30000
+---
+spring:
+    config.activate.on-profile: test
+    liquibase.change-log: classpath:db/changelog/changelog-master-test.xml
