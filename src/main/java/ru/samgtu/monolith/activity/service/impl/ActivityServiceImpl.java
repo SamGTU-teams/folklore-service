@@ -3,11 +3,14 @@ package ru.samgtu.monolith.activity.service.impl;
 import lombok.AllArgsConstructor;
 import ma.glasnost.orika.MapperFacade;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import ru.samgtu.monolith.activity.model.dto.ScheduledActivityDto;
 import ru.samgtu.monolith.activity.model.persistence.Activity;
 import ru.samgtu.monolith.activity.model.persistence.ScheduledActivity;
 import ru.samgtu.monolith.activity.repository.ActivityRepository;
+import ru.samgtu.monolith.activity.repository.ScheduledActivityRepository;
 import ru.samgtu.monolith.activity.service.ActivityService;
 import ru.samgtu.monolith.tag.model.dto.TagDto;
 import ru.samgtu.monolith.tag.model.persistence.Tag;
@@ -27,6 +30,7 @@ public class ActivityServiceImpl implements ActivityService {
 
     private final ActivityRepository activityRepository;
     private final EntityManager entityManager;
+    private final ScheduledActivityRepository scheduledActivityRepository;
 
     @Override
     public List<Activity> findByTags(Collection<Tag> tags, Pageable pageable){
@@ -53,6 +57,11 @@ public class ActivityServiceImpl implements ActivityService {
     @Override
     public Page<Activity> findByBuildingId(Long id, Pageable pageable) {
         return activityRepository.findAllByBuildingId(id, pageable);
+    }
+
+    @Override
+    public Page<ScheduledActivity> findScheduledById(Long id, Pageable of) {
+        return scheduledActivityRepository.findByActivityId(id, of);
     }
 
 }

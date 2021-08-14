@@ -1,7 +1,9 @@
 package ru.samgtu.monolith.activity.service;
 
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import ru.samgtu.monolith.activity.model.dto.ScheduledActivityDto;
 import ru.samgtu.monolith.activity.model.persistence.Activity;
 import ru.samgtu.monolith.activity.model.persistence.ScheduledActivity;
 import ru.samgtu.monolith.tag.model.dto.TagDto;
@@ -29,4 +31,6 @@ public interface ActivityService {
     Optional<Activity> findById(Long id);
 
     Page<Activity> findByBuildingId(Long id, Pageable pageable);
+
+    Page<ScheduledActivity> findScheduledById(Long id, Pageable of);
 }

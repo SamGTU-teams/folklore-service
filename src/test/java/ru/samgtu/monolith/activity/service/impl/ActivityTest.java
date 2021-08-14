@@ -3,6 +3,7 @@ package ru.samgtu.monolith.activity.service.impl;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 import ru.samgtu.monolith.activity.model.persistence.Activity;
@@ -32,6 +33,12 @@ public class ActivityTest {
         System.out.println();
         List<Activity> result = activityService.findByDateAfterThan(LocalDateTime.now(), 2, 1);
         assertEquals(result.size(), 2);
+    }
+
+    @Test
+    public void testScheduledActivity(){
+        List<ScheduledActivity> activities = activityService.findScheduledById(1L, PageRequest.of(0, 10)).toList();
+        System.out.println();
     }
 
 }

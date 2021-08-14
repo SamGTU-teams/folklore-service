@@ -72,7 +72,7 @@ public interface ActivityController {
             @ApiResponse(code = 200, message = ""),
             @ApiResponse(code = 404, message = "", response = ExceptionInfo.class)
     })
-    Page<ScheduledActivityDto> getActivitySchedule(@PathVariable("id") Long id,
+    List<ScheduledActivityDto> getActivitySchedule(@PathVariable("id") Long id,
                                                    @RequestParam(defaultValue = "0") int page,
                                                    @RequestParam(defaultValue = "10") int size);
 }

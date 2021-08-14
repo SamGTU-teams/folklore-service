@@ -63,7 +63,7 @@ public class ActivityControllerImpl implements ActivityController {
     }
 
     @Override
-    public Page<ScheduledActivityDto> getActivitySchedule(Long id, int page, int size) {
-        return null;
+    public List<ScheduledActivityDto> getActivitySchedule(Long id, int page, int size) {
+        return mapperFacade.mapAsList(activityService.findScheduledById(id, PageRequest.of(page, size)).toList(), ScheduledActivityDto.class);
     }
 }
