@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import ma.glasnost.orika.MapperFacade;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RestController;
 import ru.samgtu.monolith.activity.controller.ActivityController;
@@ -39,7 +40,7 @@ public class ActivityControllerImpl implements ActivityController {
     @Override
     public Page<ActivityDto> getActivitiesByTags(Set<TagDto> tagsDto, int page, int size) {
         Page<Activity> activities;
-        PageRequest pageRequest = PageRequest.of(page, size);
+        PageRequest pageRequest = createPageRequestForActivities(size, page);
         if (isNull(tagsDto)) {
             activities = activityService.getActivities(pageRequest);
         } else {
@@ -51,7 +52,7 @@ public class ActivityControllerImpl implements ActivityController {
 
     @Override
     public Page<ActivityDto> getActivitiesByParams(String name, LocalDateTime from, int page, int size) {
-        PageRequest pageRequest = PageRequest.of(page, size);
+        PageRequest pageRequest = createPageRequestForActivities(size, page);
         if (nonNull(name)) {
             Page<Activity> activities = activityService.findByName(name, pageRequest);
             return mapPage(activities);
@@ -65,7 +66,7 @@ public class ActivityControllerImpl implements ActivityController {
 
     @Override
     public Page<ActivityDto> getActivitiesByBuildingId(Long id, int size, int page) {
-        PageRequest pageRequest = PageRequest.of(page, size);
+        PageRequest pageRequest = createPageRequestForActivities(size, page);
         Page<Activity> activities = activityService.findByBuildingId(id, pageRequest);
         return mapPage(activities);
     }
@@ -84,6 +85,10 @@ public class ActivityControllerImpl implements ActivityController {
     @Override
     public ActivityDto getActivityInfoById(Long id) {
         return null;
+    }
+
+    private PageRequest createPageRequestForActivities(int page, int size) {
+        return PageRequest.of(page, size, Sort.by("id").ascending());
     }
 
     private Page<ActivityDto> mapPage(Page<Activity> page) {
