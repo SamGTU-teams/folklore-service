@@ -16,32 +16,38 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
-import java.util.Optional;
-import java.util.Set;
 
 @Service
 @AllArgsConstructor
 @Slf4j
 public class ActivityServiceImpl implements ActivityService {
-
     private final ActivityRepository activityRepository;
+
     private final EntityManager entityManager;
 
     @Override
-    public List<Activity> findByTags(Collection<Tag> tags, Pageable pageable){
+    public List<Activity> findByTags(Collection<Tag> tags, Pageable pageable) {
         return activityRepository.findByTagsIn(tags, pageable).toList();
     }
 
     @Override
-    public List<Activity> findByDateAfterThan(LocalDateTime from, int size, int page){
+    public List<Activity> findByDateAfterThan(LocalDateTime from, Pageable pageable) {
+//       ToDo: Check this solution
+
+//        return activityRepository.findByDateAfterThan(from, size, page);
+
         return entityManager.createNamedQuery("select_by_date_more_than", Activity.class).
                 setParameter(1, Timestamp.valueOf(from)).
-                setParameter(2, size).setParameter(3, (page - 1) * size).getResultList();
+                setParameter(2, pageable.getPageSize())
+                .setParameter(3, pageable.getOffset())
+                .getResultList();
     }
 
     @Override
-    public List<Activity> findByName(String name){
-        return activityRepository.findByNameStartsWithIgnoreCase(name);
+    public List<Activity> findByName(String name, Pageable pageable) {
+        return activityRepository
+                .findByNameStartsWithIgnoreCase(name, pageable)
+                .toList();
     }
 
     @Override
@@ -58,4 +64,8 @@ public class ActivityServiceImpl implements ActivityService {
         return activityRepository.findAllByBuildingId(id, pageable);
     }
 
+    @Override
+    public Page<Activity> getActivities(Pageable pageable) {
+        return activityRepository.findAll(pageable);
+    }
 }

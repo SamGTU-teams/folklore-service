@@ -8,7 +8,6 @@ import ru.samgtu.monolith.tag.model.persistence.Tag;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Creation date: 12.08.2021
@@ -20,11 +19,13 @@ public interface ActivityService {
 
     List<Activity> findByTags(Collection<Tag> tags, Pageable pageable);
 
-    List<Activity> findByDateAfterThan(LocalDateTime from, int size, int page);
+    List<Activity> findByDateAfterThan(LocalDateTime from, Pageable pageable);
 
-    List<Activity> findByName(String name);
+    List<Activity> findByName(String name, Pageable pageable);
 
     Activity findById(Long id);
 
     Page<Activity> findByBuildingId(Long id, Pageable pageable);
+
+    Page<Activity> getActivities(Pageable pageable);
 }

@@ -19,6 +19,9 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 
+import static java.util.Objects.isNull;
+import static java.util.Objects.nonNull;
+
 /**
  * Creation date: 11.08.2021
  *
@@ -30,31 +33,42 @@ import java.util.Set;
 @Slf4j
 @Validated
 public class ActivityControllerImpl implements ActivityController {
-
     private final ActivityService activityService;
+
     private final MapperFacade mapperFacade;
 
     @Override
-    public List<ActivityDto> getActivitiesByTags(Set<TagDto> tags, int page, int size) {
-        Set<Tag> input = mapperFacade.mapAsSet(tags, Tag.class);
-        return mapperFacade.mapAsList(activityService.findByTags(input, PageRequest.of(page, size)), ActivityDto.class);
+    public List<ActivityDto> getActivitiesByTags(Set<TagDto> tagsDto, int page, int size) {
+        List<Activity> activities;
+        PageRequest pageRequest = PageRequest.of(page, size);
+        if (isNull(tagsDto)) {
+            activities = activityService.getActivities(pageRequest).getContent();
+        } else {
+            Set<Tag> tags = mapperFacade.mapAsSet(tagsDto, Tag.class);
+            activities = activityService.findByTags(tags, pageRequest);
+        }
+        return mapperFacade.mapAsList(activities, ActivityDto.class);
     }
 
     @Override
     public List<ActivityDto> getActivitiesByParams(String name, LocalDateTime from, int page, int size) {
-        if(name != null){
-            return mapperFacade.mapAsList(activityService.findByName(name), ActivityDto.class);
+        PageRequest pageRequest = PageRequest.of(page, size);
+        if (nonNull(name)) {
+            List<Activity> activities = activityService.findByName(name, pageRequest);
+            return mapperFacade.mapAsList(activities, ActivityDto.class);
         }
-        if(from != null) {
-            return mapperFacade.mapAsList(activityService.findByDateAfterThan(from, size, page), ActivityDto.class);
+        if (nonNull(from)) {
+            List<Activity> activities = activityService.findByDateAfterThan(from, pageRequest);
+            return mapperFacade.mapAsList(activities, ActivityDto.class);
         }
         throw new IllegalArgumentException("At least one parameter(from or name) must be in");
     }
 
     @Override
     public List<ActivityDto> getActivitiesByBuildingId(Long id, int size, int page) {
-        return mapperFacade.mapAsList(activityService.
-                findByBuildingId(id, PageRequest.of(page, size)).toList(), ActivityDto.class);
+        PageRequest pageRequest = PageRequest.of(page, size);
+        Page<Activity> activities = activityService.findByBuildingId(id, pageRequest);
+        return mapperFacade.mapAsList(activities.toList(), ActivityDto.class);
     }
 
     @Override
