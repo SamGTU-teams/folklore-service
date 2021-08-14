@@ -6,9 +6,13 @@
 - Maven 3
 - PostgreSQL 10+
 
+## Build application
+
+`mvn install`
+
 ## Run application
 
-`mvn spring-boot:run`
+`mvn --projects backend spring-boot:run`
 
 ## Run tests
 
