@@ -31,7 +31,7 @@ public class ActivityConfiguration {
     }
 
     @Bean
-    public MapperFactory mapperFactory(){
+    public MapperFactory mapperFactory() {
         return new DefaultMapperFactory.Builder().build();
     }
 }

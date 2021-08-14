@@ -20,9 +20,9 @@ public class ActivityMappingTest {
     ActivityController controller;
 
     @Test
-    void testDtoMapping(){
+    void testDtoMapping() {
         List<ActivityDto> activityDtos = controller.
-                getActivitiesByParams(null, LocalDateTime.of(LocalDate.of(2021, 1, 1), LocalTime.of(11, 0)), 1, 2);
+                getActivitiesByParams(null, LocalDateTime.of(2021, 1, 1, 11, 0), 1, 2);
         System.out.println();
     }
 

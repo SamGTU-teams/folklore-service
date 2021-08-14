@@ -44,9 +44,9 @@ public interface ActivityController {
             @ApiResponse(code = 404, message = "", response = ExceptionInfo.class)
     })
     List<ActivityDto> getActivitiesByParams(@RequestParam(required = false) String name,
-                                                  @RequestParam(required = false) LocalDateTime from,
-                                                  @RequestParam(defaultValue = "0") int page,
-                                                  @RequestParam(defaultValue = "10") int size);
+                                            @RequestParam(required = false) LocalDateTime from,
+                                            @RequestParam(defaultValue = "0") int page,
+                                            @RequestParam(defaultValue = "10") int size);
 
     @GetMapping("/building/{id}")
     @ApiOperation(value = "Get activities by building id")
