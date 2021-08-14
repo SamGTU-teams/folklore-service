@@ -11,7 +11,7 @@ import java.util.Collection;
 import java.util.List;
 
 public interface ActivityRepository extends JpaRepository<Activity, Long> {
-    List<Activity> findByNameStartsWithIgnoreCase(String name);
+    Page<Activity> findByNameStartsWithIgnoreCase(String name, Pageable pageable);
 
     Page<Activity> findAllByBuildingId(Long id, Pageable pageable);
 
