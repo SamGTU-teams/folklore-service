@@ -15,7 +15,6 @@ import ru.samgtu.monolith.folklore.service.FolkloreService;
 import ru.samgtu.monolith.tag.model.dto.TagDto;
 import ru.samgtu.monolith.tag.model.persistence.Tag;
 
-import java.lang.reflect.Type;
 import java.util.Set;
 
 import static java.util.Objects.isNull;
