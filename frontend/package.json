@@ -13,6 +13,7 @@
     "test": "vue-cli-service test:unit && vue-cli-service test:e2e"
   },
   "dependencies": {
+    "2gis-maps": "^3.6.6",
     "axios": "0.21.1",
     "bootstrap": "5.1.0",
     "core-js": "^3.6.5",
