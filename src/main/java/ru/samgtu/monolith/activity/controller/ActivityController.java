@@ -1,5 +1,6 @@
 package ru.samgtu.monolith.activity.controller;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
@@ -8,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 import ru.samgtu.monolith.activity.model.dto.ActivityDto;
 import ru.samgtu.monolith.activity.model.dto.ScheduledActivityDto;
+import ru.samgtu.monolith.config.JacksonViews;
 import ru.samgtu.monolith.model.ExceptionInfo;
 import ru.samgtu.monolith.tag.model.dto.TagDto;
 
@@ -31,6 +33,7 @@ public interface ActivityController {
             @ApiResponse(code = 200, message = ""),
             @ApiResponse(code = 404, message = "", response = ExceptionInfo.class)
     })
+    @JsonView(JacksonViews.DataWithoutLob.class)
     Page<ActivityDto> getActivitiesByTags(@ApiParam(name = "tags", value = "tags")
                                           @RequestBody(required = false) Set<TagDto> tags,
                                           @RequestParam(defaultValue = "0") int page,
@@ -42,6 +45,7 @@ public interface ActivityController {
             @ApiResponse(code = 200, message = ""),
             @ApiResponse(code = 404, message = "", response = ExceptionInfo.class)
     })
+    @JsonView(JacksonViews.DataWithoutLob.class)
     Page<ActivityDto> getActivitiesByParams(@RequestParam(required = false) String name,
                                             @RequestParam(required = false) LocalDateTime from,
                                             @RequestParam(defaultValue = "0") int page,
@@ -53,6 +57,7 @@ public interface ActivityController {
             @ApiResponse(code = 200, message = ""),
             @ApiResponse(code = 404, message = "", response = ExceptionInfo.class)
     })
+    @JsonView(JacksonViews.DataWithoutLob.class)
     Page<ActivityDto> getActivitiesByBuildingId(@PathVariable("id") Long id, @RequestParam(defaultValue = "10") int size, @RequestParam(defaultValue = "0") int page);
 
     @GetMapping("/{id}")
@@ -61,6 +66,7 @@ public interface ActivityController {
             @ApiResponse(code = 200, message = ""),
             @ApiResponse(code = 404, message = "", response = ExceptionInfo.class)
     })
+    @JsonView(JacksonViews.DataWithoutLob.class)
     ActivityDto getActivityById(@PathVariable("id") Long id);
 
     @GetMapping("/{id}/info")
@@ -69,6 +75,7 @@ public interface ActivityController {
             @ApiResponse(code = 200, message = ""),
             @ApiResponse(code = 404, message = "", response = ExceptionInfo.class)
     })
+    @JsonView(JacksonViews.DataWithLob.class)
     ActivityDto getActivityInfoById(@PathVariable("id") Long id);
 
     @GetMapping("/{id}/scheduled")
@@ -77,6 +84,7 @@ public interface ActivityController {
             @ApiResponse(code = 200, message = ""),
             @ApiResponse(code = 404, message = "", response = ExceptionInfo.class)
     })
+    @JsonView(JacksonViews.DataWithoutLob.class)
     Page<ScheduledActivityDto> getActivitySchedule(@PathVariable("id") Long id,
                                                    @RequestParam(defaultValue = "0") int page,
                                                    @RequestParam(defaultValue = "10") int size);

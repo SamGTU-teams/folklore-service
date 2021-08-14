@@ -1,11 +1,13 @@
 package ru.samgtu.monolith.folklore.controller;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
+import ru.samgtu.monolith.config.JacksonViews;
 import ru.samgtu.monolith.folklore.model.dto.BuildingDto;
 import ru.samgtu.monolith.model.ExceptionInfo;
 import ru.samgtu.monolith.tag.model.dto.TagDto;
@@ -30,6 +32,7 @@ public interface FolkloreController {
             @ApiResponse(code = 200, message = ""),
             @ApiResponse(code = 404, message = "", response = ExceptionInfo.class)
     })
+    @JsonView(JacksonViews.DataWithoutLob.class)
     Page<BuildingDto> getBuildingsByTags(@ApiParam(name = "tags", value = "tags")
                                          @RequestBody(required = false) Set<TagDto> tags,
                                          @RequestParam(defaultValue = "0") int page,
@@ -41,6 +44,7 @@ public interface FolkloreController {
             @ApiResponse(code = 200, message = ""),
             @ApiResponse(code = 404, message = "", response = ExceptionInfo.class)
     })
+    @JsonView(JacksonViews.DataWithoutLob.class)
     Page<BuildingDto> getBuildingsByName(@RequestParam String name,
                                          @RequestParam(defaultValue = "0") int page,
                                          @RequestParam(defaultValue = "10") int size);
@@ -51,6 +55,7 @@ public interface FolkloreController {
             @ApiResponse(code = 200, message = "", response = BuildingDto.class),
             @ApiResponse(code = 404, message = "", response = ExceptionInfo.class)
     })
+    @JsonView(JacksonViews.DataWithoutLob.class)
     BuildingDto getBuildingById(@PathVariable("id") Long id);
 
     @GetMapping("/{id}/info")
@@ -59,5 +64,6 @@ public interface FolkloreController {
             @ApiResponse(code = 200, message = "", response = BuildingDto.class),
             @ApiResponse(code = 404, message = "", response = ExceptionInfo.class),
     })
+    @JsonView(JacksonViews.DataWithLob.class)
     BuildingDto getBuildingInfoById(@PathVariable("id") Long id);
 }
