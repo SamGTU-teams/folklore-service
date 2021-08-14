@@ -59,7 +59,8 @@ public class ActivityControllerImpl implements ActivityController {
 
     @Override
     public ActivityDto getActivityById(Long id) {
-        return mapperFacade.map(activityService.findById(id).orElse(new Activity()), ActivityDto.class);
+        Activity activity = activityService.findById(id);
+        return mapperFacade.map(activity, ActivityDto.class);
     }
 
     @Override

@@ -24,7 +24,7 @@ public interface ActivityService {
 
     List<Activity> findByName(String name);
 
-    Optional<Activity> findById(Long id);
+    Activity findById(Long id);
 
     Page<Activity> findByBuildingId(Long id, Pageable pageable);
 }

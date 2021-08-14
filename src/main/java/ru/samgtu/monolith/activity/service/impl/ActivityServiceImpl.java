@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import ru.samgtu.monolith.activity.NoSuchActivityException;
 import ru.samgtu.monolith.activity.model.persistence.Activity;
 import ru.samgtu.monolith.activity.repository.ActivityRepository;
 import ru.samgtu.monolith.activity.service.ActivityService;
@@ -44,8 +45,12 @@ public class ActivityServiceImpl implements ActivityService {
     }
 
     @Override
-    public Optional<Activity> findById(Long id) {
-        return activityRepository.findById(id);
+    public Activity findById(Long id) {
+        return activityRepository.findById(id)
+                .orElseThrow(() -> {
+                    log.warn("Activity with id = {} does not exists", id);
+                    throw new NoSuchActivityException("Activity does not exists");
+                });
     }
 
     @Override
