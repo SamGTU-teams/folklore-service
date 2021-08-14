@@ -19,6 +19,7 @@ import ru.samgtu.monolith.tag.model.dto.TagDto;
 import ru.samgtu.monolith.tag.model.persistence.Tag;
 
 import java.time.LocalDateTime;
+import java.util.Collection;
 import java.util.Set;
 
 import static java.util.Objects.isNull;
@@ -98,6 +99,11 @@ public class ActivityControllerImpl implements ActivityController {
 
     @Override
     public ActivityDto getActivityInfoById(Long id) {
+        return null;
+    }
+
+    @Override
+    public Collection<ActivityDto> getActivitiesByIds(Collection<Long> ids) {
         return null;
     }
 

@@ -14,6 +14,7 @@ import ru.samgtu.monolith.model.ExceptionInfo;
 import ru.samgtu.monolith.tag.model.dto.TagDto;
 
 import java.time.LocalDateTime;
+import java.util.Collection;
 import java.util.Set;
 
 /**
@@ -89,4 +90,13 @@ public interface ActivityController {
     Page<ScheduledActivityDto> getActivitySchedule(@PathVariable("id") Long id,
                                                    @RequestParam(defaultValue = "0") int page,
                                                    @RequestParam(defaultValue = "10") int size);
+
+    @PostMapping("/ids")
+    @ApiOperation(value = "Get activities by ids")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = ""),
+            @ApiResponse(code = 404, message = "", response = ExceptionInfo.class)
+    })
+    @JsonView(JacksonViews.DataWithoutLob.class)
+    Collection<ActivityDto> getActivitiesByIds(@RequestBody Collection<Long> ids);
 }
