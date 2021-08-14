@@ -2,9 +2,10 @@ package ru.samgtu.monolith.activity.converter;
 
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
-import static java.time.LocalDateTime.parse;
 
 import java.time.LocalDateTime;
+
+import static java.time.LocalDateTime.parse;
 @Component
 public class StringToLocalDateTimeConverter implements Converter<String, LocalDateTime> {
 
