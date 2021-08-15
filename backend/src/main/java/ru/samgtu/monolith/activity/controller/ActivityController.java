@@ -28,16 +28,17 @@ public interface ActivityController {
     String MAPPING = "api/activities";
 
     @GetMapping
-    @ApiOperation(value = "Get activities by tags")
+    @ApiOperation(value = "Get activities by tags",
+            notes = "If tags is null returns all activities")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = ""),
             @ApiResponse(code = 404, message = "", response = ExceptionInfo.class)
     })
     @JsonView(JacksonViews.DataWithoutLob.class)
-    Page<ActivityDto> getActivitiesByTags(@ApiParam(name = "tags", value = "tags")
-                                          @RequestBody(required = false) Set<TagDto> tags,
-                                          @RequestParam(defaultValue = "0") int page,
-                                          @RequestParam(defaultValue = "10") int size);
+    Page<ActivityDto> findActivitiesByTags(@ApiParam(name = "tags", value = "tags")
+                                           @RequestBody(required = false) Set<TagDto> tags,
+                                           @RequestParam(defaultValue = "0") int page,
+                                           @RequestParam(defaultValue = "10") int size);
 
     @GetMapping("/search")
     @ApiOperation(value = "Get activities by name")
@@ -46,9 +47,9 @@ public interface ActivityController {
             @ApiResponse(code = 404, message = "", response = ExceptionInfo.class)
     })
     @JsonView(JacksonViews.DataWithoutLob.class)
-    Page<ActivityDto> getActivitiesByName(@RequestParam String name,
-                                          @RequestParam(defaultValue = "0") int page,
-                                          @RequestParam(defaultValue = "10") int size);
+    Page<ActivityDto> findActivitiesByName(@RequestParam String name,
+                                           @RequestParam(defaultValue = "0") int page,
+                                           @RequestParam(defaultValue = "10") int size);
 
     @GetMapping("/building/{id}")
     @ApiOperation(value = "Get activities by building id")
@@ -57,7 +58,9 @@ public interface ActivityController {
             @ApiResponse(code = 404, message = "", response = ExceptionInfo.class)
     })
     @JsonView(JacksonViews.DataWithoutLob.class)
-    Page<ActivityDto> getActivitiesByBuildingId(@PathVariable("id") Long id, @RequestParam(defaultValue = "10") int size, @RequestParam(defaultValue = "0") int page);
+    Page<ActivityDto> findActivitiesByBuildingId(@PathVariable("id") Long id,
+                                                 @RequestParam(defaultValue = "10") int size,
+                                                 @RequestParam(defaultValue = "0") int page);
 
     @GetMapping("/{id}")
     @ApiOperation(value = "Get activity by id")
@@ -66,7 +69,7 @@ public interface ActivityController {
             @ApiResponse(code = 404, message = "", response = ExceptionInfo.class)
     })
     @JsonView(JacksonViews.DataWithoutLob.class)
-    ActivityDto getActivityById(@PathVariable("id") Long id);
+    ActivityDto findActivityById(@PathVariable("id") Long id);
 
     @GetMapping("/{id}/info")
     @ApiOperation(value = "Get activity info by id")
@@ -75,19 +78,19 @@ public interface ActivityController {
             @ApiResponse(code = 404, message = "", response = ExceptionInfo.class)
     })
     @JsonView(JacksonViews.DataWithLob.class)
-    ActivityDto getActivityInfoById(@PathVariable("id") Long id);
+    ActivityDto findActivityInfoById(@PathVariable("id") Long id);
 
 
     @GetMapping("/{id}/scheduled")
-    @ApiOperation(value = "Get activity schedule")
+    @ApiOperation(value = "Get scheduled activities by id")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = ""),
             @ApiResponse(code = 404, message = "", response = ExceptionInfo.class)
     })
     @JsonView(JacksonViews.DataWithoutLob.class)
-    Page<ScheduledActivityDto> getActivitySchedule(@PathVariable("id") Long id,
-                                                   @RequestParam(defaultValue = "0") int page,
-                                                   @RequestParam(defaultValue = "10") int size);
+    Page<ScheduledActivityDto> findScheduledActivitiesByActivityId(@PathVariable("id") Long id,
+                                                                   @RequestParam(defaultValue = "0") int page,
+                                                                   @RequestParam(defaultValue = "10") int size);
 
     @GetMapping("/search/date")
     @ApiOperation(value = "Get activity by date")
@@ -96,7 +99,7 @@ public interface ActivityController {
             @ApiResponse(code = 404, message = "", response = ExceptionInfo.class)
     })
     @JsonView(JacksonViews.DataWithoutLob.class)
-    Page<ScheduledActivityDto> getActivitiesByDateTime(@RequestParam LocalDateTime from, int page, int size);
+    Page<ScheduledActivityDto> findActivitiesByDateTime(@RequestParam LocalDateTime from, int page, int size);
 
 
     @PostMapping("/ids")
@@ -106,5 +109,5 @@ public interface ActivityController {
             @ApiResponse(code = 404, message = "", response = ExceptionInfo.class)
     })
     @JsonView(JacksonViews.DataWithoutLob.class)
-    Collection<ActivityDto> getActivitiesByIds(@RequestBody Collection<Long> ids);
+    Collection<ActivityDto> findActivitiesByIds(@RequestBody Collection<Long> ids);
 }

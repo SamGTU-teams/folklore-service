@@ -12,6 +12,7 @@ import ru.samgtu.monolith.activity.controller.ActivityController;
 import ru.samgtu.monolith.activity.model.dto.ActivityDto;
 import ru.samgtu.monolith.activity.model.dto.ScheduledActivityDto;
 import ru.samgtu.monolith.activity.model.persistence.Activity;
+import ru.samgtu.monolith.activity.model.persistence.ActivityLob;
 import ru.samgtu.monolith.activity.model.persistence.ScheduledActivity;
 import ru.samgtu.monolith.activity.service.ActivityService;
 import ru.samgtu.monolith.activity.service.ScheduledActivityService;
@@ -42,60 +43,60 @@ public class ActivityControllerImpl implements ActivityController {
     private final MapperFacade mapper;
 
     @Override
-    public Page<ActivityDto> getActivitiesByTags(Set<TagDto> tagsDto, int page, int size) {
+    public Page<ActivityDto> findActivitiesByTags(Set<TagDto> tagsDto, int page, int size) {
         Page<Activity> activities;
         PageRequest pageRequest = createPageRequestForActivities(size, page);
         if (isNull(tagsDto)) {
             activities = activityService.getActivities(pageRequest);
         } else {
             Set<Tag> tags = mapper.mapAsSet(tagsDto, Tag.class);
-            activities = activityService.findByTags(tags, pageRequest);
+            activities = activityService.findActivitiesByTags(tags, pageRequest);
         }
         return mapPage(activities);
     }
 
     @Override
-    public Page<ActivityDto> getActivitiesByName(String name, int page, int size) {
+    public Page<ActivityDto> findActivitiesByName(String name, int page, int size) {
         PageRequest pageRequest = createPageRequestForActivities(page, size);
-        Page<Activity> activities = activityService.findByName(name, pageRequest);
+        Page<Activity> activities = activityService.findActivitiesByName(name, pageRequest);
         return mapPage(activities);
     }
 
     @Override
-    public Page<ScheduledActivityDto> getActivitiesByDateTime(LocalDateTime from, int page, int size) {
+    public Page<ScheduledActivityDto> findActivitiesByDateTime(LocalDateTime from, int page, int size) {
         PageRequest pageRequest = createPageRequestForActivities(page, size);
         Page<ScheduledActivity> scheduledActivities = scheduledActivityService.findByDateAfterThan(from, pageRequest);
         return scheduledActivities.map(activity -> mapper.map(activity, ScheduledActivityDto.class));
     }
 
     @Override
-    public Page<ActivityDto> getActivitiesByBuildingId(Long id, int size, int page) {
-
+    public Page<ActivityDto> findActivitiesByBuildingId(Long id, int size, int page) {
         PageRequest pageRequest = createPageRequestForActivities(page, size);
-        Page<Activity> activities = activityService.findByBuildingId(id, pageRequest);
+        Page<Activity> activities = activityService.findActivitiesByBuildingId(id, pageRequest);
         return mapPage(activities);
     }
 
     @Override
-    public ActivityDto getActivityById(Long id) {
-        Activity activity = activityService.findById(id);
+    public ActivityDto findActivityById(Long id) {
+        Activity activity = activityService.findActivityById(id);
         return mapper.map(activity, ActivityDto.class);
     }
 
     @Override
-    public Page<ScheduledActivityDto> getActivitySchedule(Long id, int page, int size) {
+    public Page<ScheduledActivityDto> findScheduledActivitiesByActivityId(Long id, int page, int size) {
         PageRequest pageRequest = createPageRequestForActivities(page, size);
         return scheduledActivityService.findByNumericId(id, pageRequest).map(o -> mapper.map(o, ScheduledActivityDto.class));
     }
 
     @Override
-    public ActivityDto getActivityInfoById(Long id) {
-        return mapper.map(activityService.findById(id), ActivityDto.class);
+    public ActivityDto findActivityInfoById(Long id) {
+        ActivityLob activity = activityService.findActivityInfoById(id);
+        return mapper.map(activity, ActivityDto.class);
     }
 
     @Override
-    public Collection<ActivityDto> getActivitiesByIds(Collection<Long> ids) {
-        return mapper.mapAsList(activityService.getActivitiesByIds(ids), ActivityDto.class);
+    public Collection<ActivityDto> findActivitiesByIds(Collection<Long> ids) {
+        return mapper.mapAsList(activityService.findActivitiesByIds(ids), ActivityDto.class);
     }
 
     private PageRequest createPageRequestForActivities(int page, int size) {

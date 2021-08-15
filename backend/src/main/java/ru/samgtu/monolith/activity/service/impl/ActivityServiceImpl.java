@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import ru.samgtu.monolith.activity.NoSuchActivityException;
 import ru.samgtu.monolith.activity.model.persistence.Activity;
+import ru.samgtu.monolith.activity.model.persistence.ActivityLob;
 import ru.samgtu.monolith.activity.repository.ActivityRepository;
 import ru.samgtu.monolith.activity.repository.ScheduledActivityRepository;
 import ru.samgtu.monolith.activity.service.ActivityService;
@@ -29,7 +30,7 @@ public class ActivityServiceImpl implements ActivityService {
     private final ScheduledActivityRepository scheduledActivityRepository;
 
     @Override
-    public Page<Activity> findByTags(Collection<Tag> tags, Pageable pageable) {
+    public Page<Activity> findActivitiesByTags(Collection<Tag> tags, Pageable pageable) {
         return activityRepository.findByTagsIn(tags, pageable);
     }
 
@@ -48,13 +49,13 @@ public class ActivityServiceImpl implements ActivityService {
     }
 
     @Override
-    public Page<Activity> findByName(String name, Pageable pageable) {
+    public Page<Activity> findActivitiesByName(String name, Pageable pageable) {
         return activityRepository
                 .findByNameStartsWithIgnoreCase(name, pageable);
     }
 
     @Override
-    public Activity findById(Long id) {
+    public Activity findActivityById(Long id) {
         return activityRepository.findById(id)
                 .orElseThrow(() -> {
                     log.warn("Activity with id = {} does not exists", id);
@@ -63,7 +64,7 @@ public class ActivityServiceImpl implements ActivityService {
     }
 
     @Override
-    public Page<Activity> findByBuildingId(Long id, Pageable pageable) {
+    public Page<Activity> findActivitiesByBuildingId(Long id, Pageable pageable) {
         return activityRepository.findAllByBuildingId(id, pageable);
     }
 
@@ -73,7 +74,7 @@ public class ActivityServiceImpl implements ActivityService {
     }
 
     @Override
-    public Collection<Activity> getActivitiesByIds(Collection<Long> ids) {
+    public Collection<Activity> findActivitiesByIds(Collection<Long> ids) {
         return activityRepository.findActivityByIdIn(ids);
     }
 
