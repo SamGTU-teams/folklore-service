@@ -57,7 +57,7 @@ export default defineComponent({
   text-align: center;
 }
 #nav {
-  margin-top: 30px;
+  margin-top: 10px;
 }
 .router-link-exact-active > div,
 .router-link-active > div {

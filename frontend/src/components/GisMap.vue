@@ -33,7 +33,9 @@ export default {
 <style scoped>
 #map {
   width: 70%;
-  height: 80%;
+  height: 700px;
   margin-left: 15%;
+  margin-top: 40px;
+  border-radius: 5px;
 }
 </style>
