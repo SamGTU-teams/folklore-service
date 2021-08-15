@@ -19,7 +19,7 @@
     </div>
     <div id="Description" v-if="place" v-html="place.description" />
 
-    <div v-if='nearbyPlaces' id="NearbyPlaces">
+    <div v-else-if='nearbyPlaces.length !== 0' id="NearbyPlaces">
       <div style="padding-left: 15px">Рядом</div>
       <place-component v-for="place in nearbyPlaces" v-bind:key="place.id" v-bind:place="place"/>
       <div style="width: 100%; clear: both" />
@@ -44,18 +44,16 @@ export default defineComponent({
     return {
       place: null as Place | null,
       loadingMain: true,
-      nearbyPlaces: null as Place[] | null,
+      nearbyPlaces: [] as Place[],
     };
   },
   methods: {
     loadPlaceInfo(id: number) {
       placeApi.getPlaceInfoById(id).then(response => {
-        setTimeout(() => {
           let data = response.data;
           this.place = data;
           this.loadingMain = false;
           this.loadNearbyPlaces(data.lat, data.lon);
-        }, 3000);
       });
     },
     loadNearbyPlaces(lat: number, lon: number) {
@@ -69,6 +67,14 @@ export default defineComponent({
   created() {
     this.loadPlaceInfo(this.id);
   },
+  beforeRouteUpdate(to: any, from, next) {
+    this.loadingMain = true;
+    this.place = null;
+    this.nearbyPlaces = [];
+    this.loadPlaceInfo(parseInt(to.params.id));
+    
+    next();
+  }
 });
 </script>
 
