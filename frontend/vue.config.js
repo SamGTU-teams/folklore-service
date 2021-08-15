@@ -7,7 +7,7 @@ module.exports = {
     devServer: {
       proxy: {
         '^/api/*': {
-          target: 'https://rassafel-folklore-service.herokuapp.com/',
+          target: 'https://rassafel-folklore-service.herokuapp.com',
           // target: 'http://localhost:8081', 
           // ws: true,
           changeOrigin: true
