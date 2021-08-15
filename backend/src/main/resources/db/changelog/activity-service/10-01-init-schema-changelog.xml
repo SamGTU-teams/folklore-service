@@ -49,7 +49,7 @@
                                  baseTableName="activity"
                                  constraintName="fk_activity_building_id"
                                  referencedColumnNames="id"
-                                 referencedTableName="building"/>
+                                 referencedTableName="place"/>
 
         <createTable tableName="activity_scheduled">
             <column name="status" type="VARCHAR(30)">
