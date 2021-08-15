@@ -7,7 +7,8 @@ module.exports = {
     devServer: {
       proxy: {
         '^/api/*': {
-          target: 'http://localhost:8081', // this configuration needs to correspond to the Spring Boot backends' application.properties server.port
+          target: 'https://rassafel-folklore-service.herokuapp.com',
+          // target: 'http://localhost:8081', 
           // ws: true,
           changeOrigin: true
         }

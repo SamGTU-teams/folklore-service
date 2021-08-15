@@ -1,14 +1,14 @@
-import Tag from "@/model/Tag";
+import { Tag } from "@/model/Tag";
 
-export default interface Building {
+export interface Place {
   id: number;
   name: string;
-  address: string,
+  address: string;
   lat: number;
   lon: number;
   labelUrl: string;
   imageUrl: string;
-  tags: Tag[],
+  tags: Tag[];
   mediaUrls?: string[];
   description?: string;
 }
