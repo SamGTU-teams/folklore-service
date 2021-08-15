@@ -1,5 +1,8 @@
 <template>
-  <div class="CloseObject">
+  <div
+    class="CloseObject"
+    @click="$router.push({ name: 'PlaceInfo', params: { id: place.id } })"
+  >
     <div class="CloseObjectIMG">
       <img v-if="place.imageUrl" :src="place.imageUrl" />
       <img v-else src="@/assets/no-image.png" />
@@ -10,7 +13,7 @@
 </template>
 
 <script lang="ts">
-import Place from "@/model/Place";
+import { Place } from "@/model/Place";
 import { defineComponent, PropType } from "vue";
 
 export default defineComponent({
@@ -18,10 +21,10 @@ export default defineComponent({
   props: {
     place: {
       type: Object as PropType<Place>,
-      required: true
-    }
+      required: true,
+    },
   },
-})
+});
 </script>
 
 <style scoped>
