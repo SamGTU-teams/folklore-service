@@ -33,10 +33,10 @@ public interface FolkloreController {
             @ApiResponse(code = 404, message = "", response = ExceptionInfo.class)
     })
     @JsonView(JacksonViews.DataWithoutLob.class)
-    Page<BuildingDto> getBuildingsByTags(@ApiParam(name = "tags", value = "tags")
+    Page<BuildingDto> findBuildingsByTags(@ApiParam(name = "tags", value = "tags")
                                          @RequestBody(required = false) Set<TagDto> tags,
-                                         @RequestParam(defaultValue = "0") int page,
-                                         @RequestParam(defaultValue = "10") int size);
+                                          @RequestParam(defaultValue = "0") int page,
+                                          @RequestParam(defaultValue = "10") int size);
 
     @GetMapping("/search")
     @ApiOperation(value = "Get buildings by name")
@@ -45,9 +45,9 @@ public interface FolkloreController {
             @ApiResponse(code = 404, message = "", response = ExceptionInfo.class)
     })
     @JsonView(JacksonViews.DataWithoutLob.class)
-    Page<BuildingDto> getBuildingsByName(@RequestParam String name,
-                                         @RequestParam(defaultValue = "0") int page,
-                                         @RequestParam(defaultValue = "10") int size);
+    Page<BuildingDto> findBuildingsByName(@RequestParam String name,
+                                          @RequestParam(defaultValue = "0") int page,
+                                          @RequestParam(defaultValue = "10") int size);
 
     @GetMapping("/{id}")
     @ApiOperation(value = "Get building by id")
@@ -56,7 +56,7 @@ public interface FolkloreController {
             @ApiResponse(code = 404, message = "", response = ExceptionInfo.class)
     })
     @JsonView(JacksonViews.DataWithoutLob.class)
-    BuildingDto getBuildingById(@PathVariable("id") Long id);
+    BuildingDto findBuildingById(@PathVariable("id") Long id);
 
     @GetMapping("/{id}/info")
     @ApiOperation(value = "Get building info by id")
@@ -65,7 +65,7 @@ public interface FolkloreController {
             @ApiResponse(code = 404, message = "", response = ExceptionInfo.class),
     })
     @JsonView(JacksonViews.DataWithLob.class)
-    BuildingDto getBuildingInfoById(@PathVariable("id") Long id);
+    BuildingDto findBuildingInfoById(@PathVariable("id") Long id);
 
     @PostMapping("/ids")
     @ApiOperation(value = "Get buildings by ids")
@@ -74,5 +74,5 @@ public interface FolkloreController {
             @ApiResponse(code = 404, message = "", response = ExceptionInfo.class)
     })
     @JsonView(JacksonViews.DataWithoutLob.class)
-    Collection<BuildingDto> getBuildingsByIds(@RequestBody Collection<Long> ids);
+    Collection<BuildingDto> findBuildingsByIds(@RequestBody Collection<Long> ids);
 }

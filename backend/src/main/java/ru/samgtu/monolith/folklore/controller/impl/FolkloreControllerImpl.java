@@ -35,44 +35,44 @@ public class FolkloreControllerImpl implements FolkloreController {
     private final MapperFacade mapper;
 
     @Override
-    public Page<BuildingDto> getBuildingsByTags(Set<TagDto> tagsDto,
-                                                int page,
-                                                int size) {
+    public Page<BuildingDto> findBuildingsByTags(Set<TagDto> tagsDto,
+                                                 int page,
+                                                 int size) {
         Page<Building> buildings;
         PageRequest pageRequest = createPageRequest(page, size);
         if (isNull(tagsDto)) {
             buildings = service.getBuildings(pageRequest);
         } else {
             Set<Tag> tags = mapper.mapAsSet(tagsDto, Tag.class);
-            buildings = service.getBuildingsByTags(tags, pageRequest);
+            buildings = service.findBuildingsByTags(tags, pageRequest);
         }
         return mapPage(buildings);
     }
 
     @Override
-    public Page<BuildingDto> getBuildingsByName(String name,
-                                                int page,
-                                                int size) {
+    public Page<BuildingDto> findBuildingsByName(String name,
+                                                 int page,
+                                                 int size) {
         PageRequest pageRequest = createPageRequest(page, size);
-        Page<Building> buildings = service.getBuildingsByName(name, pageRequest);
+        Page<Building> buildings = service.findBuildingsByName(name, pageRequest);
         return mapPage(buildings);
     }
 
     @Override
-    public BuildingDto getBuildingById(Long id) {
-        Building building = service.getBuildingById(id);
+    public BuildingDto findBuildingById(Long id) {
+        Building building = service.findBuildingById(id);
         return mapper.map(building, BuildingDto.class);
     }
 
     @Override
-    public BuildingDto getBuildingInfoById(Long id) {
-        BuildingLob building = service.getBuildingInfoById(id);
+    public BuildingDto findBuildingInfoById(Long id) {
+        BuildingLob building = service.findBuildingInfoById(id);
         return mapper.map(building, BuildingDto.class);
     }
 
     @Override
-    public Collection<BuildingDto> getBuildingsByIds(Collection<Long> ids) {
-        Collection<Building> buildings = service.getBuildingsByIds(ids);
+    public Collection<BuildingDto> findBuildingsByIds(Collection<Long> ids) {
+        Collection<Building> buildings = service.findBuildingsByIds(ids);
         return mapper.mapAsList(buildings, BuildingDto.class);
     }
 

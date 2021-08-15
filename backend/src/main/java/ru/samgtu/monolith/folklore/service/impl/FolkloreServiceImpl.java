@@ -36,19 +36,19 @@ public class FolkloreServiceImpl implements FolkloreService {
     }
 
     @Override
-    public Page<Building> getBuildingsByTags(Set<Tag> tags,
-                                             Pageable pageable) {
+    public Page<Building> findBuildingsByTags(Set<Tag> tags,
+                                              Pageable pageable) {
         return repository.findByTagsIn(tags, pageable);
     }
 
     @Override
-    public Page<Building> getBuildingsByName(String name,
-                                             Pageable pageable) {
+    public Page<Building> findBuildingsByName(String name,
+                                              Pageable pageable) {
         return repository.findByNameStartsWithIgnoreCase(name, pageable);
     }
 
     @Override
-    public Building getBuildingById(Long id) {
+    public Building findBuildingById(Long id) {
         return repository.findById(id).orElseThrow(() -> {
             log.warn("Building with id = {} does not exists", id);
             return new NoSuchBuildingException("Building does not exists");
@@ -56,7 +56,7 @@ public class FolkloreServiceImpl implements FolkloreService {
     }
 
     @Override
-    public BuildingLob getBuildingInfoById(Long id) {
+    public BuildingLob findBuildingInfoById(Long id) {
         return lobRepository.findById(id).orElseThrow(() -> {
             log.warn("Building with id = {} does not exists", id);
             return new NoSuchBuildingException("Building does not exists");
@@ -64,7 +64,7 @@ public class FolkloreServiceImpl implements FolkloreService {
     }
 
     @Override
-    public Collection<Building> getBuildingsByIds(Collection<Long> ids) {
+    public Collection<Building> findBuildingsByIds(Collection<Long> ids) {
         return repository.findAllById(ids);
     }
 }

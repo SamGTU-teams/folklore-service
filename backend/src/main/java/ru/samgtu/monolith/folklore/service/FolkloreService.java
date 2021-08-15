@@ -18,15 +18,15 @@ import java.util.Set;
 public interface FolkloreService {
     Page<Building> getBuildings(Pageable pageable);
 
-    Page<Building> getBuildingsByTags(Set<Tag> tags,
-                                      Pageable pageable);
+    Page<Building> findBuildingsByTags(Set<Tag> tags,
+                                       Pageable pageable);
 
-    Page<Building> getBuildingsByName(String name,
-                                      Pageable pageable);
+    Page<Building> findBuildingsByName(String name,
+                                       Pageable pageable);
 
-    Building getBuildingById(Long id);
+    Building findBuildingById(Long id);
 
-    BuildingLob getBuildingInfoById(Long id);
+    BuildingLob findBuildingInfoById(Long id);
 
-    Collection<Building> getBuildingsByIds(Collection<Long> ids);
+    Collection<Building> findBuildingsByIds(Collection<Long> ids);
 }
