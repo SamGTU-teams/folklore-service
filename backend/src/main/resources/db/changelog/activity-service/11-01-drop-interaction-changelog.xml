@@ -4,7 +4,7 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
-    <include file="db/changelog/tag-service/08-01-init-schema-changelog.xml"/>
-
-    <include file="db/changelog/tag-service/09-03-load-data-from-csv.xml"/>
+    <changeSet id="drop-interaction-column-activity" author="rassafel">
+        <dropColumn tableName="activity" columnName="interaction"/>
+    </changeSet>
 </databaseChangeLog>

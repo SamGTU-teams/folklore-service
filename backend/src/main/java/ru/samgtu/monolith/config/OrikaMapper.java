@@ -6,6 +6,9 @@ import ma.glasnost.orika.MappingContext;
 import ma.glasnost.orika.impl.ConfigurableMapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import ru.samgtu.monolith.activity.model.dto.ActivityDto;
+import ru.samgtu.monolith.activity.model.persistence.Activity;
+import ru.samgtu.monolith.activity.model.persistence.ActivityLob;
 import ru.samgtu.monolith.folklore.model.dto.BuildingDto;
 import ru.samgtu.monolith.folklore.model.persistence.Building;
 import ru.samgtu.monolith.folklore.model.persistence.BuildingLob;
@@ -39,13 +42,16 @@ public class OrikaMapper extends ConfigurableMapper {
                 .byDefault()
                 .register();
 
+        factory.classMap(Activity.class, ActivityDto.class)
+                .byDefault()
+                .register();
+
         factory.classMap(BuildingLob.class, BuildingDto.class)
                 .customize(new CustomMapper<BuildingLob, BuildingDto>() {
                     @Override
                     public void mapAtoB(BuildingLob building, BuildingDto buildingDto, MappingContext context) {
                         String clob = building.getMediaUrls();
-                        List<String> urls = (isNull(clob) || (clob = clob.trim()).isEmpty()) ?
-                                Collections.emptyList() : Arrays.asList(clob.split(urlSeparator));
+                        List<String> urls = splitUrls(clob);
                         buildingDto.setUrls(urls);
                     }
                 })
@@ -59,5 +65,32 @@ public class OrikaMapper extends ConfigurableMapper {
                 .field("building.tags", "tags")
                 .byDefault()
                 .register();
+
+        factory.classMap(ActivityLob.class, ActivityDto.class)
+                .customize(new CustomMapper<ActivityLob, ActivityDto>() {
+                    @Override
+                    public void mapAtoB(ActivityLob activityLob, ActivityDto activityDto, MappingContext context) {
+                        String clob = activityLob.getMediaUrls();
+                        List<String> urls = splitUrls(clob);
+                        activityDto.setUrls(urls);
+                    }
+                })
+                .field("activity.id", "id")
+                .field("activity.name", "name")
+                .field("activity.lon", "lon")
+                .field("activity.lat", "lat")
+                .field("activity.address", "address")
+                .field("activity.duration", "duration")
+                .field("activity.imageUrl", "imageUrl")
+                .field("activity.labelUrl", "labelUrl")
+                .field("activity.tags", "tags")
+                .field("activity.building", "building")
+                .byDefault()
+                .register();
+    }
+
+    private List<String> splitUrls(String clob) {
+        return (isNull(clob) || (clob = clob.trim()).isEmpty()) ?
+                Collections.emptyList() : Arrays.asList(clob.split(urlSeparator));
     }
 }

@@ -7,10 +7,10 @@
 
     <changeSet id="load-data-tag" author="rassafel">
         <loadData tableName="tag"
-                  file="db/csv/TAG_DATA.csv"
+                  file="db/csv/tag.csv"
                   usePreparedStatements="true">
-            <column header="id" name="id" type="NUMERIC"/>
-            <column header="name" name="name" type="STRING"/>
+            <column name="id" type="numeric"/>
+            <column name="name" type="string"/>
         </loadData>
     </changeSet>
 </databaseChangeLog>
