@@ -41,15 +41,13 @@ public interface ActivityController {
                                           @RequestParam(defaultValue = "10") int size);
 
     @GetMapping("/search")
-    @ApiOperation(value = "Get activities by time")
+    @ApiOperation(value = "Get activities by name")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = ""),
             @ApiResponse(code = 404, message = "", response = ExceptionInfo.class)
     })
     @JsonView(JacksonViews.DataWithoutLob.class)
-//    ToDo: remove LocalDateTime, name required
-    Page<ActivityDto> getActivitiesByName(@RequestParam(required = false) String name,
-                                          @RequestParam(required = false) LocalDateTime from,
+    Page<ActivityDto> getActivitiesByName(@RequestParam String name,
                                           @RequestParam(defaultValue = "0") int page,
                                           @RequestParam(defaultValue = "10") int size);
 
@@ -80,6 +78,7 @@ public interface ActivityController {
     @JsonView(JacksonViews.DataWithLob.class)
     ActivityDto getActivityInfoById(@PathVariable("id") Long id);
 
+
     @GetMapping("/{id}/scheduled")
     @ApiOperation(value = "Get activity schedule")
     @ApiResponses(value = {
@@ -90,6 +89,16 @@ public interface ActivityController {
     Page<ScheduledActivityDto> getActivitySchedule(@PathVariable("id") Long id,
                                                    @RequestParam(defaultValue = "0") int page,
                                                    @RequestParam(defaultValue = "10") int size);
+
+    @GetMapping("/search/date")
+    @ApiOperation(value = "Get activity by date")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = ""),
+            @ApiResponse(code = 404, message = "", response = ExceptionInfo.class)
+    })
+    @JsonView(JacksonViews.DataWithoutLob.class)
+    Page<ScheduledActivityDto> getActivitiesByDateTime(@RequestParam LocalDateTime from, int page, int size);
+
 
     @PostMapping("/ids")
     @ApiOperation(value = "Get activities by ids")

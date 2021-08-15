@@ -1,6 +1,7 @@
 package ru.samgtu.monolith.activity.repository;
 
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import ru.samgtu.monolith.activity.model.persistence.Activity;
@@ -14,4 +15,6 @@ public interface ActivityRepository extends JpaRepository<Activity, Long> {
     Page<Activity> findAllByBuildingId(Long id, Pageable pageable);
 
     Page<Activity> findByTagsIn(Collection<Tag> tags, Pageable pageable);
+
+    Collection<Activity> findActivityByIdIn(Collection<Long> ids);
 }

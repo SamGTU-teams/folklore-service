@@ -26,4 +26,8 @@ public interface ScheduledActivityRepository extends JpaRepository<ScheduledActi
             "group by s.id.activityId " +
             "order by dt")
     Page<Object[]> findMinDateTimeIsGreaterThanEqualOrderByIdDateTimeAsc(LocalDateTime dateTime, Pageable pageable);
+
+    @Query("select s from ScheduledActivity s where s.id.activityId = :id")
+    Page<ScheduledActivity> findByNumericId(Long id, Pageable pageable);
+
 }

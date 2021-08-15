@@ -23,7 +23,6 @@ import java.util.Collection;
 import java.util.Set;
 
 import static java.util.Objects.isNull;
-import static java.util.Objects.nonNull;
 
 /**
  * Creation date: 11.08.2021
@@ -56,22 +55,14 @@ public class ActivityControllerImpl implements ActivityController {
     }
 
     @Override
-    public Page<ActivityDto> getActivitiesByName(String name, LocalDateTime from, int page, int size) {
+    public Page<ActivityDto> getActivitiesByName(String name, int page, int size) {
         PageRequest pageRequest = createPageRequestForActivities(page, size);
-        if (nonNull(name)) {
-            Page<Activity> activities = activityService.findByName(name, pageRequest);
-            return mapPage(activities);
-        }
-//        ToDo: extracted to getActivitiesByBuildingId
-        if (nonNull(from)) {
-            Page<Activity> activities = activityService.findByDateAfterThan(from, pageRequest);
-            return mapPage(activities);
-        }
-        throw new IllegalArgumentException("At least one parameter(from or name) must be in");
+        Page<Activity> activities = activityService.findByName(name, pageRequest);
+        return mapPage(activities);
     }
 
+    @Override
     public Page<ScheduledActivityDto> getActivitiesByDateTime(LocalDateTime from, int page, int size) {
-//        ToDo: create endpoint
         PageRequest pageRequest = createPageRequestForActivities(page, size);
         Page<ScheduledActivity> scheduledActivities = scheduledActivityService.findByDateAfterThan(from, pageRequest);
         return scheduledActivities.map(activity -> mapper.map(activity, ScheduledActivityDto.class));
@@ -94,17 +85,17 @@ public class ActivityControllerImpl implements ActivityController {
     @Override
     public Page<ScheduledActivityDto> getActivitySchedule(Long id, int page, int size) {
         PageRequest pageRequest = createPageRequestForActivities(page, size);
-        return null;
+        return scheduledActivityService.findByNumericId(id, pageRequest).map(o -> mapper.map(o, ScheduledActivityDto.class));
     }
 
     @Override
     public ActivityDto getActivityInfoById(Long id) {
-        return null;
+        return mapper.map(activityService.findById(id), ActivityDto.class);
     }
 
     @Override
     public Collection<ActivityDto> getActivitiesByIds(Collection<Long> ids) {
-        return null;
+        return mapper.mapAsList(activityService.getActivitiesByIds(ids), ActivityDto.class);
     }
 
     private PageRequest createPageRequestForActivities(int page, int size) {
