@@ -38,9 +38,9 @@ public interface TagController {
             @ApiResponse(code = 404, message = "", response = ExceptionInfo.class)
     })
     @JsonView(JacksonViews.DataWithoutLob.class)
-    Page<TagDto> getTagsByName(@RequestParam String name,
-                               @RequestParam(defaultValue = "0") int page,
-                               @RequestParam(defaultValue = "10") int size);
+    Page<TagDto> findTagsByName(@RequestParam String name,
+                                @RequestParam(defaultValue = "0") int page,
+                                @RequestParam(defaultValue = "10") int size);
 
     @GetMapping("/{id}")
     @ApiOperation(value = "Get tag by id")
@@ -49,7 +49,7 @@ public interface TagController {
             @ApiResponse(code = 404, message = "", response = ExceptionInfo.class)
     })
     @JsonView(JacksonViews.DataWithoutLob.class)
-    TagDto getTagById(@PathVariable("id") Long id);
+    TagDto findTagById(@PathVariable("id") Long id);
 
     @PostMapping("/ids")
     @ApiOperation(value = "Get tags by ids")
@@ -58,5 +58,5 @@ public interface TagController {
             @ApiResponse(code = 404, message = "", response = ExceptionInfo.class)
     })
     @JsonView(JacksonViews.DataWithoutLob.class)
-    Collection<TagDto> getTagsByIds(@RequestBody Collection<Long> ids);
+    Collection<TagDto> findTagsByIds(@RequestBody Collection<Long> ids);
 }

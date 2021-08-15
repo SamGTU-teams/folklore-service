@@ -31,13 +31,13 @@ public class TagServiceImpl implements TagService {
     }
 
     @Override
-    public Page<Tag> getTagsByName(String name,
-                                   Pageable pageable) {
+    public Page<Tag> findTagsByName(String name,
+                                    Pageable pageable) {
         return repository.findByNameStartsWithIgnoreCase(name, pageable);
     }
 
     @Override
-    public Tag getTagById(Long id) {
+    public Tag findTagById(Long id) {
         return repository
                 .findById(id)
                 .orElseThrow(() -> {
@@ -47,7 +47,7 @@ public class TagServiceImpl implements TagService {
     }
 
     @Override
-    public List<Tag> getTagsByIds(Collection<Long> ids) {
+    public List<Tag> findTagsByIds(Collection<Long> ids) {
         return repository.findAllById(ids);
     }
 }

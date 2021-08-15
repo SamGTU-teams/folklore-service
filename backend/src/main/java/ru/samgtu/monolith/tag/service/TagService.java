@@ -15,10 +15,10 @@ import java.util.Collection;
 public interface TagService {
     Page<Tag> getTags(Pageable pageable);
 
-    Page<Tag> getTagsByName(String name,
-                            Pageable pageable);
+    Page<Tag> findTagsByName(String name,
+                             Pageable pageable);
 
-    Tag getTagById(Long id);
+    Tag findTagById(Long id);
 
-    Collection<Tag> getTagsByIds(Collection<Long> ids);
+    Collection<Tag> findTagsByIds(Collection<Long> ids);
 }

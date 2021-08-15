@@ -37,23 +37,23 @@ public class TagControllerImpl implements TagController {
     }
 
     @Override
-    public Page<TagDto> getTagsByName(String name,
-                                      int page,
-                                      int size) {
+    public Page<TagDto> findTagsByName(String name,
+                                       int page,
+                                       int size) {
         PageRequest pageRequest = createPageRequest(page, size);
-        Page<Tag> tags = service.getTagsByName(name, pageRequest);
+        Page<Tag> tags = service.findTagsByName(name, pageRequest);
         return mapPage(tags);
     }
 
     @Override
-    public TagDto getTagById(Long id) {
-        Tag tag = service.getTagById(id);
+    public TagDto findTagById(Long id) {
+        Tag tag = service.findTagById(id);
         return mapper.map(tag, TagDto.class);
     }
 
     @Override
-    public Collection<TagDto> getTagsByIds(Collection<Long> ids) {
-        Collection<Tag> tags = service.getTagsByIds(ids);
+    public Collection<TagDto> findTagsByIds(Collection<Long> ids) {
+        Collection<Tag> tags = service.findTagsByIds(ids);
         return mapper.mapAsList(tags, TagDto.class);
     }
 
