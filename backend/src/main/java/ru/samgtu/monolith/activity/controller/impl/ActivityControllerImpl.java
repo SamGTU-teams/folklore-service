@@ -5,7 +5,6 @@ import lombok.extern.slf4j.Slf4j;
 import ma.glasnost.orika.MapperFacade;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RestController;
 import ru.samgtu.monolith.activity.controller.ActivityController;
@@ -34,7 +33,6 @@ import static java.util.Objects.isNull;
 @RestController
 @RequiredArgsConstructor
 @Slf4j
-@Validated
 public class ActivityControllerImpl implements ActivityController {
     private final ActivityService activityService;
 

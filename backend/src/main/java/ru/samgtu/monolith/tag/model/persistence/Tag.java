@@ -1,10 +1,8 @@
 package ru.samgtu.monolith.tag.model.persistence;
 
 import lombok.*;
-import ru.samgtu.monolith.place.model.persistence.Place;
 
 import javax.persistence.*;
-import java.util.Set;
 
 /**
  * Creation date: 07.08.2021
