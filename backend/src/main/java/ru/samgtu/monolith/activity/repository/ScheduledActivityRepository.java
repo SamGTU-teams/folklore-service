@@ -2,12 +2,15 @@ package ru.samgtu.monolith.activity.repository;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import ru.samgtu.monolith.activity.model.ActivityStatus;
 import ru.samgtu.monolith.activity.model.persistence.ScheduledActivity;
 import ru.samgtu.monolith.activity.model.persistence.ScheduledId;
 
 import java.time.LocalDateTime;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -30,4 +33,5 @@ public interface ScheduledActivityRepository extends JpaRepository<ScheduledActi
     @Query("select s from ScheduledActivity s where s.id.activityId = :id")
     Page<ScheduledActivity> findByNumericId(Long id, Pageable pageable);
 
+    Page<ScheduledActivity> findByIdActivityIdEqualsAndStatusIsIn(Long activityId, Collection<ActivityStatus> statuses, Pageable pageable);
 }
