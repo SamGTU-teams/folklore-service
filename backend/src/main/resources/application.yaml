@@ -39,19 +39,3 @@ spring:
             on-profile: test
     liquibase:
         contexts: test
----
-spring:
-    config.activate.on-profile: romzes
-    datasource:
-        driverClassName: org.postgresql.Driver
-        url: jdbc:postgresql://localhost:5433/test
-        username: postgres
-        password: postgres
-    jpa:
-        database-platform: org.hibernate.dialect.PostgreSQLDialect
-        hibernate.ddl-auto: none
-    h2:
-        console:
-            enabled: false
-    liquibase:
-        contexts: romzes
