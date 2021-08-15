@@ -29,4 +29,6 @@ public interface ActivityService {
     Page<Activity> findByBuildingId(Long id, Pageable pageable);
 
     Page<Activity> getActivities(Pageable pageable);
+
+    Collection<Activity> getActivitiesByIds(Collection<Long> ids);
 }

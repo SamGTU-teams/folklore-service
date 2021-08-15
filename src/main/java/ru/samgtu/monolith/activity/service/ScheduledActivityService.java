@@ -14,4 +14,6 @@ import java.time.LocalDateTime;
  */
 public interface ScheduledActivityService {
     Page<ScheduledActivity> findByDateAfterThan(LocalDateTime from, Pageable pageable);
+
+    Page<ScheduledActivity> findByNumericId(Long id, Pageable pageable);
 }

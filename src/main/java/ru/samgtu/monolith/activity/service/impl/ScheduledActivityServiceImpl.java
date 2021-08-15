@@ -89,6 +89,11 @@ public class ScheduledActivityServiceImpl implements ScheduledActivityService {
         return new PageImpl<>(scheduledActivities, pageable, page.getTotalElements());
     }
 
+    @Override
+    public Page<ScheduledActivity> findByNumericId(Long id, Pageable pageable) {
+        return scheduledActivityRepository.findByNumericId(id, pageable);
+    }
+
     private ActivityStatus calcStatus(LocalDateTime now, LocalDateTime dateTime, Duration duration) {
         if (now.compareTo(dateTime) < 1) {
             return ActivityStatus.SCHEDULED;

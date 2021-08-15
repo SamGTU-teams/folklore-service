@@ -15,4 +15,6 @@ public interface ActivityRepository extends JpaRepository<Activity, Long> {
     Page<Activity> findAllByBuildingId(Long id, Pageable pageable);
 
     Page<Activity> findByTagsIn(Collection<Tag> tags, Pageable pageable);
+
+    Collection<Activity> findActivityByIdIn(Collection<Long> ids);
 }

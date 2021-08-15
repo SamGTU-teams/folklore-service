@@ -85,17 +85,17 @@ public class ActivityControllerImpl implements ActivityController {
     @Override
     public Page<ScheduledActivityDto> getActivitySchedule(Long id, int page, int size) {
         PageRequest pageRequest = createPageRequestForActivities(page, size);
-        return null;
+        return scheduledActivityService.findByNumericId(id, pageRequest).map(o -> mapper.map(o, ScheduledActivityDto.class));
     }
 
     @Override
     public ActivityDto getActivityInfoById(Long id) {
-        return null;
+        return mapper.map(activityService.findById(id), ActivityDto.class);
     }
 
     @Override
     public Collection<ActivityDto> getActivitiesByIds(Collection<Long> ids) {
-        return null;
+        return mapper.mapAsList(activityService.getActivitiesByIds(ids), ActivityDto.class);
     }
 
     private PageRequest createPageRequestForActivities(int page, int size) {

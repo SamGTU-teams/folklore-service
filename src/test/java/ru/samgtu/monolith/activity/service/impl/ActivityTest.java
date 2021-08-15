@@ -7,7 +7,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.ActiveProfiles;
 import ru.samgtu.monolith.activity.model.persistence.Activity;
+import ru.samgtu.monolith.activity.model.persistence.ScheduledActivity;
 import ru.samgtu.monolith.activity.service.ActivityService;
+import ru.samgtu.monolith.activity.service.ScheduledActivityService;
 
 import javax.persistence.EntityManager;
 import java.time.LocalDateTime;
@@ -18,6 +20,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @ActiveProfiles("romzes")
 public class ActivityTest {
 
+
+    @Autowired
+    ScheduledActivityService scheduledActivityService;
+
     @Autowired
     ActivityService activityService;
 
@@ -26,8 +32,6 @@ public class ActivityTest {
 
     @Test
     public void testScheduledInsert() {
-        LocalDateTime ld = LocalDateTime.parse("2010-10-10T12:00");
-        System.out.println();
         PageRequest pageRequest = PageRequest.of(2, 1);
         Page<Activity> result = activityService.findByDateAfterThan(LocalDateTime.now(), pageRequest);
         assertEquals(result.getNumberOfElements(), 2);
@@ -35,6 +39,7 @@ public class ActivityTest {
 
     @Test
     public void testScheduledActivity(){
+        Page<ScheduledActivity> activities = scheduledActivityService.findByNumericId(2L, PageRequest.of(0, 5));
 
     }
 

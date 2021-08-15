@@ -41,7 +41,7 @@ public interface ActivityController {
                                           @RequestParam(defaultValue = "10") int size);
 
     @GetMapping("/search")
-    @ApiOperation(value = "Get activities by time")
+    @ApiOperation(value = "Get activities by name")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = ""),
             @ApiResponse(code = 404, message = "", response = ExceptionInfo.class)

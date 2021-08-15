@@ -71,4 +71,9 @@ public class ActivityServiceImpl implements ActivityService {
     public Page<Activity> getActivities(Pageable pageable) {
         return activityRepository.findAll(pageable);
     }
+
+    @Override
+    public Collection<Activity> getActivitiesByIds(Collection<Long> ids) {
+        return activityRepository.findActivityByIdIn(ids);
+    }
 }
