@@ -1,14 +1,14 @@
 <template>
   <div
-    class="CloseObject"
+    class="NerbyPlace"
     @click="$router.push({ name: 'PlaceInfo', params: { id: place.id } })"
   >
-    <div class="CloseObjectIMG">
+    <div class="NerbyPlaceIMG">
       <img v-if="place.imageUrl" :src="place.imageUrl" />
       <img v-else src="@/assets/no-image.png" />
     </div>
-    <div class="CloseObjectName">{{ place.name }}</div>
-    <div class="CloseObjectAddress">{{ place.address }}</div>
+    <div class="NerbyPlaceName">{{ place.name }}</div>
+    <div class="NerbyPlaceAddress">{{ place.address }}</div>
   </div>
 </template>
 
@@ -28,7 +28,7 @@ export default defineComponent({
 </script>
 
 <style scoped>
-.CloseObject {
+.NerbyPlace {
   width: calc(100% / 3 - 15px * 2);
   padding: 0px 15px;
   padding: relative;
@@ -36,23 +36,23 @@ export default defineComponent({
   float: left;
   margin-top: 20px;
 }
-.CloseObjectIMG {
+.NerbyPlaceIMG {
   width: 100%;
   overflow: hidden;
   margin-bottom: 10px;
 }
-.CloseObjectIMG > img {
+.NerbyPlaceIMG > img {
   width: 100%;
   border-radius: 5px;
 }
-.CloseObjectName,
-.CloseObjectAddress {
+.NerbyPlaceName,
+.NerbyPlaceAddress {
   margin-bottom: 10px;
   font-size: calc(15px + (30 - 15) * ((100vw - 500px) / (1920 - 500)));
   text-transform: uppercase;
   font-weight: bold;
 }
-.CloseObjectAddress {
+.NerbyPlaceAddress {
   font-size: calc(12px + (24 - 12) * ((100vw - 500px) / (1920 - 500)));
 }
 </style>
