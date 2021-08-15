@@ -19,7 +19,7 @@
     </div>
     <div id="Description" v-if="place" v-html="place.description" />
 
-    <div v-else-if='nearbyPlaces.length !== 0' id="NearbyPlaces">
+    <div v-if='nearbyPlaces.length !== 0' id="NearbyPlaces">
       <div style="padding-left: 15px">Рядом</div>
       <place-component v-for="place in nearbyPlaces" v-bind:key="place.id" v-bind:place="place"/>
       <div style="width: 100%; clear: both" />
