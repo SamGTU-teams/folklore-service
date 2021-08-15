@@ -1,12 +1,12 @@
 import axios, { AxiosResponse } from "axios";
-import Tag from "@/model/Tag";
-import Page from "@/model/Page";
-import Place from "@/model/Place";
+import { Tag } from "@/model/Tag";
+import { Page } from "@/model/Page";
+import { Place } from "@/model/Place";
 import Activity from "@/model/Activity";
 
 const axiosApi = axios.create({
   baseURL: `/api`,
-  timeout: 1000,
+  timeout: 3000,
   headers: {
     "Content-Type": "application/json",
     // CORS params
@@ -21,9 +21,9 @@ const axiosApi = axios.create({
   },
 });
 
-const tagUrl = "/api/tags";
-const placeUrl = "/api/folklores";
-const activityUrl = "/api/activities";
+const tagUrl = "/tags";
+const placeUrl = "/folklores";
+const activityUrl = "/activities";
 
 const tagApi = {
   getTags(size: number, page: number): Promise<AxiosResponse<Page<Tag>>> {
@@ -52,11 +52,11 @@ const tagApi = {
 
 const placeApi = {
   getPlaceById(id: number): Promise<AxiosResponse<Place>> {
-    return axios.get(`${placeUrl}/${id}`);
+    return axiosApi.get(`${placeUrl}/${id}`);
   },
 
   getPlaceInfoById(id: number): Promise<AxiosResponse<Place>> {
-    return axios.get(`${placeUrl}/${id}/info`);
+    return axiosApi.get(`${placeUrl}/${id}/info`);
   },
 
   getPlacesByName(
@@ -94,11 +94,11 @@ const placeApi = {
 
 const activityApi = {
   getActivityById(id: number): Promise<AxiosResponse<Activity>> {
-    return axios.get(`${activityUrl}/${id}`);
+    return axiosApi.get(`${activityUrl}/${id}`);
   },
 
   getActivityInfoById(id: number): Promise<AxiosResponse<Activity>> {
-    return axios.get(`${activityUrl}/${id}/info`);
+    return axiosApi.get(`${activityUrl}/${id}/info`);
   },
 
   getActivitiesByName(
