@@ -9,9 +9,9 @@ import org.springframework.stereotype.Component;
 import ru.samgtu.monolith.activity.model.dto.ActivityDto;
 import ru.samgtu.monolith.activity.model.persistence.Activity;
 import ru.samgtu.monolith.activity.model.persistence.ActivityLob;
-import ru.samgtu.monolith.folklore.model.dto.BuildingDto;
-import ru.samgtu.monolith.folklore.model.persistence.Building;
-import ru.samgtu.monolith.folklore.model.persistence.BuildingLob;
+import ru.samgtu.monolith.place.model.dto.PlaceDto;
+import ru.samgtu.monolith.place.model.persistence.Place;
+import ru.samgtu.monolith.place.model.persistence.PlaceLob;
 import ru.samgtu.monolith.tag.model.dto.TagDto;
 import ru.samgtu.monolith.tag.model.persistence.Tag;
 
@@ -38,7 +38,7 @@ public class OrikaMapper extends ConfigurableMapper {
                 .byDefault()
                 .register();
 
-        factory.classMap(Building.class, BuildingDto.class)
+        factory.classMap(Place.class, PlaceDto.class)
                 .byDefault()
                 .register();
 
@@ -46,23 +46,23 @@ public class OrikaMapper extends ConfigurableMapper {
                 .byDefault()
                 .register();
 
-        factory.classMap(BuildingLob.class, BuildingDto.class)
-                .customize(new CustomMapper<BuildingLob, BuildingDto>() {
+        factory.classMap(PlaceLob.class, PlaceDto.class)
+                .customize(new CustomMapper<PlaceLob, PlaceDto>() {
                     @Override
-                    public void mapAtoB(BuildingLob building, BuildingDto buildingDto, MappingContext context) {
+                    public void mapAtoB(PlaceLob building, PlaceDto placeDto, MappingContext context) {
                         String clob = building.getMediaUrls();
                         List<String> urls = splitUrls(clob);
-                        buildingDto.setUrls(urls);
+                        placeDto.setUrls(urls);
                     }
                 })
-                .field("building.id", "id")
-                .field("building.name", "name")
-                .field("building.lon", "lon")
-                .field("building.lat", "lat")
-                .field("building.address", "address")
-                .field("building.imageUrl", "imageUrl")
-                .field("building.labelUrl", "labelUrl")
-                .field("building.tags", "tags")
+                .field("place.id", "id")
+                .field("place.name", "name")
+                .field("place.lon", "lon")
+                .field("place.lat", "lat")
+                .field("place.address", "address")
+                .field("place.imageUrl", "imageUrl")
+                .field("place.labelUrl", "labelUrl")
+                .field("place.tags", "tags")
                 .byDefault()
                 .register();
 
@@ -84,7 +84,7 @@ public class OrikaMapper extends ConfigurableMapper {
                 .field("activity.imageUrl", "imageUrl")
                 .field("activity.labelUrl", "labelUrl")
                 .field("activity.tags", "tags")
-                .field("activity.building", "building")
+                .field("activity.place", "place")
                 .byDefault()
                 .register();
     }

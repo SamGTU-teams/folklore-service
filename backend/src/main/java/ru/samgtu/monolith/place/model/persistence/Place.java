@@ -1,4 +1,4 @@
-package ru.samgtu.monolith.folklore.model.persistence;
+package ru.samgtu.monolith.place.model.persistence;
 
 import lombok.*;
 import ru.samgtu.monolith.tag.model.persistence.Tag;
@@ -13,13 +13,13 @@ import java.util.Set;
  * @version 1.0
  */
 @Entity
-@Table(name = "building")
+@Table(name = "place")
 @RequiredArgsConstructor
 @Getter
 @Setter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @ToString
-public class Building {
+public class Place {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
@@ -45,8 +45,8 @@ public class Building {
     private String labelUrl;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "building_tag",
-            joinColumns = @JoinColumn(name = "building_id"),
+    @JoinTable(name = "place_tag",
+            joinColumns = @JoinColumn(name = "place_id"),
             inverseJoinColumns = @JoinColumn(name = "tag_id"))
     @ToString.Exclude
     private Set<Tag> tags;

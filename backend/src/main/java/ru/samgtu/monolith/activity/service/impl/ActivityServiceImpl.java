@@ -64,7 +64,7 @@ public class ActivityServiceImpl implements ActivityService {
     }
 
     @Override
-    public Page<Activity> findActivitiesByBuildingId(Long id, Pageable pageable) {
+    public Page<Activity> findActivitiesByPlaceId(Long id, Pageable pageable) {
         return activityRepository.findAllByBuildingId(id, pageable);
     }
 

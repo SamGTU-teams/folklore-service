@@ -1,7 +1,7 @@
 package ru.samgtu.monolith.tag.model.persistence;
 
 import lombok.*;
-import ru.samgtu.monolith.folklore.model.persistence.Building;
+import ru.samgtu.monolith.place.model.persistence.Place;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -28,8 +28,4 @@ public class Tag {
 
     @Column(name = "name", nullable = false, length = 20, unique = true)
     private String name;
-
-    @ManyToMany(mappedBy = "tags")
-    @ToString.Exclude
-    private Set<Building> buildings;
 }

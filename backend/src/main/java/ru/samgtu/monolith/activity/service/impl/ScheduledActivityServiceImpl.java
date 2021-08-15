@@ -57,7 +57,7 @@ public class ScheduledActivityServiceImpl implements ScheduledActivityService {
     }
 
     @Override
-    public Page<ScheduledActivity> findByDateAfterThan(LocalDateTime from, Pageable pageable) {
+    public Page<ScheduledActivity> findByDateAfterThanEqual(LocalDateTime from, Pageable pageable) {
         // ToDo: create cache table
         pageable = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize());
 
@@ -90,7 +90,7 @@ public class ScheduledActivityServiceImpl implements ScheduledActivityService {
     }
 
     @Override
-    public Page<ScheduledActivity> findByNumericId(Long id, Pageable pageable) {
+    public Page<ScheduledActivity> findScheduledByActivityId(Long id, Pageable pageable) {
         return scheduledActivityRepository.findByNumericId(id, pageable);
     }
 

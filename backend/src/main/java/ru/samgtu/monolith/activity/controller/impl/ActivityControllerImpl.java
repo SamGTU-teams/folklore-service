@@ -65,14 +65,14 @@ public class ActivityControllerImpl implements ActivityController {
     @Override
     public Page<ScheduledActivityDto> findActivitiesByDateTime(LocalDateTime from, int page, int size) {
         PageRequest pageRequest = createPageRequestForActivities(page, size);
-        Page<ScheduledActivity> scheduledActivities = scheduledActivityService.findByDateAfterThan(from, pageRequest);
+        Page<ScheduledActivity> scheduledActivities = scheduledActivityService.findByDateAfterThanEqual(from, pageRequest);
         return scheduledActivities.map(activity -> mapper.map(activity, ScheduledActivityDto.class));
     }
 
     @Override
-    public Page<ActivityDto> findActivitiesByBuildingId(Long id, int size, int page) {
+    public Page<ActivityDto> findActivitiesByPlaceId(Long id, int size, int page) {
         PageRequest pageRequest = createPageRequestForActivities(page, size);
-        Page<Activity> activities = activityService.findActivitiesByBuildingId(id, pageRequest);
+        Page<Activity> activities = activityService.findActivitiesByPlaceId(id, pageRequest);
         return mapPage(activities);
     }
 
@@ -85,7 +85,7 @@ public class ActivityControllerImpl implements ActivityController {
     @Override
     public Page<ScheduledActivityDto> findScheduledActivitiesByActivityId(Long id, int page, int size) {
         PageRequest pageRequest = createPageRequestForActivities(page, size);
-        return scheduledActivityService.findByNumericId(id, pageRequest).map(o -> mapper.map(o, ScheduledActivityDto.class));
+        return scheduledActivityService.findScheduledByActivityId(id, pageRequest).map(o -> mapper.map(o, ScheduledActivityDto.class));
     }
 
     @Override
@@ -100,7 +100,7 @@ public class ActivityControllerImpl implements ActivityController {
     }
 
     private PageRequest createPageRequestForActivities(int page, int size) {
-        return PageRequest.of(page, size, Sort.by("id").ascending());
+        return PageRequest.of(page, size);
     }
 
     private Page<ActivityDto> mapPage(Page<Activity> page) {

@@ -1,4 +1,4 @@
-package ru.samgtu.monolith.folklore.config;
+package ru.samgtu.monolith.place.config;
 
 import com.google.common.base.Predicate;
 import org.springframework.context.annotation.Bean;
@@ -17,13 +17,13 @@ import static com.google.common.base.Predicates.or;
  * @version 1.0
  */
 @Configuration
-public class FolkloreConfiguration {
+public class PlaceConfiguration {
     @Bean
     public Predicate<RequestHandler> folkloreApis() {
         ArrayList<Predicate<RequestHandler>> apis = new ArrayList<>();
 
-        apis.add(RequestHandlerSelectors.basePackage("ru.samgtu.monolith.folklore.controller"));
-        apis.add(RequestHandlerSelectors.basePackage("ru.samgtu.monolith.folklore.model.dto"));
+        apis.add(RequestHandlerSelectors.basePackage("ru.samgtu.monolith.place.controller"));
+        apis.add(RequestHandlerSelectors.basePackage("ru.samgtu.monolith.place.model.dto"));
 
         return or(apis);
     }

@@ -1,7 +1,7 @@
 package ru.samgtu.monolith.activity.model.persistence;
 
 import lombok.*;
-import ru.samgtu.monolith.folklore.model.persistence.Building;
+import ru.samgtu.monolith.place.model.persistence.Place;
 import ru.samgtu.monolith.tag.model.persistence.Tag;
 
 import javax.persistence.*;
@@ -66,8 +66,8 @@ public class Activity {
     private List<ScheduledActivity> scheduledActivities;
 
     @OneToOne
-    @JoinColumn(name = "building_id")
-    private Building building;
+    @JoinColumn(name = "place_id")
+    private Place place;
 
     @Column(name = "duration", nullable = false)
     private Duration duration;

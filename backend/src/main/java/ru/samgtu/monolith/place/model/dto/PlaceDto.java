@@ -1,4 +1,4 @@
-package ru.samgtu.monolith.folklore.model.dto;
+package ru.samgtu.monolith.place.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import io.swagger.annotations.ApiModel;
@@ -16,7 +16,7 @@ import java.util.List;
  */
 @ApiModel("Building")
 @Data
-public class BuildingDto {
+public class PlaceDto {
     @JsonView(JacksonViews.DataWithoutLob.class)
     private Long id;
 

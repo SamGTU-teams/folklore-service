@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
  * @version 1.0
  */
 public interface ScheduledActivityService {
-    Page<ScheduledActivity> findByDateAfterThan(LocalDateTime from, Pageable pageable);
+    Page<ScheduledActivity> findByDateAfterThanEqual(LocalDateTime from, Pageable pageable);
 
-    Page<ScheduledActivity> findByNumericId(Long id, Pageable pageable);
+    Page<ScheduledActivity> findScheduledByActivityId(Long id, Pageable pageable);
 }

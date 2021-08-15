@@ -16,7 +16,6 @@ import java.util.Collection;
  * @version 1.0
  */
 public interface ActivityService {
-
     Page<Activity> findActivitiesByTags(Collection<Tag> tags, Pageable pageable);
 
     Page<Activity> findByDateAfterThan(LocalDateTime from, Pageable pageable);
@@ -25,7 +24,7 @@ public interface ActivityService {
 
     Activity findActivityById(Long id);
 
-    Page<Activity> findActivitiesByBuildingId(Long id, Pageable pageable);
+    Page<Activity> findActivitiesByPlaceId(Long id, Pageable pageable);
 
     Collection<Activity> findActivitiesByIds(Collection<Long> ids);
 

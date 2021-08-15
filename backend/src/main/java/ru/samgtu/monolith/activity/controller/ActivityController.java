@@ -58,9 +58,9 @@ public interface ActivityController {
             @ApiResponse(code = 404, message = "", response = ExceptionInfo.class)
     })
     @JsonView(JacksonViews.DataWithoutLob.class)
-    Page<ActivityDto> findActivitiesByBuildingId(@PathVariable("id") Long id,
-                                                 @RequestParam(defaultValue = "10") int size,
-                                                 @RequestParam(defaultValue = "0") int page);
+    Page<ActivityDto> findActivitiesByPlaceId(@PathVariable("id") Long id,
+                                              @RequestParam(defaultValue = "10") int size,
+                                              @RequestParam(defaultValue = "0") int page);
 
     @GetMapping("/{id}")
     @ApiOperation(value = "Get activity by id")

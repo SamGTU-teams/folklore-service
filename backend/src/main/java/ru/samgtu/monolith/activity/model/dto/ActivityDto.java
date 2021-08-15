@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonView;
 import io.swagger.annotations.ApiModel;
 import lombok.Data;
 import ru.samgtu.monolith.config.JacksonViews;
-import ru.samgtu.monolith.folklore.model.dto.BuildingDto;
+import ru.samgtu.monolith.place.model.dto.PlaceDto;
 import ru.samgtu.monolith.tag.model.dto.TagDto;
 
 import java.time.Duration;
@@ -44,7 +44,7 @@ public class ActivityDto {
     private String labelUrl;
 
     @JsonView(JacksonViews.DataWithoutLob.class)
-    private BuildingDto building;
+    private PlaceDto place;
 
     @JsonView(JacksonViews.DataWithoutLob.class)
     private Duration duration;

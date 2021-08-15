@@ -1,4 +1,4 @@
-package ru.samgtu.monolith.folklore.model.persistence;
+package ru.samgtu.monolith.place.model.persistence;
 
 import lombok.*;
 import org.hibernate.annotations.Type;
@@ -12,13 +12,13 @@ import javax.persistence.*;
  * @version 1.0
  */
 @Entity
-@Table(name = "building")
+@Table(name = "place")
 @RequiredArgsConstructor
 @Getter
 @Setter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @ToString
-public class BuildingLob {
+public class PlaceLob {
     @Id
     @Column(name = "id", nullable = false)
     @EqualsAndHashCode.Include
@@ -27,7 +27,7 @@ public class BuildingLob {
     @OneToOne
     @JoinColumn(name = "id", nullable = false)
     @MapsId
-    private Building building;
+    private Place place;
 
     @Lob
     @Basic
