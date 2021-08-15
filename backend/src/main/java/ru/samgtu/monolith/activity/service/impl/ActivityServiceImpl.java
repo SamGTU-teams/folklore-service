@@ -76,4 +76,10 @@ public class ActivityServiceImpl implements ActivityService {
     public Collection<Activity> getActivitiesByIds(Collection<Long> ids) {
         return activityRepository.findActivityByIdIn(ids);
     }
+
+    @Override
+    public ActivityLob findActivityInfoById(Long id) {
+        // ToDo: impl
+        return null;
+    }
 }

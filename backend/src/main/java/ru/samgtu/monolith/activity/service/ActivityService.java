@@ -18,6 +18,8 @@ import java.util.Collection;
  */
 public interface ActivityService {
 
+    ActivityLob findActivityInfoById(Long id);
+
     Page<Activity> findByTags(Collection<Tag> tags, Pageable pageable);
 
     Page<Activity> findByDateAfterThan(LocalDateTime from, Pageable pageable);
