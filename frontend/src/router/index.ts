@@ -4,6 +4,7 @@ import Afisha from "@/views/Afisha.vue";
 import Main from "@/views/Main.vue";
 import PlaceInfo from "@/views/PlaceInfo.vue";
 import ActivityInfo from "@/views/ActivityInfo.vue";
+import PlaceActivities from "@/views/PlaceActivities.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -29,6 +30,12 @@ const routes: Array<RouteRecordRaw> = [
     path: "/place/:id",
     name: "PlaceInfo",
     component: PlaceInfo,
+    props: true,
+  },
+  {
+    path: "/place/:id/activities",
+    name: "PlaceActivities",
+    component: PlaceActivities,
     props: true,
   },
   {
