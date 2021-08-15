@@ -1,6 +1,7 @@
 <template>
   <div id="main">
-    <div id="PlaceInfo">
+    <loader v-if="loadingMain" />
+    <div v-else-if='place' id="PlaceInfo">
       <div id="Image">
         <img v-if="place.imageUrl" :src="place.imageUrl" />
         <img v-else src="@/assets/no-image.png" />
@@ -8,16 +9,19 @@
       <div id="AboutPlace">
         <div id="NamePlace">{{ place.name }}</div>
         <div id="AddressPlace">{{ place.address }}</div>
-        <div id="GoToAfisha">Go to Afisha Place id = {{ id }}</div>
+        <div
+          id="GoToAfisha"
+          @click="$router.push({ name: 'PlaceActivities', params: { id } })"
+        >
+          Go to Afisha Place id = {{ id }}
+        </div>
       </div>
     </div>
-    <div id="Description">{{ place.description }}</div>
+    <div id="Description" v-if="place" v-html="place.description" />
 
-    <div id="NearbyPlaces">
+    <div v-if='nearbyPlaces' id="NearbyPlaces">
       <div style="padding-left: 15px">Рядом</div>
-      <place-component v-bind:place="{id: 1, name: 'test name 1', address: 'test address 1'}"/>
-      <place-component v-bind:place="{id: 2, name: 'test name 2', address: 'test address 2'}"/>
-      <place-component v-bind:place="{id: 3, name: 'test name 3', address: 'test address 3'}"/>
+      <place-component v-for="place in nearbyPlaces" v-bind:key="place.id" v-bind:place="place"/>
       <div style="width: 100%; clear: both" />
     </div>
   </div>
@@ -26,34 +30,44 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import PlaceComponent from "@/components/PlaceComponent.vue";
+import Loader from "@/components/Loader.vue";
 import { placeApi, Place } from "@/api/backend-api";
 
 export default defineComponent({
   name: "PlaceInfo",
   props: ["id"],
   components: {
-    PlaceComponent
+    PlaceComponent,
+    Loader,
   },
   data() {
     return {
-      place: {
-        id: -1,
-        name: "",
-        address: "",
-        lat: 0,
-        lon: 0,
-        labelUrl: "",
-        imageUrl: "",
-        tags: [],
-        mediaUrls: [],
-        description: "",
-      } as Place,
+      place: null as Place | null,
+      loadingMain: true,
+      nearbyPlaces: null as Place[] | null,
     };
   },
+  methods: {
+    loadPlaceInfo(id: number) {
+      placeApi.getPlaceInfoById(id).then(response => {
+        setTimeout(() => {
+          let data = response.data;
+          this.place = data;
+          this.loadingMain = false;
+          this.loadNearbyPlaces(data.lat, data.lon);
+        }, 3000);
+      });
+    },
+    loadNearbyPlaces(lat: number, lon: number) {
+      placeApi.getNerbyPlaces(lat, lon, 3, 0)
+      .then(response => {
+        let data = response.data;
+        this.nearbyPlaces = data.content;
+      })
+    }
+  },
   created() {
-    placeApi.getPlaceInfoById(this.id).then((response) => {
-      this.place = response.data;
-    });
+    this.loadPlaceInfo(this.id);
   },
 });
 </script>
