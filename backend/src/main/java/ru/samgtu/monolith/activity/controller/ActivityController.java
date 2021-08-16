@@ -52,7 +52,7 @@ public interface ActivityController {
                                            @RequestParam(defaultValue = "10") int size);
 
     @GetMapping("/building/{id}")
-    @ApiOperation(value = "Get activities by building id")
+    @ApiOperation(value = "Get activities by place id")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = ""),
             @ApiResponse(code = 404, message = "", response = ExceptionInfo.class)
