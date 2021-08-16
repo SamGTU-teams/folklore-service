@@ -5,12 +5,13 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.data.domain.Page;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import ru.samgtu.monolith.config.JacksonViews;
 import ru.samgtu.monolith.model.ExceptionInfo;
 import ru.samgtu.monolith.tag.model.dto.TagDto;
-
-import java.util.Collection;
 
 /**
  * Creation date: 06.08.2021
@@ -21,15 +22,6 @@ import java.util.Collection;
 @RequestMapping(TagController.MAPPING)
 public interface TagController {
     String MAPPING = "api/tags";
-
-    @GetMapping
-    @ApiOperation(value = "Get tags")
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "")
-    })
-    @JsonView(JacksonViews.DataWithoutLob.class)
-    Page<TagDto> getTags(@RequestParam(defaultValue = "0") int page,
-                         @RequestParam(defaultValue = "10") int size);
 
     @GetMapping("/search")
     @ApiOperation(value = "Get tags by name")
@@ -42,6 +34,18 @@ public interface TagController {
                                 @RequestParam(defaultValue = "0") int page,
                                 @RequestParam(defaultValue = "10") int size);
 
+
+    @GetMapping("/{id}/children")
+    @ApiOperation(value = "Get all children tags")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = ""),
+            @ApiResponse(code = 404, message = "", response = ExceptionInfo.class)
+    })
+    @JsonView(JacksonViews.DataWithoutLob.class)
+    Page<TagDto> findChildrenById(@PathVariable("id") String id,
+                                @RequestParam(defaultValue = "0") int page,
+                                @RequestParam(defaultValue = "10") int size);
+
     @GetMapping("/{id}")
     @ApiOperation(value = "Get tag by id")
     @ApiResponses(value = {
@@ -49,14 +53,5 @@ public interface TagController {
             @ApiResponse(code = 404, message = "", response = ExceptionInfo.class)
     })
     @JsonView(JacksonViews.DataWithoutLob.class)
-    TagDto findTagById(@PathVariable("id") Long id);
-
-    @PostMapping("/ids")
-    @ApiOperation(value = "Get tags by ids")
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "", response = TagDto.class),
-            @ApiResponse(code = 404, message = "", response = ExceptionInfo.class)
-    })
-    @JsonView(JacksonViews.DataWithoutLob.class)
-    Collection<TagDto> findTagsByIds(@RequestBody Collection<Long> ids);
+    TagDto findTagById(@PathVariable("id")String id);
 }

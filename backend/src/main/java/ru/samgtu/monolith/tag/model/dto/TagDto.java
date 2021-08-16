@@ -15,7 +15,7 @@ import ru.samgtu.monolith.config.JacksonViews;
 @Data
 public class TagDto {
     @JsonView(JacksonViews.DataWithoutLob.class)
-    private Long id;
+    private String id;
 
     @JsonView(JacksonViews.DataWithoutLob.class)
     private String name;

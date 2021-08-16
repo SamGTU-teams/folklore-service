@@ -10,9 +10,6 @@ import ru.samgtu.monolith.tag.model.persistence.Tag;
 import ru.samgtu.monolith.tag.repository.TagRepository;
 import ru.samgtu.monolith.tag.service.TagService;
 
-import java.util.Collection;
-import java.util.List;
-
 /**
  * Creation date: 07.08.2021
  *
@@ -26,8 +23,11 @@ public class TagServiceImpl implements TagService {
     private final TagRepository repository;
 
     @Override
-    public Page<Tag> getTags(Pageable pageable) {
-        return repository.findAll(pageable);
+    public Page<Tag> findChildrenTagsById(String id, Pageable pageable) {
+        if(!id.endsWith(".")) {
+            id += ".";
+        }
+        return repository.findByIdIsStartingWith(id, pageable);
     }
 
     @Override
@@ -37,17 +37,12 @@ public class TagServiceImpl implements TagService {
     }
 
     @Override
-    public Tag findTagById(Long id) {
+    public Tag findTagById(String id) {
         return repository
                 .findById(id)
                 .orElseThrow(() -> {
                     log.warn("Tag with id = {} does not exists", id);
                     return new NoSuchTagException("Tag does not exists");
                 });
-    }
-
-    @Override
-    public List<Tag> findTagsByIds(Collection<Long> ids) {
-        return repository.findAllById(ids);
     }
 }
