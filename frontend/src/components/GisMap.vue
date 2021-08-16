@@ -35,13 +35,8 @@ export default {
 </script>
 
 <style scoped>
-.s12 {
-  height: 50vh;
-}
-.m12 {
-  height: 75vh;
-}
 #map {
+  height: 65vh;
   width: 100%;
   border-radius: 5px;
 }
