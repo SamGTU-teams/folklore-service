@@ -59,7 +59,7 @@ public class PlaceServiceImpl implements PlaceService {
     @Override
     public Place findPlacesById(Long id) {
         return repository.findById(id).orElseThrow(() -> {
-            log.warn("Building with id = {} does not exists", id);
+            log.warn("Place with id = {} does not exists", id);
             return new NoSuchPlaceException("Building does not exists");
         });
     }
@@ -67,7 +67,7 @@ public class PlaceServiceImpl implements PlaceService {
     @Override
     public Place findPlacesInfoById(Long id) {
         return repository.findInfoById(id).orElseThrow(() -> {
-            log.warn("Building with id = {} does not exists", id);
+            log.warn("Place with id = {} does not exists", id);
             return new NoSuchPlaceException("Building does not exists");
         });
     }
