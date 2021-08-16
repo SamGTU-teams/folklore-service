@@ -38,6 +38,9 @@ public class ActivityDto {
     private String address;
 
     @JsonView(JacksonViews.DataWithoutLob.class)
+    private boolean canVisit;
+
+    @JsonView(JacksonViews.DataWithoutLob.class)
     private String imageUrl;
 
     @JsonView(JacksonViews.DataWithoutLob.class)
