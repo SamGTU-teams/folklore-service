@@ -15,7 +15,7 @@
   </div>
 </template>
 
-<script lang="ts">
+<script>
 import AfishaCard from "@/components/SmallCard.vue";
 import { defineComponent } from "vue";
 
