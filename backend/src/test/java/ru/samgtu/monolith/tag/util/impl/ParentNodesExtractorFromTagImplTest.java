@@ -27,7 +27,8 @@ class ParentNodesExtractorFromTagImplTest {
     static void setUp() {
         tag = "1.2.3.4.5.6";
         delimiter = "\\.";
-        extractor = new ParentNodesExtractorFromTagImpl(delimiter);
+        extractor = new ParentNodesExtractorFromTagImpl();
+        extractor.setDelimiter(delimiter);
     }
 
     @Test
