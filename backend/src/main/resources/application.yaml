@@ -1,7 +1,6 @@
 server.port: ${PORT}
 # Activity properties
 activity.status.rate: 300000
-settings.cors_origin: ${CORS_ORIGINS:*}
 spring:
     application.name: folklore-service
     # DB properties
