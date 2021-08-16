@@ -6,10 +6,14 @@
                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
     <changeSet id="init-tag-table" author="rassafel">
         <createTable tableName="tag">
-            <column name="id" type="VARCHAR(14)">
-                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_tag"/>
+            <column name="id"
+                    type="VARCHAR(14)">
+                <constraints nullable="false"
+                             primaryKey="true"
+                             primaryKeyName="pk_tag"/>
             </column>
-            <column name="name" type="VARCHAR(31)">
+            <column name="name"
+                    type="VARCHAR(31)">
                 <constraints nullable="false"/>
             </column>
         </createTable>
