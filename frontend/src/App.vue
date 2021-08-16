@@ -23,16 +23,16 @@
       <div class="row show-on-medium hide-on-med-and-up" id="MenuGrid">
         <div class="col s12 ">LOGO</div>
         <router-link to="/"
-          ><div class="col offset-m4 m4 s12">Главная</div></router-link
+          ><div class="col offset-m4 m4 offset-s4 s4">Главная</div></router-link
         >
         <router-link to="/afisha"
-          ><div class="col offset-m4 m4 s12">Афиша</div></router-link
+          ><div class="col offset-m4 m4 offset-s4 s4">Афиша</div></router-link
         >
         <router-link to="/profile"
-          ><div class="col offset-m4 m4 s12">Профиль</div></router-link
+          ><div class="col offset-m4 m4 offset-s4 s4">Профиль</div></router-link
         >
         <router-link to="/login"
-          ><div class="col offset-m4 m4 s12">Войти</div></router-link
+          ><div class="col offset-m4 m4 offset-s4 s4">Войти</div></router-link
         >
       </div>
     </div>
