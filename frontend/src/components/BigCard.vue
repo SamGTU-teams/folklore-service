@@ -56,6 +56,7 @@ export default defineComponent({
   margin-bottom: 5px;
   margin-top: 0px;
   font-size: max(1.25em, min(2.5em, calc(100vw * 4 / 120)));
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-weight: bold;
   color: #fff;
 }
@@ -67,6 +68,7 @@ export default defineComponent({
   margin-bottom: 0px;
   margin-top: 0px;
   font-size: max(0.9em, min(2em, calc(100vw * 4 / 320)));
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color: #fff;
 }
 </style>

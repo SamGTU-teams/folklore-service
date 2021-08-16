@@ -47,15 +47,11 @@
     </div>
 
     <div class="row">
-      <div
-        class="col s12 m12 l6"
-        v-for="card in bigCards"
-        v-bind:key="card"
-      >
+      <div class="col s12 m12 l6" v-for="card in bigCards" v-bind:key="card">
         <big-card
-          v-bind:imgUrl="card.imgUrl" 
-          v-bind:titleText="card.titleText" 
-          v-bind:subtitleText="card.subtitleText" 
+          v-bind:imgUrl="card.imgUrl"
+          v-bind:titleText="card.titleText"
+          v-bind:subtitleText="card.subtitleText"
         />
       </div>
     </div>
@@ -124,7 +120,8 @@ export default defineComponent({
 .titleRow {
   margin-top: 1%;
   text-align: left;
-  font-size: 1em;
-  font-weight: bold;
+  font-size: 1.5em;
+  font-weight: lighter;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 </style>

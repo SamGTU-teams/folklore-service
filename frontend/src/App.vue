@@ -73,9 +73,12 @@ export default defineComponent({
 #Logo {
   width: 35%;
   float: left;
+  padding: 10px;
   text-align: left;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 #MenuPuncts {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   width: 65%;
   float: right;
 }
