@@ -40,12 +40,13 @@
   <router-view />
 </template>
 <script>
-import { defineComponent } from "vue";
-import M from "materialize-css";
+import Vue, { defineComponent } from "vue";
+import * as Materialize from "materialize-css";
+
 export default defineComponent({
   name: "App",
   mounted() {
-    M.AutoInit();
+    Materialize.AutoInit();
   },
 });
 </script>

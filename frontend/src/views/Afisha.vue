@@ -20,15 +20,13 @@
     </div>
   </div>
 </template>
+
 <script>
 import AfishaCard from "@/components/SmallCard.vue";
 import { defineComponent } from "vue";
-import M from "materialize-css";
+
 export default defineComponent({
   name: "Afisha",
-  mounted() {
-    M.AutoInit();
-  },
   components: {
     AfishaCard,
   },
@@ -55,6 +53,7 @@ export default defineComponent({
   },
 });
 </script>
+
 <style>
 .titleRow {
   text-align: left;

@@ -5,6 +5,7 @@ import Main from "@/views/Main.vue";
 import PlaceInfo from "@/views/PlaceInfo.vue";
 import ActivityInfo from "@/views/ActivityInfo.vue";
 import PlaceActivities from "@/views/PlaceActivities.vue";
+import Login from "@/views/Login.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -43,6 +44,11 @@ const routes: Array<RouteRecordRaw> = [
     name: "ActivityInfo",
     component: ActivityInfo,
     props: true,
+  },
+  {
+    path: "/login",
+    name: "Login",
+    component: Login,
   },
 
 

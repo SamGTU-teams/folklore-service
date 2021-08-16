@@ -22,6 +22,7 @@ export default defineComponent({
   props: ["imgUrl", "titleText", "subtitleText"],
 });
 </script>
+
 <style scoped>
 .card-content {
   background-color: #fff;

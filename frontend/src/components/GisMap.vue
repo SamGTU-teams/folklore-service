@@ -7,9 +7,10 @@
 </template>
 
 <script>
+import { defineComponent } from "vue";
 import DG from "2gis-maps";
 
-export default {
+export default defineComponent({
   name: "GisMap",
   props: {
     centerLat: {
@@ -31,7 +32,7 @@ export default {
       zoom: this.zoom,
     });
   },
-};
+});
 </script>
 
 <style scoped>
