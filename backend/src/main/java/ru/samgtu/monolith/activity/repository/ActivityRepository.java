@@ -19,6 +19,6 @@ public interface ActivityRepository extends JpaRepository<Activity, Long> {
 
     Collection<Activity> findActivityByIdIn(Collection<Long> ids);
 
-    @EntityGraph("lob")
+    @EntityGraph(attributePaths = "lob")
     Optional<Activity> findInfoById(Long id);
 }
