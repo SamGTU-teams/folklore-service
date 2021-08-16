@@ -122,7 +122,7 @@ export default defineComponent({
 
 <style>
 .titleRow {
-  margin-top: 3%;
+  margin-top: 1%;
   text-align: left;
   font-size: 1em;
   font-weight: bold;
