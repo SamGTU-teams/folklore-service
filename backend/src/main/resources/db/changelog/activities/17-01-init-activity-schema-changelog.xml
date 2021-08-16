@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+    <changeSet id="init-activity-schema" author="rassafel">
+        <createTable tableName="activity">
+            <column autoIncrement="true"
+                    name="id"
+                    type="BIGINT">
+                <constraints nullable="false"
+                             primaryKey="true"
+                             primaryKeyName="pk_activity"/>
+            </column>
+            <column name="name"
+                    type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="lat"
+                    type="DOUBLE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="lon"
+                    type="DOUBLE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="address"
+                    type="VARCHAR(80)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="can_visit"
+                    type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column name="image_url"
+                    type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="label_url"
+                    type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="lob_id"
+                    type="BIGINT"/>
+            <column name="place_id"
+                    type="BIGINT"/>
+            <column name="duration"
+                    type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addForeignKeyConstraint baseColumnNames="lob_id"
+                                 baseTableName="activity"
+                                 constraintName="FK_ACTIVITY_ON_LOB"
+                                 referencedColumnNames="id"
+                                 referencedTableName="description_url"/>
+        <addForeignKeyConstraint baseColumnNames="place_id"
+                                 baseTableName="activity"
+                                 constraintName="FK_ACTIVITY_ON_PLACE"
+                                 referencedColumnNames="id"
+                                 referencedTableName="place"/>
+
+        <createTable tableName="activity_scheduled">
+            <column name="status"
+                    type="VARCHAR(30)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="activity_id"
+                    type="BIGINT">
+                <constraints nullable="false"
+                             primaryKey="true"
+                             primaryKeyName="pk_activity_scheduled"/>
+            </column>
+            <column name="date_time"
+                    type="DATETIME">
+                <constraints
+                        primaryKey="true"
+                        primaryKeyName="pk_activity_scheduled"/>
+            </column>
+        </createTable>
+        <addForeignKeyConstraint baseColumnNames="activity_id"
+                                 baseTableName="activity_scheduled"
+                                 constraintName="FK_ACTIVITY_SCHEDULED_ON_ACTIVITY"
+                                 referencedColumnNames="id"
+                                 referencedTableName="activity"/>
+
+        <createTable tableName="activity_tag">
+            <column name="activity_id"
+                    type="BIGINT">
+                <constraints nullable="false"
+                             primaryKey="true"
+                             primaryKeyName="pk_activity_tag"/>
+            </column>
+            <column name="tag_id"
+                    type="VARCHAR(14)">
+                <constraints nullable="false"
+                             primaryKey="true"
+                             primaryKeyName="pk_activity_tag"/>
+            </column>
+        </createTable>
+        <addForeignKeyConstraint baseColumnNames="activity_id"
+                                 baseTableName="activity_tag"
+                                 constraintName="fk_acttag_on_activity"
+                                 referencedColumnNames="id"
+                                 referencedTableName="activity"/>
+        <addForeignKeyConstraint baseColumnNames="tag_id"
+                                 baseTableName="activity_tag"
+                                 constraintName="fk_acttag_on_tag"
+                                 referencedColumnNames="id"
+                                 referencedTableName="tag"/>
+    </changeSet>
+</databaseChangeLog>
