@@ -5,7 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import ru.samgtu.monolith.region.NoSuchRegionException;
+import ru.samgtu.monolith.region.exception.NoSuchRegionException;
 import ru.samgtu.monolith.region.model.persistence.Region;
 import ru.samgtu.monolith.region.repository.RegionRepository;
 import ru.samgtu.monolith.region.service.RegionService;

@@ -1,4 +1,4 @@
-package ru.samgtu.monolith.region;
+package ru.samgtu.monolith.region.exception;
 
 import java.util.NoSuchElementException;
 
