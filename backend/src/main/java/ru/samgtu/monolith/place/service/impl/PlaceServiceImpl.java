@@ -7,14 +7,15 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import ru.samgtu.monolith.place.exception.NoSuchPlaceException;
 import ru.samgtu.monolith.place.model.persistence.Place;
-import ru.samgtu.monolith.place.model.persistence.PlaceLob;
-import ru.samgtu.monolith.place.repository.PlaceLobRepository;
 import ru.samgtu.monolith.place.repository.PlaceRepository;
 import ru.samgtu.monolith.place.service.PlaceService;
 import ru.samgtu.monolith.tag.model.persistence.Tag;
+import ru.samgtu.monolith.tag.util.ParentNodesExtractorFromTag;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * Creation date: 07.08.2021
@@ -28,7 +29,7 @@ import java.util.Set;
 public class PlaceServiceImpl implements PlaceService {
     private final PlaceRepository repository;
 
-    private final PlaceLobRepository lobRepository;
+    private final ParentNodesExtractorFromTag extractor;
 
     @Override
     public Page<Place> getPlaces(Pageable pageable) {
@@ -56,8 +57,8 @@ public class PlaceServiceImpl implements PlaceService {
     }
 
     @Override
-    public PlaceLob findPlacesInfoById(Long id) {
-        return lobRepository.findById(id).orElseThrow(() -> {
+    public Place findPlacesInfoById(Long id) {
+        return repository.findInfoById(id).orElseThrow(() -> {
             log.warn("Building with id = {} does not exists", id);
             return new NoSuchPlaceException("Building does not exists");
         });
