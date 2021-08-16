@@ -8,7 +8,7 @@
 
     <div class="row">
       <div
-        class="col s12 m12 l12 xl4"
+        class="col s12 m12 l4 xl4"
         v-for="card in smallCards"
         v-bind:key="card"
       >
@@ -28,7 +28,7 @@
 
     <div class="row">
       <div
-        class="col s12 m12 l12 xl4"
+        class="col s12 m12 l4 xl4"
         v-for="card in smallCards"
         v-bind:key="card"
       >
@@ -41,14 +41,14 @@
     </div>
 
     <div class="row">
-      <div class="col s12 m12 l12 titleRow">
+      <div class="col s12 m12 l6 xl6 titleRow">
         Подборки
       </div>
     </div>
 
     <div class="row">
       <div
-        class="col s12 m12 l12 xl4"
+        class="col s12 m12 l6"
         v-for="card in bigCards"
         v-bind:key="card"
       >
