@@ -4,8 +4,11 @@
       <img v-bind:src="imgUrl" />
     </div>
     <div class="card-content">
-      <p>
-        {{ textContent }}
+      <p class="titleText">
+        {{ titleText }}
+      </p>
+      <p class="subtitleText">
+        {{ subtitleText }}
       </p>
     </div>
   </div>
@@ -16,10 +19,10 @@ import { defineComponent } from "vue";
 
 export default defineComponent({
   name: "SmallCard",
-  props: ["imgUrl", "textContent"],
+  props: ["imgUrl", "titleText", "subtitleText"],
 });
 </script>
-<style>
+<style scoped>
 .card-content {
   background-color: #fff;
   color: #51495c;
@@ -38,5 +41,18 @@ export default defineComponent({
   height: 100%;
   border-width: 0;
   outline-width: 0;
+}
+
+.titleText {
+  padding-bottom: 2%;
+  height: 3em;
+  text-align: left;
+  font-size: 1em;
+}
+.subtitleText {
+  padding-top: 2%;
+  height: 3em;
+  text-align: left;
+  font-size: 0.8em;
 }
 </style>
