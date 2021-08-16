@@ -3,6 +3,11 @@
     <div class="row">
       <div id="map" class="col s12 m12 l12"></div>
     </div>
+    <div class="row tags">
+      <div class="col s12 m12 l12">
+        
+      </div>
+    </div>
   </div>
 </template>
 
