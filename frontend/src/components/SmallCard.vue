@@ -1,5 +1,5 @@
 <template>
-  <div class="card z-depth-5">
+  <div class="card z-depth-3">
     <div class="img-container">
       <img v-bind:src="imgUrl" />
     </div>
@@ -26,9 +26,9 @@ export default defineComponent({
 <style scoped>
 .card-content {
   background-color: #fff;
-  color: #51495c;
-  padding: 12px;
+  color: #000;
 }
+
 .img-container {
   position: relative;
   padding-bottom: 56.25%; /* задаёт высоту контейнера для 16:9 (если 4:3 — поставьте 75%) */
@@ -46,17 +46,17 @@ export default defineComponent({
 }
 
 .titleText {
-  padding-bottom: 2%;
-  height: 3em;
+  /* padding-bottom: 5px; */
+  height: 2em;
   text-align: left;
-  font-size: 0.9em;
+  font-size: max(0.65em, min(0.8em, calc(100vw * 4 / 320)));
   font-weight: bold;
   color: #2b3f8d;
 }
 .subtitleText {
-  padding-top: 2%;
-  height: 3em;
+  padding-top: 10px;
+  height: 2em;
   text-align: left;
-  font-size: 0.8em;
+  font-size: max(0.5em, min(0.6em, calc(100vw * 4 / 320)));
 }
 </style>
