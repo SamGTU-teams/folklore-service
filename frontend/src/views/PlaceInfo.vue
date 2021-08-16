@@ -35,6 +35,7 @@
 import { defineComponent } from "vue";
 import PlaceComponent from "@/components/PlaceComponent.vue";
 import Loader from "@/components/Loader.vue";
+import { Point } from "@/model/Point";
 import { Place } from "@/model/Place";
 import placeApi from "@/api/PlaceApi";
 
@@ -55,16 +56,14 @@ export default defineComponent({
   methods: {
     loadPlaceInfo(id: number) {
       placeApi.getPlaceInfoById(id).then((response) => {
-        setTimeout(() => {
-          let data = response.data;
-          this.place = data;
-          this.loadingMain = false;
-          this.loadNearbyPlaces(data.lat, data.lon);
-        }, 3000);
+        let data = response.data;
+        this.place = data;
+        this.loadingMain = false;
+        this.loadNearbyPlaces(data.point);
       });
     },
-    loadNearbyPlaces(lat: number, lon: number) {
-      placeApi.getNerbyPlaces(lat, lon, 3, 0).then((response) => {
+    loadNearbyPlaces(point: Point) {
+      placeApi.getNerbyPlaces(point, 3, 0).then((response) => {
         let data = response.data;
         this.nearbyPlaces = data.content;
       });
