@@ -17,18 +17,18 @@ import static org.junit.jupiter.api.Assertions.*;
  * @version 1.0
  */
 class ParentNodesExtractorFromTagImplTest {
+    static ParentNodesExtractorFromTagImpl extractor;
+
+    static String tag;
+
+    static String delimiter;
+
     @BeforeAll
     static void setUp() {
         tag = "1.2.3.4.5.6";
         delimiter = "\\.";
         extractor = new ParentNodesExtractorFromTagImpl(delimiter);
     }
-
-    static ParentNodesExtractorFromTagImpl extractor;
-
-    static String tag;
-
-    static String delimiter;
 
     @Test
     void extractFrom() {
