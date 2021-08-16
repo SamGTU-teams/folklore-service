@@ -4,7 +4,5 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
-    <changeSet id="drop-interaction-column-activity" author="rassafel">
-        <dropColumn tableName="activity" columnName="interaction"/>
-    </changeSet>
+    <include file="db/changelog/activities/13-01-changelog.sql" context="romzes"/>
 </databaseChangeLog>
