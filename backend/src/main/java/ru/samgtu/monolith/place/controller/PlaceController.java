@@ -34,7 +34,7 @@ public interface PlaceController {
     })
     @JsonView(JacksonViews.DataWithoutLob.class)
     Page<PlaceDto> findPlacesByTags(@ApiParam(name = "tags", value = "tags")
-                                         @RequestBody(required = false) Set<TagDto> tags,
+                                    @RequestBody(required = false) Set<TagDto> tags,
                                     @RequestParam(defaultValue = "0") int page,
                                     @RequestParam(defaultValue = "10") int size);
 
