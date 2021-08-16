@@ -1,8 +1,8 @@
 <template>
-  <div id="map"></div>
+  <div id="map" />
 </template>
 
-<script lang="ts">
+<script>
 import { defineComponent } from "vue";
 import DG from "2gis-maps";
 
