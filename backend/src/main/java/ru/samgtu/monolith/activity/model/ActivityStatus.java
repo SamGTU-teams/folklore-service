@@ -12,7 +12,8 @@ import java.util.stream.Stream;
  */
 public enum ActivityStatus {
     SCHEDULED,
-    STARTED,
+    STARTED_CANT_VISIT,
+    STARTED_CAN_VISIT,
     ENDED;
 
     public static ActivityStatus[] getBefore(ActivityStatus value) {
