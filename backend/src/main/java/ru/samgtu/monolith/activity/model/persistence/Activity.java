@@ -1,6 +1,7 @@
 package ru.samgtu.monolith.activity.model.persistence;
 
 import lombok.*;
+import ru.samgtu.monolith.model.persistence.DescriptionAndUrlsLob;
 import ru.samgtu.monolith.place.model.persistence.Place;
 import ru.samgtu.monolith.tag.model.persistence.Tag;
 
@@ -23,12 +24,6 @@ import java.util.Set;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @ToString
 @Entity
-@NamedNativeQueries({
-        @NamedNativeQuery(name = "select_by_date_more_than",
-                query = "SELECT a.* FROM activity a INNER JOIN activity_scheduled asch ON a.id = asch.activity_id where asch.date_time >= ? ORDER BY date_time limit ? offset ?",
-                resultClass = Activity.class)
-})
-
 public class Activity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -64,6 +59,10 @@ public class Activity {
     @ToString.Exclude
     @OneToMany(mappedBy = "activity", fetch = FetchType.EAGER)
     private List<ScheduledActivity> scheduledActivities;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "lob_id", referencedColumnName = "id")
+    private DescriptionAndUrlsLob lob;
 
     @OneToOne
     @JoinColumn(name = "place_id")

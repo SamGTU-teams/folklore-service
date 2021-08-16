@@ -30,12 +30,6 @@ public class ActivityTest {
     @Autowired
     EntityManager entityManager;
 
-    @Test
-    public void testScheduledInsert() {
-        PageRequest pageRequest = PageRequest.of(2, 1);
-        Page<Activity> result = activityService.findByDateAfterThan(LocalDateTime.now(), pageRequest);
-        assertEquals(result.getNumberOfElements(), 2);
-    }
 
     @Test
     public void testScheduledActivity(){

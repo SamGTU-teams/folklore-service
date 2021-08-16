@@ -10,7 +10,6 @@ import ru.samgtu.monolith.activity.controller.ActivityController;
 import ru.samgtu.monolith.activity.model.dto.ActivityDto;
 import ru.samgtu.monolith.activity.model.dto.ScheduledActivityDto;
 import ru.samgtu.monolith.activity.model.persistence.Activity;
-import ru.samgtu.monolith.activity.model.persistence.ActivityLob;
 import ru.samgtu.monolith.activity.model.persistence.ScheduledActivity;
 import ru.samgtu.monolith.activity.service.ActivityService;
 import ru.samgtu.monolith.activity.service.ScheduledActivityService;
@@ -87,7 +86,7 @@ public class ActivityControllerImpl implements ActivityController {
 
     @Override
     public ActivityDto findActivityInfoById(Long id) {
-        ActivityLob activity = activityService.findActivityInfoById(id);
+        Activity activity = activityService.findActivityInfoById(id);
         return mapper.map(activity, ActivityDto.class);
     }
 
