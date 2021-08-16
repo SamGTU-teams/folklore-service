@@ -39,6 +39,9 @@ public class Place {
     @Column(name = "address", length = 80, nullable = false)
     private String address;
 
+    @Column(name = "canVisit", nullable = false)
+    private boolean canVisit;
+
     @Column(name = "image_url", nullable = false)
     private String imageUrl;
 
