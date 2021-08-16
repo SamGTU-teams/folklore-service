@@ -43,17 +43,24 @@ public class ScheduledActivityServiceImpl implements ScheduledActivityService {
     public void checkStatuses() {
         log.info("Start check statuses");
         LocalDateTime now = LocalDateTime.now();
-        for (ScheduledId id : scheduledActivityRepository.findAllIds()) {
-            Optional<ScheduledActivity> optionalScheduledActivity = scheduledActivityRepository.findById(id);
-            if (!optionalScheduledActivity.isPresent()) {
-                continue;
+        Pageable pageRequest = PageRequest.of(0, 100);
+        Page<ScheduledId> ids = scheduledActivityRepository.findAllIds(pageRequest);
+        while (ids.hasContent()) {
+            for (ScheduledId id : ids.getContent()) {
+                Optional<ScheduledActivity> optionalScheduledActivity = scheduledActivityRepository.findById(id);
+                if (!optionalScheduledActivity.isPresent()) {
+                    continue;
+                }
+                ScheduledActivity scheduledActivity = optionalScheduledActivity.get();
+                LocalDateTime dateTime = scheduledActivity.getId().getDateTime();
+                Duration duration = scheduledActivity.getActivity().getDuration();
+                boolean canVisit = scheduledActivity.getActivity().isCanVisit();
+                setStatus(scheduledActivity, calcStatus(now, dateTime, duration, canVisit));
             }
-            ScheduledActivity scheduledActivity = optionalScheduledActivity.get();
-            LocalDateTime dateTime = scheduledActivity.getId().getDateTime();
-            Duration duration = scheduledActivity.getActivity().getDuration();
-            boolean canVisit = scheduledActivity.getActivity().isCanVisit();
-            setStatus(scheduledActivity, calcStatus(now, dateTime, duration, canVisit));
+            pageRequest = ids.nextPageable();
+            ids = scheduledActivityRepository.findAllIds(pageRequest);
         }
+
         log.info("Finish check statuses");
     }
 
