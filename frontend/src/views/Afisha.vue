@@ -17,11 +17,11 @@
 <script>
 import AfishaCard from "@/components/SmallCard.vue";
 import { defineComponent } from "vue";
-import M from "materialize-css";
+import * as Materialize from "materialize-css";
 export default defineComponent({
   name: "Afisha",
   mounted() {
-    M.AutoInit();
+    Materialize.AutoInit();
   },
   components: {
     AfishaCard,
