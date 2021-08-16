@@ -14,15 +14,13 @@
     </div>
   </div>
 </template>
-<script>
+
+<script lang="ts">
 import AfishaCard from "@/components/SmallCard.vue";
 import { defineComponent } from "vue";
-import * as Materialize from "materialize-css";
+
 export default defineComponent({
   name: "Afisha",
-  mounted() {
-    Materialize.AutoInit();
-  },
   components: {
     AfishaCard,
   },
@@ -106,6 +104,7 @@ export default defineComponent({
   },
 });
 </script>
+
 <style>
 .container {
   padding-top: 20px;
