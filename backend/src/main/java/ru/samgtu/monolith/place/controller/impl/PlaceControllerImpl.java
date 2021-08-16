@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RestController;
 import ru.samgtu.monolith.place.controller.PlaceController;
 import ru.samgtu.monolith.place.model.dto.PlaceDto;
 import ru.samgtu.monolith.place.model.persistence.Place;
-import ru.samgtu.monolith.place.model.persistence.PlaceLob;
 import ru.samgtu.monolith.place.service.PlaceService;
 import ru.samgtu.monolith.tag.model.dto.TagDto;
 import ru.samgtu.monolith.tag.model.persistence.Tag;
@@ -65,7 +64,7 @@ public class PlaceControllerImpl implements PlaceController {
 
     @Override
     public PlaceDto findPlacesInfoById(Long id) {
-        PlaceLob place = service.findPlacesInfoById(id);
+        Place place = service.findPlacesInfoById(id);
         return mapper.map(place, PlaceDto.class);
     }
 
