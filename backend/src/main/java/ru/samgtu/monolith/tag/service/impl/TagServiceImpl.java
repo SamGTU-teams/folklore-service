@@ -24,7 +24,8 @@ public class TagServiceImpl implements TagService {
 
     @Override
     public Page<Tag> findChildrenTagsById(String id, Pageable pageable) {
-        if(!id.endsWith(".")) {
+        id = id.trim();
+        if(!id.isEmpty() && !id.endsWith(".")) {
             id += ".";
         }
         return repository.findByIdIsStartingWith(id, pageable);
