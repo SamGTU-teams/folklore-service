@@ -10,7 +10,6 @@ import ru.samgtu.monolith.activity.model.persistence.ScheduledId;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
-import java.util.List;
 
 /**
  * Creation date: 14.08.2021
@@ -20,7 +19,7 @@ import java.util.List;
  */
 public interface ScheduledActivityRepository extends JpaRepository<ScheduledActivity, ScheduledId> {
     @Query("select sa.id from ScheduledActivity sa")
-    List<ScheduledId> findAllIds();
+    Page<ScheduledId> findAllIds(Pageable pageable);
 
     @Query("select s.id.activityId, min(s.id.dateTime) as dt " +
             "from ScheduledActivity s " +
