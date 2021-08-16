@@ -1,6 +1,7 @@
 package ru.samgtu.monolith.place.model.persistence;
 
 import lombok.*;
+import ru.samgtu.monolith.model.persistence.DescriptionAndUrlsLob;
 import ru.samgtu.monolith.tag.model.persistence.Tag;
 
 import javax.persistence.*;
@@ -50,4 +51,8 @@ public class Place {
             inverseJoinColumns = @JoinColumn(name = "tag_id"))
     @ToString.Exclude
     private Set<Tag> tags;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "lob_id", referencedColumnName = "id")
+    private DescriptionAndUrlsLob lob;
 }

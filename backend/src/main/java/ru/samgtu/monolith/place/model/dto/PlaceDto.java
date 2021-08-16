@@ -4,9 +4,11 @@ import com.fasterxml.jackson.annotation.JsonView;
 import io.swagger.annotations.ApiModel;
 import lombok.Data;
 import ru.samgtu.monolith.config.JacksonViews;
+import ru.samgtu.monolith.model.Point;
 import ru.samgtu.monolith.tag.model.dto.TagDto;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * Creation date: 07.08.2021
@@ -14,7 +16,7 @@ import java.util.List;
  * @author rassafel
  * @version 1.0
  */
-@ApiModel("Building")
+@ApiModel("Place")
 @Data
 public class PlaceDto {
     @JsonView(JacksonViews.DataWithoutLob.class)
@@ -24,13 +26,7 @@ public class PlaceDto {
     private String name;
 
     @JsonView(JacksonViews.DataWithoutLob.class)
-    private Double lat;
-
-    @JsonView(JacksonViews.DataWithoutLob.class)
-    private Double lon;
-
-    @JsonView(JacksonViews.DataWithoutLob.class)
-    private List<TagDto> tags;
+    private Point point;
 
     @JsonView(JacksonViews.DataWithoutLob.class)
     private String address;
@@ -40,6 +36,9 @@ public class PlaceDto {
 
     @JsonView(JacksonViews.DataWithoutLob.class)
     private String labelUrl;
+
+    @JsonView(JacksonViews.DataWithoutLob.class)
+    private Set<TagDto> tags;
 
     @JsonView(JacksonViews.DataWithLob.class)
     private List<String> urls;
