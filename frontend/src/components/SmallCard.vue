@@ -19,6 +19,7 @@ export default defineComponent({
   props: ["imgUrl", "textContent"],
 });
 </script>
+
 <style>
 .card-content {
   background-color: #fff;
