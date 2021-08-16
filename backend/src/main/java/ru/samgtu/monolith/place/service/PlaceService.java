@@ -17,7 +17,7 @@ import java.util.Set;
 public interface PlaceService {
     Page<Place> getPlaces(Pageable pageable);
 
-    Page<Place> findPlacesByTags(Set<Tag> tags,
+    Page<Place> findPlacesByTags(Set<String> tags,
                                  Pageable pageable);
 
     Page<Place> findPlacesByName(String name,

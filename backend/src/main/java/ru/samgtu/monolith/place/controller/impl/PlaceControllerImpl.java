@@ -16,8 +16,6 @@ import ru.samgtu.monolith.tag.model.persistence.Tag;
 import java.util.Collection;
 import java.util.Set;
 
-import static java.util.Objects.isNull;
-
 /**
  * Creation date: 07.08.2021
  *
@@ -33,17 +31,11 @@ public class PlaceControllerImpl implements PlaceController {
     private final MapperFacade mapper;
 
     @Override
-    public Page<PlaceDto> findPlacesByTags(Set<TagDto> tagsDto,
+    public Page<PlaceDto> findPlacesByTags(Set<String> tags,
                                            int page,
                                            int size) {
-        Page<Place> places;
         PageRequest pageRequest = createPageRequest(page, size);
-        if (isNull(tagsDto)) {
-            places = service.getPlaces(pageRequest);
-        } else {
-            Set<Tag> tags = mapper.mapAsSet(tagsDto, Tag.class);
-            places = service.findPlacesByTags(tags, pageRequest);
-        }
+        Page<Place> places = service.findPlacesByTags(tags, pageRequest);
         return mapPage(places);
     }
 

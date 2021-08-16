@@ -37,17 +37,16 @@ public class PlaceServiceImpl implements PlaceService {
     }
 
     @Override
-    public Page<Place> findPlacesByTags(Set<Tag> tags,
+    public Page<Place> findPlacesByTags(Set<String> tags,
                                         Pageable pageable) {
-        Set<String> extractedTags = tags.stream()
-                .map(Tag::getName)
+        tags = tags.stream()
                 .flatMap(s -> {
                     List<String> nodes = extractor.extractFrom(s);
                     nodes.add(s);
                     return nodes.stream();
                 })
                 .collect(Collectors.toSet());
-        return repository.findByTagsIdIn(extractedTags, pageable);
+        return repository.findByTagsIdIn(tags, pageable);
     }
 
     @Override
