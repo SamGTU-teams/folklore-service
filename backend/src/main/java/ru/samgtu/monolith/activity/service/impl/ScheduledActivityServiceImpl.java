@@ -51,7 +51,8 @@ public class ScheduledActivityServiceImpl implements ScheduledActivityService {
             ScheduledActivity scheduledActivity = optionalScheduledActivity.get();
             LocalDateTime dateTime = scheduledActivity.getId().getDateTime();
             Duration duration = scheduledActivity.getActivity().getDuration();
-            setStatus(scheduledActivity, calcStatus(now, dateTime, duration));
+            boolean canVisit = scheduledActivity.getActivity().isCanVisit();
+            setStatus(scheduledActivity, calcStatus(now, dateTime, duration, canVisit));
         }
         log.info("Finish check statuses");
     }
@@ -73,13 +74,14 @@ public class ScheduledActivityServiceImpl implements ScheduledActivityService {
                     Long activityId = activity.getId();
                     LocalDateTime dateTime = map.get(activityId);
                     Duration duration = activity.getDuration();
+                    boolean canVisit = activity.isCanVisit();
 
                     ScheduledId id = new ScheduledId();
                     id.setActivityId(activityId);
                     id.setDateTime(dateTime);
 
                     ScheduledActivity scheduledActivity = new ScheduledActivity();
-                    ActivityStatus status = calcStatus(now, dateTime, duration);
+                    ActivityStatus status = calcStatus(now, dateTime, duration, canVisit);
                     scheduledActivity.setActivity(activity);
                     scheduledActivity.setStatus(status);
 
@@ -94,11 +96,11 @@ public class ScheduledActivityServiceImpl implements ScheduledActivityService {
         return scheduledActivityRepository.findByNumericId(id, pageable);
     }
 
-    private ActivityStatus calcStatus(LocalDateTime now, LocalDateTime dateTime, Duration duration) {
+    private ActivityStatus calcStatus(LocalDateTime now, LocalDateTime dateTime, Duration duration, boolean canVisited) {
         if (now.compareTo(dateTime) < 1) {
             return ActivityStatus.SCHEDULED;
         } else if (now.compareTo(dateTime.plus(duration)) < 1) {
-            return ActivityStatus.STARTED;
+            return canVisited ? ActivityStatus.STARTED_CAN_VISIT : ActivityStatus.STARTED_CANT_VISIT;
         } else {
             return ActivityStatus.ENDED;
         }
