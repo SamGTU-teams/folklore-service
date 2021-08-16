@@ -39,7 +39,7 @@ public class ActivityTest {
 
     @Test
     public void testScheduledActivity(){
-        Page<ScheduledActivity> activities = scheduledActivityService.findByNumericId(2L, PageRequest.of(0, 5));
+        Page<ScheduledActivity> activities = scheduledActivityService.findScheduledByActivityId(2L, PageRequest.of(0, 5));
 
     }
 

@@ -19,8 +19,7 @@ public class ActivityMappingTest {
 
     @Test
     void testDtoMapping() {
-        Page<ActivityDto> activityDtos = controller.
-                getActivitiesByName(null, 1, 2);
+        Page<ActivityDto> activityDtos = controller.findActivitiesByName(null, 1, 2);
         System.out.println();
     }
 
