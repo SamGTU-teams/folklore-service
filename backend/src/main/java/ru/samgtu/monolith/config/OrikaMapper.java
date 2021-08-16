@@ -8,10 +8,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import ru.samgtu.monolith.activity.model.dto.ActivityDto;
 import ru.samgtu.monolith.activity.model.persistence.Activity;
-import ru.samgtu.monolith.activity.model.persistence.ActivityLob;
+import ru.samgtu.monolith.model.persistence.DescriptionAndUrlsLob;
 import ru.samgtu.monolith.place.model.dto.PlaceDto;
 import ru.samgtu.monolith.place.model.persistence.Place;
-import ru.samgtu.monolith.place.model.persistence.PlaceLob;
 import ru.samgtu.monolith.tag.model.dto.TagDto;
 import ru.samgtu.monolith.tag.model.persistence.Tag;
 
@@ -39,6 +38,20 @@ public class OrikaMapper extends ConfigurableMapper {
                 .register();
 
         factory.classMap(Place.class, PlaceDto.class)
+                .customize(new CustomMapper<Place, PlaceDto>() {
+                    @Override
+                    public void mapAtoB(Place place, PlaceDto placeDto, MappingContext context) {
+                        DescriptionAndUrlsLob lob = place.getLob();
+                        if (isNull(lob)) {
+                            return;
+                        }
+                        placeDto.setDescription(lob.getDescription());
+                        List<String> urls = splitUrls(lob.getMediaUrls());
+                        placeDto.setUrls(urls);
+                    }
+                })
+                .field("lat", "point.lat")
+                .field("lon", "point.lon")
                 .byDefault()
                 .register();
 
@@ -46,47 +59,27 @@ public class OrikaMapper extends ConfigurableMapper {
                 .byDefault()
                 .register();
 
-        factory.classMap(PlaceLob.class, PlaceDto.class)
-                .customize(new CustomMapper<PlaceLob, PlaceDto>() {
-                    @Override
-                    public void mapAtoB(PlaceLob building, PlaceDto placeDto, MappingContext context) {
-                        String clob = building.getMediaUrls();
-                        List<String> urls = splitUrls(clob);
-                        placeDto.setUrls(urls);
-                    }
-                })
-                .field("place.id", "id")
-                .field("place.name", "name")
-                .field("place.lon", "lon")
-                .field("place.lat", "lat")
-                .field("place.address", "address")
-                .field("place.imageUrl", "imageUrl")
-                .field("place.labelUrl", "labelUrl")
-                .field("place.tags", "tags")
-                .byDefault()
-                .register();
-
-        factory.classMap(ActivityLob.class, ActivityDto.class)
-                .customize(new CustomMapper<ActivityLob, ActivityDto>() {
-                    @Override
-                    public void mapAtoB(ActivityLob activityLob, ActivityDto activityDto, MappingContext context) {
-                        String clob = activityLob.getMediaUrls();
-                        List<String> urls = splitUrls(clob);
-                        activityDto.setUrls(urls);
-                    }
-                })
-                .field("activity.id", "id")
-                .field("activity.name", "name")
-                .field("activity.lon", "lon")
-                .field("activity.lat", "lat")
-                .field("activity.address", "address")
-                .field("activity.duration", "duration")
-                .field("activity.imageUrl", "imageUrl")
-                .field("activity.labelUrl", "labelUrl")
-                .field("activity.tags", "tags")
-                .field("activity.place", "place")
-                .byDefault()
-                .register();
+//        factory.classMap(ActivityLob.class, ActivityDto.class)
+//                .customize(new CustomMapper<ActivityLob, ActivityDto>() {
+//                    @Override
+//                    public void mapAtoB(ActivityLob activityLob, ActivityDto activityDto, MappingContext context) {
+//                        String clob = activityLob.getMediaUrls();
+//                        List<String> urls = splitUrls(clob);
+//                        activityDto.setUrls(urls);
+//                    }
+//                })
+//                .field("activity.id", "id")
+//                .field("activity.name", "name")
+//                .field("activity.lon", "lon")
+//                .field("activity.lat", "lat")
+//                .field("activity.address", "address")
+//                .field("activity.duration", "duration")
+//                .field("activity.imageUrl", "imageUrl")
+//                .field("activity.labelUrl", "labelUrl")
+//                .field("activity.tags", "tags")
+//                .field("activity.place", "place")
+//                .byDefault()
+//                .register();
     }
 
     private List<String> splitUrls(String clob) {
