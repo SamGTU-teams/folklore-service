@@ -56,30 +56,22 @@ public class OrikaMapper extends ConfigurableMapper {
                 .register();
 
         factory.classMap(Activity.class, ActivityDto.class)
+                .customize(new CustomMapper<Activity, ActivityDto>() {
+                    @Override
+                    public void mapAtoB(Activity activity, ActivityDto activityDto, MappingContext context) {
+                        DescriptionAndUrlsLob lob = activity.getLob();
+                        if (isNull(lob)) {
+                            return;
+                        }
+                        activityDto.setDescription(lob.getDescription());
+                        List<String> urls = splitUrls(lob.getMediaUrls());
+                        activityDto.setUrls(urls);
+                    }
+                })
+                .field("lat", "point.lat")
+                .field("lon", "point.lon")
                 .byDefault()
                 .register();
-
-//        factory.classMap(ActivityLob.class, ActivityDto.class)
-//                .customize(new CustomMapper<ActivityLob, ActivityDto>() {
-//                    @Override
-//                    public void mapAtoB(ActivityLob activityLob, ActivityDto activityDto, MappingContext context) {
-//                        String clob = activityLob.getMediaUrls();
-//                        List<String> urls = splitUrls(clob);
-//                        activityDto.setUrls(urls);
-//                    }
-//                })
-//                .field("activity.id", "id")
-//                .field("activity.name", "name")
-//                .field("activity.lon", "lon")
-//                .field("activity.lat", "lat")
-//                .field("activity.address", "address")
-//                .field("activity.duration", "duration")
-//                .field("activity.imageUrl", "imageUrl")
-//                .field("activity.labelUrl", "labelUrl")
-//                .field("activity.tags", "tags")
-//                .field("activity.place", "place")
-//                .byDefault()
-//                .register();
     }
 
     private List<String> splitUrls(String clob) {
