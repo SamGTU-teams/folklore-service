@@ -49,6 +49,8 @@ export default defineComponent({
   height: 3em;
   text-align: left;
   font-size: 1em;
+  font-weight: bold;
+  color: #2b3f8d;
 }
 .subtitleText {
   padding-top: 2%;
