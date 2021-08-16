@@ -5,34 +5,57 @@
         В ближайшие дни
       </div>
     </div>
+
     <div class="row">
       <div
-        class="col s12 offset-m3 m6 l4"
-        v-for="card in cards"
+        class="col s12 m12 l4"
+        v-for="card in smallCards"
         v-bind:key="card"
       >
-        <afisha-card
+        <small-card
           v-bind:imgUrl="card.imgUrl"
           v-bind:titleText="card.titleText"
           v-bind:subtitleText="card.subtitleText"
         />
       </div>
     </div>
+
     <div class="row">
       <div class="col s12 m12 l12 titleRow">
         Рекомендовано по профилю
       </div>
     </div>
+
     <div class="row">
       <div
-        class="col s12 offset-m3 m6 l4"
-        v-for="card in cards"
+        class="col s12 m12 l4"
+        v-for="card in smallCards"
         v-bind:key="card"
       >
-        <afisha-card
+        <small-card
           v-bind:imgUrl="card.imgUrl"
           v-bind:titleText="card.titleText"
           v-bind:subtitleText="card.subtitleText"
+        />
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col s12 m12 l12 titleRow">
+        Подборки
+      </div>
+    </div>
+
+    <div class="row">
+      <div
+        class="col s12 m12 l6"
+        v-for="card in bigCards"
+        v-bind:key="card"
+      >
+        <big-card
+          v-bind:imgUrl="card.imgUrl" 
+          v-bind:titleText="card.titleText" 
+          v-bind:subtitleText="card.subtitleText" 
         />
       </div>
     </div>
@@ -40,17 +63,19 @@
 </template>
 
 <script>
-import AfishaCard from "@/components/SmallCard.vue";
+import SmallCard from "@/components/SmallCard.vue";
+import BigCard from "@/components/BigCard.vue";
 import { defineComponent } from "vue";
 
 export default defineComponent({
   name: "Afisha",
   components: {
-    AfishaCard,
+    SmallCard,
+    BigCard,
   },
   data() {
     return {
-      cards: [
+      smallCards: [
         {
           imgUrl: `https://picsum.photos/1920/1080`,
           titleText: `Экскурсия в Новгородский кремль`,
@@ -65,6 +90,29 @@ export default defineComponent({
           imgUrl: `https://picsum.photos/1920/1080`,
           titleText: `День в мужском монастыре Свято-Юрьев`,
           subtitleText: `Юрьевское ш., 10, Великий Новгород`,
+        },
+      ],
+      bigCards: [
+        {
+          imgUrl: `https://picsum.photos/1101/600`,
+          titleText: `Экскурсии`,
+          subtitleText: `8 событий`,
+        },
+        {
+          imgUrl: `https://picsum.photos/1100/601`,
+          titleText: `Шоу`,
+          subtitleText: `11 событий`,
+        },
+        {
+          imgUrl: `https://picsum.photos/1102/600`,
+          titleText: `Библиотеки`,
+          subtitleText: `5 событий`,
+        },
+        {
+          imgUrl: `https://picsum.photos/1100/602`,
+          // titleText: `Развлечения`,
+          titleText: `Спектакли`,
+          subtitleText: `11 событий`,
         },
       ],
     };

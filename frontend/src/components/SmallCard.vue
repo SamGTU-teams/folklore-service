@@ -1,13 +1,13 @@
 <template>
-  <div class="card">
+  <div class="card z-depth-5">
     <div class="img-container">
       <img v-bind:src="imgUrl" />
     </div>
     <div class="card-content">
-      <p class="titleText">
+      <p class="titleText flow-text">
         {{ titleText }}
       </p>
-      <p class="subtitleText">
+      <p class="subtitleText flow-text">
         {{ subtitleText }}
       </p>
     </div>
@@ -27,6 +27,7 @@ export default defineComponent({
 .card-content {
   background-color: #fff;
   color: #51495c;
+  padding: 12px;
 }
 .img-container {
   position: relative;
@@ -48,7 +49,7 @@ export default defineComponent({
   padding-bottom: 2%;
   height: 3em;
   text-align: left;
-  font-size: 1em;
+  font-size: 0.9em;
   font-weight: bold;
   color: #2b3f8d;
 }
