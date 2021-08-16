@@ -1,14 +1,16 @@
 import { Tag } from "@/model/Tag";
+import { Place } from "@/model/Place";
+import { Point } from "@/model/Point";
 
-export default interface Activity {
-  id: number;
-  name: string;
-  address: string;
-  lat: number;
-  lon: number;
-  labelUrl: string;
-  imageUrl: string;
-  tags: Tag[];
-  mediaUrls?: string[];
-  description?: string;
+export interface Activity {
+  id: number,
+  name: string,
+  address: string,
+  point: Point,
+  labelUrl: string,
+  imageUrl: string,
+  tags: Tag[],
+  mediaUrls?: string[],
+  description?: string,
+  place?: Place
 }

@@ -1,11 +1,16 @@
 <template>
-  <div id="map"></div>
+  <div class="container">
+    <div class="row">
+      <div id="map" class="col s12 m12 l12"></div>
+    </div>
+  </div>
 </template>
 
 <script>
+import { defineComponent } from "vue";
 import DG from "2gis-maps";
 
-export default {
+export default defineComponent({
   name: "GisMap",
   props: {
     centerLat: {
@@ -27,13 +32,13 @@ export default {
       zoom: this.zoom,
     });
   },
-};
+});
 </script>
 
 <style scoped>
 #map {
-  width: 70%;
-  height: 80%;
-  margin-left: 15%;
+  height: 65vh;
+  width: 100%;
+  border-radius: 5px;
 }
 </style>

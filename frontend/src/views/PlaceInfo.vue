@@ -1,7 +1,7 @@
 <template>
   <div id="main">
     <loader v-if="loadingMain" />
-    <div v-else-if='place' id="PlaceInfo">
+    <div v-else-if="place" id="PlaceInfo">
       <div id="Image">
         <img v-if="place.imageUrl" :src="place.imageUrl" />
         <img v-else src="@/assets/no-image.png" />
@@ -19,9 +19,13 @@
     </div>
     <div id="Description" v-if="place" v-html="place.description" />
 
-    <div v-if='nearbyPlaces.length !== 0' id="NearbyPlaces">
+    <div v-if='nearbyPlaces' id="NearbyPlaces">
       <div style="padding-left: 15px">Рядом</div>
-      <place-component v-for="place in nearbyPlaces" v-bind:key="place.id" v-bind:place="place"/>
+      <place-component
+        v-for="place in nearbyPlaces"
+        v-bind:key="place.id"
+        v-bind:place="place"
+      />
       <div style="width: 100%; clear: both" />
     </div>
   </div>
@@ -31,7 +35,9 @@
 import { defineComponent } from "vue";
 import PlaceComponent from "@/components/PlaceComponent.vue";
 import Loader from "@/components/Loader.vue";
-import { placeApi, Place } from "@/api/backend-api";
+import { Point } from "@/model/Point";
+import { Place } from "@/model/Place";
+import placeApi from "@/api/PlaceApi";
 
 export default defineComponent({
   name: "PlaceInfo",
@@ -49,20 +55,19 @@ export default defineComponent({
   },
   methods: {
     loadPlaceInfo(id: number) {
-      placeApi.getPlaceInfoById(id).then(response => {
-          let data = response.data;
-          this.place = data;
-          this.loadingMain = false;
-          this.loadNearbyPlaces(data.lat, data.lon);
+      placeApi.getPlaceInfoById(id).then((response) => {
+        let data = response.data;
+        this.place = data;
+        this.loadingMain = false;
+        this.loadNearbyPlaces(data.point);
       });
     },
-    loadNearbyPlaces(lat: number, lon: number) {
-      placeApi.getNerbyPlaces(lat, lon, 3, 0)
-      .then(response => {
+    loadNearbyPlaces(point: Point) {
+      placeApi.getNerbyPlaces(point, 3, 0).then((response) => {
         let data = response.data;
         this.nearbyPlaces = data.content;
-      })
-    }
+      });
+    },
   },
   created() {
     this.loadPlaceInfo(this.id);
@@ -72,7 +77,7 @@ export default defineComponent({
     this.place = null;
     this.nearbyPlaces = [];
     this.loadPlaceInfo(parseInt(to.params.id));
-    
+
     next();
   }
 });
