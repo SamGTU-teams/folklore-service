@@ -1,5 +1,9 @@
 <template>
-  <div id="map"></div>
+  <div class="container">
+    <div class="row">
+      <div id="map" class="col s12 m12 l12"></div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -31,11 +35,14 @@ export default {
 </script>
 
 <style scoped>
+.s12 {
+  height: 50vh;
+}
+.m12 {
+  height: 75vh;
+}
 #map {
-  width: 70%;
-  height: 700px;
-  margin-left: 15%;
-  margin-top: 40px;
+  width: 100%;
   border-radius: 5px;
 }
 </style>
