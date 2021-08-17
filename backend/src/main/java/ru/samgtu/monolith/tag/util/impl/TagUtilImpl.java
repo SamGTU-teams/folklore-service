@@ -42,8 +42,25 @@ public class TagUtilImpl implements TagUtil {
 
     @Override
     public Collection<String> optimizeTags(Collection<String> tags) {
-        tags = new HashSet<>(tags);
-        return tags;
+        List<String> sortedTags = tags.stream().distinct().sorted(Comparator.comparingInt(o -> o.split("\\.").length)).collect(Collectors.toList());
+        List<String> resulting = new ArrayList<>();
+        while (sortedTags.size() > 0) {
+            List<String> middle = new ArrayList<>();
+            String compared = sortedTags.get(0);
+            middle.add(compared);
+            for (int i = 1; i < sortedTags.size(); i++) {
+                String comparing = sortedTags.get(i);
+                if (comparing.matches(compared + "\\..+")) {
+                    middle.add(comparing);
+                }
+            }
+            resulting.add(compared);
+            for (String deleting :
+                    middle) {
+                sortedTags.remove(deleting);
+            }
+        }
+        return resulting;
     }
 
     @Override
