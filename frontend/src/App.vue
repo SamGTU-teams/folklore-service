@@ -23,16 +23,16 @@
       <div class="row show-on-medium hide-on-med-and-up" id="MenuGrid">
         <div class="col s12 ">LOGO</div>
         <router-link to="/"
-          ><div class="col offset-m4 m4 s12">Главная</div></router-link
+          ><div class="col offset-m4 m4 offset-s4 s4">Главная</div></router-link
         >
         <router-link to="/afisha"
-          ><div class="col offset-m4 m4 s12">Афиша</div></router-link
+          ><div class="col offset-m4 m4 offset-s4 s4">Афиша</div></router-link
         >
         <router-link to="/profile"
-          ><div class="col offset-m4 m4 s12">Профиль</div></router-link
+          ><div class="col offset-m4 m4 offset-s4 s4">Профиль</div></router-link
         >
         <router-link to="/login"
-          ><div class="col offset-m4 m4 s12">Войти</div></router-link
+          ><div class="col offset-m4 m4 offset-s4 s4">Войти</div></router-link
         >
       </div>
     </div>
@@ -40,12 +40,13 @@
   <router-view />
 </template>
 <script>
-import { defineComponent } from "vue";
-import M from "materialize-css";
+import Vue, { defineComponent } from "vue";
+import * as Materialize from "materialize-css";
+
 export default defineComponent({
   name: "App",
   mounted() {
-    M.AutoInit();
+    Materialize.AutoInit();
   },
 });
 </script>
@@ -57,7 +58,7 @@ export default defineComponent({
   text-align: center;
 }
 #nav {
-  margin-top: 30px;
+  margin-top: 10px;
 }
 .router-link-exact-active > div,
 .router-link-active > div {
@@ -72,17 +73,27 @@ export default defineComponent({
 #Logo {
   width: 35%;
   float: left;
+  padding: 10px;
   text-align: left;
+  font-weight: bold;
+  font-size: 2em;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 #MenuPuncts {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   width: 65%;
   float: right;
+  height: 74px;
 }
 .MenuElement {
   color: #fff;
   margin-left: 15px;
   padding: 0px 15px;
   float: right;
+
+  transform: translate(0%, -50%);
+  position: relative;
+  top: 50%;
 }
 #MenuGrid {
   color: #fff;

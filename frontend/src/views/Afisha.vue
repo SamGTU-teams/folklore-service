@@ -1,117 +1,127 @@
 <template>
   <div class="container">
     <div class="row">
-      <div class="col s12 offset-m3 m6 l4">
-        <div class="card">
-          <div class="card-image">
-            <img src="https://picsum.photos/300/200">
-            <span class="card-title">Card Title</span>
-          </div>
-          <div class="card-content">
-            <p>I am a very simple card. I am good at containing small bits of information.
-            I am convenient because I require little markup to use effectively.</p>
-          </div>
-          <div class="card-action">
-            <a href="#">This is a link</a>
-          </div>
-        </div>
-      </div>    
-      <div class="col s12 offset-m3 m6 l4">
-        <div class="card">
-          <div class="card-image">
-            <img src="https://picsum.photos/300/150">
-            <span class="card-title">Card Title</span>
-          </div>
-          <div class="card-content">
-            <p>I am a very simple card. I am good at containing small bits of information.
-            I am convenient because I require little markup to use effectively.</p>
-          </div>
-          <div class="card-action">
-            <a href="#">This is a link</a>
-          </div>
-        </div>
-      </div>
-      <div class="col s12 offset-m3 m6 l4">
-        <div class="card">
-          <div class="card-image">
-            <img src="https://picsum.photos/300/180">
-            <span class="card-title">Card Title</span>
-          </div>
-          <div class="card-content">
-            <p>I am a very simple card. I am good at containing small bits of information.
-            I am convenient because I require little markup to use effectively.</p>
-          </div>
-          <div class="card-action">
-            <a href="#">This is a link</a>
-          </div>
-        </div>
+      <div class="col s12 m12 l12 titleRow">
+        В ближайшие дни
       </div>
     </div>
+
     <div class="row">
-      <div class="col s12 m6 l4">
-        <div class="card">
-          <div class="card-image">
-            <img src="https://picsum.photos/300/200">
-            <span class="card-title">Card Title</span>
-          </div>
-          <div class="card-content">
-            <p>I am a very simple card. I am good at containing small bits of information.
-            I am convenient because I require little markup to use effectively.</p>
-          </div>
-          <div class="card-action">
-            <a href="#">This is a link</a>
-          </div>
-        </div>
-      </div>    
-      <div class="col s12 m6 l4">
-        <div class="card">
-          <div class="card-image">
-            <img src="https://picsum.photos/300/150">
-            <span class="card-title">Card Title</span>
-          </div>
-          <div class="card-content">
-            <p>I am a very simple card. I am good at containing small bits of information.
-            I am convenient because I require little markup to use effectively.</p>
-          </div>
-          <div class="card-action">
-            <a href="#">This is a link</a>
-          </div>
-        </div>
+      <div
+        class="col s12 m12 l4 xl4"
+        v-for="card in smallCards"
+        v-bind:key="card"
+      >
+        <small-card
+          v-bind:imgUrl="card.imgUrl"
+          v-bind:titleText="card.titleText"
+          v-bind:subtitleText="card.subtitleText"
+        />
       </div>
-      <div class="col s12 m6 l4">
-        <div class="card">
-          <div class="card-image">
-            <img src="https://picsum.photos/300/180">
-            <span class="card-title">Card Title</span>
-          </div>
-          <div class="card-content">
-            <p>I am a very simple card. I am good at containing small bits of information.
-            I am convenient because I require little markup to use effectively.</p>
-          </div>
-          <div class="card-action">
-            <a href="#">This is a link</a>
-          </div>
-        </div>
+    </div>
+
+    <div class="row">
+      <div class="col s12 m12 l12 titleRow">
+        Рекомендовано по профилю
+      </div>
+    </div>
+
+    <div class="row">
+      <div
+        class="col s12 m12 l4 xl4"
+        v-for="card in smallCards"
+        v-bind:key="card"
+      >
+        <small-card
+          v-bind:imgUrl="card.imgUrl"
+          v-bind:titleText="card.titleText"
+          v-bind:subtitleText="card.subtitleText"
+        />
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col s12 m12 l6 xl6 titleRow">
+        Подборки
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col s12 m12 l6" v-for="card in bigCards" v-bind:key="card">
+        <big-card
+          v-bind:imgUrl="card.imgUrl"
+          v-bind:titleText="card.titleText"
+          v-bind:subtitleText="card.subtitleText"
+        />
       </div>
     </div>
   </div>
 </template>
+
 <script>
-import { defineComponent } from 'vue'
-import M from 'materialize-css'
+import SmallCard from "@/components/SmallCard.vue";
+import BigCard from "@/components/BigCard.vue";
+import { defineComponent } from "vue";
+
 export default defineComponent({
   name: "Afisha",
-  mounted () {
-    M.AutoInit()
+  components: {
+    SmallCard,
+    BigCard,
   },
-})
+  data() {
+    return {
+      smallCards: [
+        {
+          imgUrl: `https://picsum.photos/1920/1080`,
+          titleText: `Экскурсия в Новгородский кремль`,
+          subtitleText: `8, Новгородский кремль, Великий Новгород`,
+        },
+        {
+          imgUrl: `https://picsum.photos/1920/1080`,
+          titleText: `Экскурсия в Софийский собор`,
+          subtitleText: `11, Новгородский кремль, Великий Новгород, Россия`,
+        },
+        {
+          imgUrl: `https://picsum.photos/1920/1080`,
+          titleText: `День в мужском монастыре Свято-Юрьев`,
+          subtitleText: `Юрьевское ш., 10, Великий Новгород`,
+        },
+      ],
+      bigCards: [
+        {
+          imgUrl: `https://picsum.photos/1101/600`,
+          titleText: `Экскурсии`,
+          subtitleText: `8 событий`,
+        },
+        {
+          imgUrl: `https://picsum.photos/1100/601`,
+          titleText: `Шоу`,
+          subtitleText: `11 событий`,
+        },
+        {
+          imgUrl: `https://picsum.photos/1102/600`,
+          titleText: `Библиотеки`,
+          subtitleText: `5 событий`,
+        },
+        {
+          imgUrl: `https://picsum.photos/1100/602`,
+          // titleText: `Развлечения`,
+          titleText: `Спектакли`,
+          subtitleText: `11 событий`,
+        },
+      ],
+    };
+  },
+});
 </script>
-<style>
-  .container{
-    padding-top: 20px ;
-  }
-  .card-content{
-    color: #51495C;
-  }
-</style>
 
+<style>
+.titleRow {
+  margin-top: 1%;
+  text-align: left;
+  font-size: 1.5em;
+  font-weight: lighter;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+</style>
