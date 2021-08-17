@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import ru.samgtu.monolith.activity.NoSuchActivityException;
 import ru.samgtu.monolith.activity.model.persistence.Activity;
 import ru.samgtu.monolith.activity.repository.ActivityRepository;
-import ru.samgtu.monolith.activity.repository.ScheduledActivityRepository;
 import ru.samgtu.monolith.activity.service.ActivityService;
 import ru.samgtu.monolith.tag.model.persistence.Tag;
 
@@ -23,7 +22,7 @@ public class ActivityServiceImpl implements ActivityService {
     private final ScheduledActivityRepository scheduledActivityRepository;
 
     @Override
-    public Page<Activity> findActivitiesByTags(Collection<Tag> tags, Pageable pageable) {
+    public Page<Activity> findActivitiesByTags(Collection<String> tags, Pageable pageable) {
         return activityRepository.findByTagsIn(tags, pageable);
     }
 

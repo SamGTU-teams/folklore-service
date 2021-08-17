@@ -11,7 +11,6 @@ import ru.samgtu.monolith.activity.model.dto.ActivityDto;
 import ru.samgtu.monolith.activity.model.dto.ScheduledActivityDto;
 import ru.samgtu.monolith.config.JacksonViews;
 import ru.samgtu.monolith.model.ExceptionInfo;
-import ru.samgtu.monolith.tag.model.dto.TagDto;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
@@ -36,7 +35,7 @@ public interface ActivityController {
     })
     @JsonView(JacksonViews.DataWithoutLob.class)
     Page<ActivityDto> findActivitiesByTags(@ApiParam(name = "tags", value = "tags")
-                                           @RequestBody(required = false) Set<TagDto> tags,
+                                           @RequestBody(required = false) Set<String> tags,
                                            @RequestParam(defaultValue = "0") int page,
                                            @RequestParam(defaultValue = "10") int size);
 

@@ -39,8 +39,7 @@ public class ActivityControllerImpl implements ActivityController {
     private final MapperFacade mapper;
 
     @Override
-    public Page<ActivityDto> findActivitiesByTags(Set<TagDto> tagsDto, int page, int size) {
-        Page<Activity> activities;
+    public Page<ActivityDto> findActivitiesByTags(Set<String> tags, int page, int size) {
         PageRequest pageRequest = createPageRequestForActivities(size, page);
         if (isNull(tagsDto)) {
             activities = activityService.getActivities(pageRequest);
