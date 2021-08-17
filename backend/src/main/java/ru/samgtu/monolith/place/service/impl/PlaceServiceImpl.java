@@ -25,7 +25,7 @@ import java.util.Collection;
 public class PlaceServiceImpl implements PlaceService {
     private final PlaceRepository repository;
 
-    private final ParentNodesExtractorFromTag extractor;
+    private final TagUtil tagUtil;
 
     @Override
     public Page<Place> getPlaces(Pageable pageable) {
@@ -35,23 +35,9 @@ public class PlaceServiceImpl implements PlaceService {
     @Override
     public Page<Place> findPlacesByTags(Collection<String> tags,
                                         Pageable pageable) {
-//        TODO: remove this
-//        tags = tags.stream()
-//                .flatMap(s -> {
-//                    List<String> nodes = extractor.extractFrom(s);
-//                    nodes.add(s);
-//                    return nodes.stream();
-//                })
-//                .collect(Collectors.toSet());
-//        return repository.findByTagsIdIn(tags, pageable);
+        tags = tagUtil.optimizeTags(tags);
 
-//        FIXME: created example regex
-//        "1(\\.\\S*)?" find all places with tags started with
-//        TODO: optimize regex
-
-        String regex = tags.stream()
-                .map(str -> str.replaceAll("\\.", "\\.").concat("(\\.\\S*)?"))
-                .collect(Collectors.joining("|", "(", ")"));
+        String regex = tagUtil.createRegex(tags);
 
         return repository.findByTagIdRegex(regex, pageable);
     }
