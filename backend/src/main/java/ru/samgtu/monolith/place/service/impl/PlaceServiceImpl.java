@@ -9,12 +9,9 @@ import ru.samgtu.monolith.place.exception.NoSuchPlaceException;
 import ru.samgtu.monolith.place.model.persistence.Place;
 import ru.samgtu.monolith.place.repository.PlaceRepository;
 import ru.samgtu.monolith.place.service.PlaceService;
-import ru.samgtu.monolith.tag.util.ParentNodesExtractorFromTag;
+import ru.samgtu.monolith.tag.util.TagUtil;
 
 import java.util.Collection;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 /**
  * Creation date: 07.08.2021
@@ -36,7 +33,7 @@ public class PlaceServiceImpl implements PlaceService {
     }
 
     @Override
-    public Page<Place> findPlacesByTags(Set<String> tags,
+    public Page<Place> findPlacesByTags(Collection<String> tags,
                                         Pageable pageable) {
 //        TODO: remove this
 //        tags = tags.stream()
