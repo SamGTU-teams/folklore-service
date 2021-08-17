@@ -6,6 +6,7 @@ import ma.glasnost.orika.MapperFacade;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.RestController;
+import ru.samgtu.monolith.model.PageJsonImpl;
 import ru.samgtu.monolith.place.controller.PlaceController;
 import ru.samgtu.monolith.place.model.dto.PlaceDto;
 import ru.samgtu.monolith.place.model.persistence.Place;
@@ -69,6 +70,7 @@ public class PlaceControllerImpl implements PlaceController {
     }
 
     private Page<PlaceDto> mapPage(Page<Place> page) {
+        page = new PageJsonImpl<>(page);
         return page.map(building -> mapper.map(building, PlaceDto.class));
     }
 }
