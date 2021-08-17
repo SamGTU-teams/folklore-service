@@ -1,49 +1,74 @@
 <template>
   <div id="main">
     <loader v-if="loadingMain" />
+
     <div v-else-if="place" id="PlaceInfo">
-      <div id="Image">
-        <img v-if="place.imageUrl" :src="place.imageUrl" />
-        <img v-else src="@/assets/no-image.png" />
-      </div>
-      <div id="AboutPlace">
-        <div id="NamePlace">{{ place.name }}</div>
-        <div id="AddressPlace">{{ place.address }}</div>
-        <div
-          id="GoToAfisha"
-          @click="$router.push({ name: 'PlaceActivities', params: { id } })"
-        >
-          Go to Afisha Place id = {{ id }}
+      <div class="container">
+        <div class="row ">
+          <div class="col s12 m12 l6 xl6 ">
+            <div class="img-container">
+              <img v-if="place.imageUrl" :src="place.imageUrl" />
+              <img v-else src="@/assets/no-image.png" />
+            </div>
+          </div>
+          <div id="AboutPlace" class="col s12 m12 l6 xl6 ">
+            <div class="tags">
+              {{ place.tags.map((tag) => "#" + tag.name).join(", ") }}
+            </div>
+
+            <div id="NamePlace">{{ place.name }}</div>
+
+            <div id="AddressPlace">{{ place.address }}</div>
+
+            <div
+              id="GoToAfisha"
+              @click="$router.push({ name: 'PlaceActivities', params: { id } })"
+            >
+              Посмотреть на афише
+            </div>
+          </div>
         </div>
       </div>
     </div>
-    <div id="Description" v-if="place" v-html="place.description" />
 
-    <div v-if="nearbyPlaces" id="NearbyPlaces">
-      <div style="padding-left: 15px">Рядом</div>
-      <place-component
-        v-for="place in nearbyPlaces"
-        v-bind:key="place.id"
-        v-bind:place="place"
-      />
-      <div style="width: 100%; clear: both" />
+    <div class="container">
+      <div class="row">
+        <div id="Description" v-if="place" v-html="place.description" />
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="row">
+        <div
+          class="col s12 m12 l4 xl4"
+          v-for="placeCard in nearbyPlaces"
+          v-bind:key="placeCard"
+        >
+          <small-card
+            v-bind:imgUrl="placeCard.imageUrl"
+            v-bind:titleText="placeCard.name"
+            v-bind:subtitleText="placeCard.address"
+          />
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import PlaceComponent from "@/components/PlaceComponent.vue";
+// import M from "materialize-css";
 import Loader from "@/components/Loader.vue";
 import { Point } from "@/model/Point";
 import { Place } from "@/model/Place";
 import placeApi from "@/api/PlaceApi";
+import SmallCard from "@/components/SmallCard.vue";
 
 export default defineComponent({
   name: "PlaceInfo",
   props: ["id"],
   components: {
-    PlaceComponent,
+    SmallCard,
     Loader,
   },
   data() {
@@ -72,73 +97,69 @@ export default defineComponent({
   created() {
     this.loadPlaceInfo(this.id);
   },
+  // mounted(){
+  //   document.addEventListener("DOMContentLoaded", function() {
+  //     var elems = document.querySelectorAll(".slider");
+  //     var options = {
+  //       indicators: false,
+  //       height: "300",
+  //     };
+  //      var instances = M.Slider.init(elems, options);
+  //   },
+  // },
 });
 </script>
 
 <style scoped>
 body {
   margin: 0px;
-  font-family: Arial;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
-#main {
-  width: calc(100% - 20px);
-  min-height: 75%;
-  background: linear-gradient(to top, #373b3e, #687178);
-  padding: 15px 10px;
-}
-#PlaceInfo {
-  width: 100%;
-  height: 50%;
-}
-#Image,
+
 #AboutPlace {
-  width: calc(50% - 7px);
-  height: 100%;
-  float: left;
-  border-radius: 5px;
-  /*background: #ccc;*/
+  position: relative;
 }
-#Image {
-  text-align: center;
-  margin-right: 7px;
+
+.tags {
+  padding-bottom: 2rem;
+  height: 4rem;
+  font-size: calc(20px + (15 - 20) * ((100vw - 500px) / (1920 - 500)));
+  /* margin-bottom: max(1.3rem, min(2.8rem, calc(100vw * 4 / 350))); */
+  margin-bottom: 0;
 }
-#Image > img {
-  height: 100%;
-  border-radius: 5px;
-}
-#AboutPlace {
-  margin-left: 7px;
-}
-#NamePlace,
-#AddressPlace,
-#GoToAfisha {
-  text-align: center;
-  width: 100%;
-  font-weight: bold;
-  font-size: calc(15px + (30 - 15) * ((100vw - 500px) / (1920 - 500)));
-  border-radius: 5px;
-  height: calc(100% / 3 - 20% / 3);
-  color: #fff;
-}
+
 #NamePlace {
-  background: linear-gradient(to top, #06366a, #047ff4);
-  margin-bottom: 5%;
+  text-transform: uppercase;
+  font-size: calc(40px + (35 - 40) * ((100vw - 500px) / (1920 - 500)));
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  margin-top: calc(50px + (0 - 50) * ((100vw - 500px) / (1920 - 500)));
+  margin-bottom: max(1.5rem, min(2.8rem, calc(100vw * 4 / 350)));
+  /* margin-bottom: 1%; */
 }
 #AddressPlace {
-  background: linear-gradient(to top, #267838, #39a050);
-  margin: 5% 0px;
+  font-size: calc(20px + (15 - 20) * ((100vw - 500px) / (1920 - 500)));
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  margin-bottom: max(1.5rem, min(2.8rem, calc(100vw * 4 / 350)));
+  /* margin-bottom: 1%; */
 }
 #GoToAfisha {
-  background: linear-gradient(to top, #971a30, #cd2d49);
-  margin-top: 5%;
+  width: 100%;
+  background-color: #e8edff;
+  padding: 15px 0px;
+  margin: 0 0;
+  border-radius: 5px;
+  text-transform: uppercase;
+  color: #2b3f8d;
+  text-align: center;
+  font-size: calc(20px + (25 - 20) * ((100vw - 500px) / (1920 - 500)));
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 #Description {
-  width: calc(100% - 20px);
-  margin-top: 15px;
-  border-radius: 5px;
-  padding: 10px;
-  background: #6c777d;
-  text-indent: 1.5em;
+  padding: 0 0.75rem;
+  text-indent: 20px;
+  font-size: calc(25px + (20 - 25) * ((100vw - 500px) / (1920 - 500)));
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: #fff;
   text-align: justify;
 }
 #NearbyPlaces {
@@ -150,7 +171,28 @@ body {
   text-transform: uppercase;
   font-weight: bold;
   margin-top: 30px;
-  border: 4px solid #824e5a;
-  color: #824e5a;
+}
+
+.img-container {
+  position: relative;
+  padding-bottom: 56.25%; /* задаёт высоту контейнера для 16:9 (если 4:3 — поставьте 75%) */
+  height: 0;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.img-container img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-width: 0;
+  outline-width: 0;
+}
+
+.AboutPlace {
+}
+.GoToAfisha {
 }
 </style>
