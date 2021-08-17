@@ -14,4 +14,4 @@ spring:
         console:
             enabled: false
     liquibase:
-        contexts: romzes
+        contexts: romzes,dev
