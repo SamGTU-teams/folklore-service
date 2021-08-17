@@ -50,7 +50,13 @@ public class PlaceServiceImpl implements PlaceService {
 
 //        FIXME: created example regex
 //        "1(\\.\\S*)?" find all places with tags started with
-        return repository.findByTagIdRegex("1(\\.\\S*)?", pageable);
+//        TODO: optimize regex
+
+        String regex = tags.stream()
+                .map(str -> str.replaceAll("\\.", "\\.").concat("(\\.\\S*)?"))
+                .collect(Collectors.joining("|", "(", ")"));
+
+        return repository.findByTagIdRegex(regex, pageable);
     }
 
     @Override
