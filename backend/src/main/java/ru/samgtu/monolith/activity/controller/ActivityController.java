@@ -26,7 +26,7 @@ import java.util.Set;
 public interface ActivityController {
     String MAPPING = "api/activities";
 
-    @GetMapping
+    @PostMapping
     @ApiOperation(value = "Get activities by tags",
             notes = "If tags is null returns all activities")
     @ApiResponses(value = {
