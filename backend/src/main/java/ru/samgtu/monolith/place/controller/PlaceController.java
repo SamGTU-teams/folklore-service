@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 import ru.samgtu.monolith.config.JacksonViews;
 import ru.samgtu.monolith.model.ExceptionInfo;
 import ru.samgtu.monolith.place.model.dto.PlaceDto;
-import ru.samgtu.monolith.tag.model.dto.TagDto;
 
 import java.util.Collection;
 import java.util.Set;

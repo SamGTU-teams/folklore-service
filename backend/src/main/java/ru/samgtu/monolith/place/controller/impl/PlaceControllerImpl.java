@@ -10,8 +10,6 @@ import ru.samgtu.monolith.place.controller.PlaceController;
 import ru.samgtu.monolith.place.model.dto.PlaceDto;
 import ru.samgtu.monolith.place.model.persistence.Place;
 import ru.samgtu.monolith.place.service.PlaceService;
-import ru.samgtu.monolith.tag.model.dto.TagDto;
-import ru.samgtu.monolith.tag.model.persistence.Tag;
 
 import java.util.Collection;
 import java.util.Set;

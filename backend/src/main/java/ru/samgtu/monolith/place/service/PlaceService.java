@@ -3,7 +3,6 @@ package ru.samgtu.monolith.place.service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import ru.samgtu.monolith.place.model.persistence.Place;
-import ru.samgtu.monolith.tag.model.persistence.Tag;
 
 import java.util.Collection;
 import java.util.Set;

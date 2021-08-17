@@ -9,7 +9,6 @@ import ru.samgtu.monolith.place.exception.NoSuchPlaceException;
 import ru.samgtu.monolith.place.model.persistence.Place;
 import ru.samgtu.monolith.place.repository.PlaceRepository;
 import ru.samgtu.monolith.place.service.PlaceService;
-import ru.samgtu.monolith.tag.model.persistence.Tag;
 import ru.samgtu.monolith.tag.util.ParentNodesExtractorFromTag;
 
 import java.util.Collection;
@@ -46,6 +45,7 @@ public class PlaceServiceImpl implements PlaceService {
                     return nodes.stream();
                 })
                 .collect(Collectors.toSet());
+        log.info("{}", tags);
         return repository.findByTagsIdIn(tags, pageable);
     }
 

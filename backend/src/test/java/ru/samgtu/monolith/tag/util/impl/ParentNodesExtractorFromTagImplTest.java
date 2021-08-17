@@ -2,13 +2,11 @@ package ru.samgtu.monolith.tag.util.impl;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import ru.samgtu.monolith.activity.model.ActivityStatus;
 
 import java.util.Arrays;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Creation date: 16.08.2021

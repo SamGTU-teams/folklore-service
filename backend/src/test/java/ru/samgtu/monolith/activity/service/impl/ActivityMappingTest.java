@@ -8,8 +8,6 @@ import org.springframework.test.context.ActiveProfiles;
 import ru.samgtu.monolith.activity.controller.ActivityController;
 import ru.samgtu.monolith.activity.model.dto.ActivityDto;
 
-import java.time.LocalDateTime;
-
 @SpringBootTest
 @ActiveProfiles("romzes")
 public class ActivityMappingTest {

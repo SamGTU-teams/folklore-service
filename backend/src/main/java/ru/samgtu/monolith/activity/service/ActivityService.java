@@ -5,7 +5,6 @@ import org.springframework.data.domain.Pageable;
 import ru.samgtu.monolith.activity.model.persistence.Activity;
 import ru.samgtu.monolith.tag.model.persistence.Tag;
 
-import java.time.LocalDateTime;
 import java.util.Collection;
 
 /**
