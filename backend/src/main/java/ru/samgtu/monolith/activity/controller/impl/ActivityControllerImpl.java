@@ -41,12 +41,7 @@ public class ActivityControllerImpl implements ActivityController {
     @Override
     public Page<ActivityDto> findActivitiesByTags(Set<String> tags, int page, int size) {
         PageRequest pageRequest = createPageRequestForActivities(size, page);
-        if (isNull(tagsDto)) {
-            activities = activityService.getActivities(pageRequest);
-        } else {
-            Set<Tag> tags = mapper.mapAsSet(tagsDto, Tag.class);
-            activities = activityService.findActivitiesByTags(tags, pageRequest);
-        }
+        Page<Activity> activities = activityService.findActivitiesByTags(tags, pageRequest);
         return mapPage(activities);
     }
 
