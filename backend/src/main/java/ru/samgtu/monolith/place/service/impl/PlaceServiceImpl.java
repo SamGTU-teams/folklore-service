@@ -38,15 +38,19 @@ public class PlaceServiceImpl implements PlaceService {
     @Override
     public Page<Place> findPlacesByTags(Set<String> tags,
                                         Pageable pageable) {
-        tags = tags.stream()
-                .flatMap(s -> {
-                    List<String> nodes = extractor.extractFrom(s);
-                    nodes.add(s);
-                    return nodes.stream();
-                })
-                .collect(Collectors.toSet());
-        log.info("{}", tags);
-        return repository.findByTagsIdIn(tags, pageable);
+//        TODO: remove this
+//        tags = tags.stream()
+//                .flatMap(s -> {
+//                    List<String> nodes = extractor.extractFrom(s);
+//                    nodes.add(s);
+//                    return nodes.stream();
+//                })
+//                .collect(Collectors.toSet());
+//        return repository.findByTagsIdIn(tags, pageable);
+
+//        FIXME: created example regex
+//        "1(\\.\\S*)?" find all places with tags started with
+        return repository.findByTagIdRegex("1(\\.\\S*)?", pageable);
     }
 
     @Override
