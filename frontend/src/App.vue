@@ -75,18 +75,25 @@ export default defineComponent({
   float: left;
   padding: 10px;
   text-align: left;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: bold;
+  font-size: 2em;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 #MenuPuncts {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   width: 65%;
   float: right;
+  height: 74px;
 }
 .MenuElement {
   color: #fff;
   margin-left: 15px;
   padding: 0px 15px;
   float: right;
+
+  transform: translate(0%, -50%);
+  position: relative;
+  top: 50%;
 }
 #MenuGrid {
   color: #fff;
