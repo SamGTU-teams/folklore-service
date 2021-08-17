@@ -23,16 +23,16 @@ public interface ActivityRepository extends JpaRepository<Activity, Long> {
     @EntityGraph(attributePaths = "lob")
     Optional<Activity> findInfoById(Long id);
 
-    @Query(value = "SELECT p.* " +
-            "FROM place p " +
+    @Query(value = "SELECT a.* " +
+            "FROM activity a " +
             "RIGHT JOIN ( " +
-            "SELECT pt.place_id " +
-            "FROM place_tag pt " +
-            "WHERE pt.tag_id SIMILAR TO ?1 " +
-            "GROUP BY pt.place_id " +
-            "HAVING COUNT(pt.tag_id) > 0 " +
-            ") t " +
-            "ON p.id = t.place_id " +
+            "SELECT at.activity_id " +
+            "FROM activity_tag at " +
+            "WHERE at.tag_id SIMILAR TO ?1 " +
+            "GROUP BY at.activity_id " +
+            "HAVING COUNT(at.tag_id) > 0 " +
+            ") t" +
+            "ON a.id = t.activity_id " +
             "\\n– #pageable\\n",
             countQuery = "SELECT COUNT(*) " +
                     "FROM activity a " +
@@ -42,7 +42,8 @@ public interface ActivityRepository extends JpaRepository<Activity, Long> {
                     "WHERE at.tag_id SIMILAR TO ?1 " +
                     "GROUP BY at.activity_id " +
                     "HAVING COUNT(at.tag_id) > 0 " +
-                    ") t",
+                    ") t" +
+                    "ON a.id = t.activity_id ",
             nativeQuery = true)
     Page<Activity> findByTagIdRegex(String regex, Pageable pageable);
 }
