@@ -31,7 +31,7 @@ public interface PlaceRepository extends JpaRepository<Place, Long> {
             "HAVING COUNT(pt.tag_id) > 0 " +
             ") t " +
             "ON p.id = t.place_id " +
-            "\\n– #pageable\\n",
+            "ORDER BY ?#{#pageable}",
             countQuery = "SELECT COUNT(*) " +
                     "FROM place p " +
                     "RIGHT JOIN ( " +

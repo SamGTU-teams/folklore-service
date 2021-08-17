@@ -9,12 +9,9 @@ import ru.samgtu.monolith.place.exception.NoSuchPlaceException;
 import ru.samgtu.monolith.place.model.persistence.Place;
 import ru.samgtu.monolith.place.repository.PlaceRepository;
 import ru.samgtu.monolith.place.service.PlaceService;
-import ru.samgtu.monolith.tag.util.ParentNodesExtractorFromTag;
+import ru.samgtu.monolith.tag.util.TagUtil;
 
 import java.util.Collection;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 /**
  * Creation date: 07.08.2021
@@ -28,7 +25,7 @@ import java.util.stream.Collectors;
 public class PlaceServiceImpl implements PlaceService {
     private final PlaceRepository repository;
 
-    private final ParentNodesExtractorFromTag extractor;
+    private final TagUtil tagUtil;
 
     @Override
     public Page<Place> getPlaces(Pageable pageable) {
@@ -36,21 +33,13 @@ public class PlaceServiceImpl implements PlaceService {
     }
 
     @Override
-    public Page<Place> findPlacesByTags(Set<String> tags,
+    public Page<Place> findPlacesByTags(Collection<String> tags,
                                         Pageable pageable) {
-//        TODO: remove this
-//        tags = tags.stream()
-//                .flatMap(s -> {
-//                    List<String> nodes = extractor.extractFrom(s);
-//                    nodes.add(s);
-//                    return nodes.stream();
-//                })
-//                .collect(Collectors.toSet());
-//        return repository.findByTagsIdIn(tags, pageable);
+        tags = tagUtil.optimizeTags(tags);
 
-//        FIXME: created example regex
-//        "1(\\.\\S*)?" find all places with tags started with
-        return repository.findByTagIdRegex("1(\\.\\S*)?", pageable);
+        String regex = tagUtil.createRegex(tags);
+
+        return repository.findByTagIdRegex(regex, pageable);
     }
 
     @Override

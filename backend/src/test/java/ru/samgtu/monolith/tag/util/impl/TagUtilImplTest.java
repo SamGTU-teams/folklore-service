@@ -15,8 +15,8 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author rassafel
  * @version 1.0
  */
-class ParentNodesExtractorFromTagImplTest {
-    static ParentNodesExtractorFromTagImpl extractor;
+class TagUtilImplTest {
+    static TagUtilImpl extractor;
 
     static String tag;
 
@@ -26,7 +26,7 @@ class ParentNodesExtractorFromTagImplTest {
     static void setUp() {
         tag = "1.2.3.4.5.6";
         delimiter = "\\.";
-        extractor = new ParentNodesExtractorFromTagImpl();
+        extractor = new TagUtilImpl();
         extractor.setDelimiter(delimiter);
     }
 
