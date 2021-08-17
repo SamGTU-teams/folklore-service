@@ -50,7 +50,7 @@ public interface ActivityController {
                                            @RequestParam(defaultValue = "0") int page,
                                            @RequestParam(defaultValue = "10") int size);
 
-    @GetMapping("/building/{id}")
+    @GetMapping("/place/{id}")
     @ApiOperation(value = "Get activities by place id")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = ""),
