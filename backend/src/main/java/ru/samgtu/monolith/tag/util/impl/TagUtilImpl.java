@@ -7,9 +7,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import ru.samgtu.monolith.tag.util.TagUtil;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -44,6 +42,7 @@ public class TagUtilImpl implements TagUtil {
 
     @Override
     public Collection<String> optimizeTags(Collection<String> tags) {
+        tags = new HashSet<>(tags);
         return tags;
     }
 
