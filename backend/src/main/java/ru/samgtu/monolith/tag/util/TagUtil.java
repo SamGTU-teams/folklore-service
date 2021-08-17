@@ -1,5 +1,6 @@
 package ru.samgtu.monolith.tag.util;
 
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -8,6 +9,10 @@ import java.util.List;
  * @author rassafel
  * @version 1.0
  */
-public interface ParentNodesExtractorFromTag {
+public interface TagUtil {
     List<String> extractFrom(String tag);
+
+    Collection<String> optimizeTags(Collection<String> tags);
+
+    String createRegex(Collection<String> tags);
 }

@@ -5,10 +5,12 @@ import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import ru.samgtu.monolith.tag.util.ParentNodesExtractorFromTag;
+import ru.samgtu.monolith.tag.util.TagUtil;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Creation date: 16.08.2021
@@ -20,7 +22,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @Slf4j
 @Setter
-public class ParentNodesExtractorFromTagImpl implements ParentNodesExtractorFromTag {
+public class TagUtilImpl implements TagUtil {
     @Value("${tag.node.delimiter:\\.}")
     private String delimiter;
 
@@ -38,5 +40,17 @@ public class ParentNodesExtractorFromTagImpl implements ParentNodesExtractorFrom
             }
         }
         return tags;
+    }
+
+    @Override
+    public Collection<String> optimizeTags(Collection<String> tags) {
+        return tags;
+    }
+
+    @Override
+    public String createRegex(Collection<String> tags) {
+        return tags.stream()
+                .map(str -> str.replaceAll("\\.", "\\.").concat("(\\.\\S*)?"))
+                .collect(Collectors.joining("|", "(", ")"));
     }
 }
