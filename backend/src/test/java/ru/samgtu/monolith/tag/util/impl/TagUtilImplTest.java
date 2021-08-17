@@ -43,7 +43,7 @@ class TagUtilImplTest {
     @Test
     void testTagsSet() {
         Collection<String> tags = Stream.of("1.2", "1", "1.2.3", "2.2", "2.2.1", "2.2.3", "2.2.4.5.7").collect(Collectors.toList());
-        System.out.println(extractor.optimizeTags(tags));
+        assertThat(tags).contains("1", "2.2");
     }
 
 
