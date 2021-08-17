@@ -7,15 +7,19 @@ import { Activity } from "@/model/Activity";
 const activityUrl = "/activities";
 
 const activityApi = {
-  getActivityById(id: number): Promise<AxiosResponse<Activity>> {
+  findActivityById(id: number): Promise<AxiosResponse<Activity>> {
     return axiosApi.get(`${activityUrl}/${id}`);
   },
 
-  getActivityInfoById(id: number): Promise<AxiosResponse<Activity>> {
+  findActivityInfoById(id: number): Promise<AxiosResponse<Activity>> {
     return axiosApi.get(`${activityUrl}/${id}/info`);
   },
 
-  getActivitiesByName(
+  getActivitiesByIds(ids: number[]): Promise<AxiosResponse<Activity[]>> {
+    return axiosApi.post(`${activityUrl}/ids`, ids);
+  },
+
+  findActivitiesByName(
     name: string,
     size: number,
     page: number
@@ -27,18 +31,28 @@ const activityApi = {
     return axiosApi.get(`${activityUrl}/search?${params.toString()}`);
   },
 
-  getActivitiesByTags(
-    tags: Tag[] | null,
+  findActivitiesByTags(
+    tags: Tag[],
     size: number,
     page: number
   ): Promise<AxiosResponse<Page<Activity>>> {
+    let tagIds = tags.map((tag) => tag.id);
+    return this.findActivitiesByTagsIds(tagIds, size, page);
+  },
+
+  findActivitiesByTagsIds(
+    tags: string[] | null,
+    size: number,
+    page: number
+  ): Promise<AxiosResponse<Page<Activity>>> {
+    if (tags === null) tags = [];
     const params = new URLSearchParams();
     params.set("size", size.toString());
     params.set("page", page.toString());
     return axiosApi.post(`${activityUrl}?${params.toString()}`, tags);
   },
 
-  getActivitiesByPlaceId(
+  findActivitiesByPlaceId(
     placeId: number,
     size: number,
     page: number
@@ -47,8 +61,30 @@ const activityApi = {
     params.set("size", size.toString());
     params.set("page", page.toString());
     // FIXME: create query
-    return axiosApi.get(`${activityUrl}/${params.toString}`)
+    return axiosApi.get(`${activityUrl}/place/${placeId}?${params.toString}`)
   },
+
+  findScheduledActivitiesByActivityId(
+    activityId: number,
+    size: number,
+    page: number
+  ) {
+    // TODO: create query
+    return;
+  },
+
+  findActivitiesByDateTime(
+    datetime: Date,
+    size: number,
+    page: number
+  ) {
+    const params = new URLSearchParams();
+    params.set("from", datetime.toISOString())
+    params.set("size", size.toString());
+    params.set("page", page.toString());
+    // TODO: create query
+    return;
+  }
 };
 
 export default activityApi;
