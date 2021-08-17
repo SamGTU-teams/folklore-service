@@ -9,7 +9,7 @@ import ru.samgtu.monolith.activity.NoSuchActivityException;
 import ru.samgtu.monolith.activity.model.persistence.Activity;
 import ru.samgtu.monolith.activity.repository.ActivityRepository;
 import ru.samgtu.monolith.activity.service.ActivityService;
-import ru.samgtu.monolith.tag.model.persistence.Tag;
+import ru.samgtu.monolith.tag.util.TagUtil;
 
 import java.util.Collection;
 
@@ -19,11 +19,13 @@ import java.util.Collection;
 public class ActivityServiceImpl implements ActivityService {
     private final ActivityRepository activityRepository;
 
-    private final ScheduledActivityRepository scheduledActivityRepository;
+    private final TagUtil tagUtil;
 
     @Override
     public Page<Activity> findActivitiesByTags(Collection<String> tags, Pageable pageable) {
-        return activityRepository.findByTagsIn(tags, pageable);
+        tags = tagUtil.optimizeTags(tags);
+        String regex = tagUtil.createRegex(tags);
+        return activityRepository.findByTagIdRegex(regex, pageable);
     }
 
     @Override
