@@ -1,7 +1,9 @@
 package ru.samgtu.monolith.tag.util.impl;
 
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.MockitoAnnotations;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -16,35 +18,24 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @version 1.0
  */
 class TagUtilImplTest {
-    static TagUtilImpl extractor;
+    @InjectMocks
+    TagUtilImpl tagUtil;
 
-    static String tag;
-
-    static String delimiter;
-
-    @BeforeAll
-    static void setUp() {
-        tag = "1.2.3.4.5.6";
-        delimiter = "\\.";
-        extractor = new TagUtilImpl();
-        extractor.setDelimiter(delimiter);
-    }
-
-    @Test
-    void extractFrom() {
-        List<String> expected = Arrays.asList("1", "1.2", "1.2.3", "1.2.3.4", "1.2.3.4.5");
-        List<String> parents = extractor.extractFrom(tag);
-
-        assertThat(parents)
-                .isNotNull()
-                .isEqualTo(expected);
+    @BeforeEach
+    void setUp() {
+        MockitoAnnotations.initMocks(this);
     }
 
     @Test
     void testTagsSet() {
-        Collection<String> tags = Stream.of("1.2", "1", "1.2.3", "2.2", "2.2.1", "2.2.3", "2.2.4.5.7").collect(Collectors.toList());
-        assertThat(tags).contains("1", "2.2");
+        Collection<String> tags = Arrays.asList("1.2", "1", "1.2.3", "2.2", "2.2.1", "2.2.3", "2.2.4.5.7", "2.23");
+        List<String> expected = Arrays.asList("1", "2.2", "2.23");
+
+        Collection<String> actual = tagUtil.optimizeTags(tags);
+
+        assertThat(actual)
+                .isNotNull()
+                .doesNotContainNull()
+                .containsExactlyInAnyOrderElementsOf(expected);
     }
-
-
 }
