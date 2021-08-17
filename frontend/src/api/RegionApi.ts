@@ -3,8 +3,7 @@ import axiosApi, { AxiosResponse } from "@/api/AxiosApi";
 import { Page } from "@/model/Page";
 import { Region } from "@/model/Region";
 
-// FIXME: add URL
-const regionUrl = "";
+const regionUrl = "/regions";
 
 const regionApi = {
   getRegionById(id: number): Promise<AxiosResponse<Region>> {
@@ -20,7 +19,6 @@ const regionApi = {
     params.set("name", name);
     params.set("size", size.toString());
     params.set("page", page.toString());
-    // FIXME: create query
     return axiosApi.get(`${regionUrl}/search?${params.toString()}`);
   },
 
