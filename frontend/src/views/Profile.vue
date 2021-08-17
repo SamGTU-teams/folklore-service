@@ -109,9 +109,6 @@
         font-size: 18px;
         margin-bottom: 20px;
     }
-    .adress{
-
-    }
     .toAfisha{
         position: absolute;
         width: 100%;
