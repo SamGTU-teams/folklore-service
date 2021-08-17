@@ -7,9 +7,12 @@ package ru.samgtu.monolith.config;
  * @version 1.0
  */
 public final class JacksonViews {
-    public interface DataWithoutLob {
+    public interface Public {
     }
 
-    public interface DataWithLob extends DataWithoutLob{
+    public interface DataWithoutLob extends Public {
+    }
+
+    public interface DataWithLob extends DataWithoutLob {
     }
 }
