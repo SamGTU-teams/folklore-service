@@ -17,7 +17,7 @@ spring:
         change-log: classpath:db/changelog/changelog-master.xml
     jackson:
         default-property-inclusion: non_null
-springfox.documentation.swagger.v2.path: /api/v2/api-docs
+springfox.documentation.swagger.v2.path: /api/v2/docs
 ---
 spring:
     config:
