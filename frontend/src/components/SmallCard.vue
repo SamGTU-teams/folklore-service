@@ -3,10 +3,10 @@
     <div class="img-container">
       <img v-bind:src="imgUrl" />
     </div>
-    <div class="card-content">
-      <p class="titleText flow-text">
+    <div class="decription">
+      <h1 class="titleText flow-text">
         {{ titleText }}
-      </p>
+      </h1>
       <p class="subtitleText flow-text">
         {{ subtitleText }}
       </p>
@@ -18,15 +18,21 @@
 import { defineComponent } from "vue";
 
 export default defineComponent({
-  name: "SmallCard",
+  name: "BigCard",
   props: ["imgUrl", "titleText", "subtitleText"],
 });
 </script>
 
 <style scoped>
-.card-content {
+.decription {
+  width: 100%;
+  height: max(150px, min(160px, calc(100vw * 4 / 120)));
+  position: relative;
+  z-index: 2;
+  bottom: 0;
+  padding: 15px 15px;
+  margin-left: 0px;
   background-color: #fff;
-  color: #000;
 }
 
 .img-container {
@@ -34,7 +40,9 @@ export default defineComponent({
   padding-bottom: 56.25%; /* задаёт высоту контейнера для 16:9 (если 4:3 — поставьте 75%) */
   height: 0;
   overflow: hidden;
+  z-index: 1;
 }
+
 .img-container img {
   position: absolute;
   top: 0;
@@ -46,19 +54,33 @@ export default defineComponent({
 }
 
 .titleText {
-  /* padding-bottom: 5px; */
-  height: 2em;
+  width: 100%;
+  z-index: 3;
   text-align: left;
-  font-size: max(0.65em, min(0.8em, calc(100vw * 4 / 320)));
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin-bottom: 5px;
+  margin-top: 0px;
+  font-size: max(1.2em, min(2.3em, calc(100vw * 4 / 320)));
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   font-weight: bold;
   color: #2b3f8d;
+
+  /* transform: translate(0%, -33%);
+  position: relative;
+  top: 33%; */
 }
 .subtitleText {
-  padding-top: 10px;
+  width: 100%;
+  z-index: 3;
   height: 2em;
   text-align: left;
-  font-size: max(0.5em, min(0.6em, calc(100vw * 4 / 320)));
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin-bottom: 0px;
+  margin-top: 0px;
+  font-size: max(0.8em, min(1em, calc(100vw * 4 / 320)));
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: #0c0c0c;
+
+  /* transform: translate(0%, -55%);
+  position: relative;
+  top: 55%; */
 }
 </style>
