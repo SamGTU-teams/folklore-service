@@ -5,7 +5,6 @@ import org.springframework.data.domain.Pageable;
 import ru.samgtu.monolith.place.model.persistence.Place;
 
 import java.util.Collection;
-import java.util.Set;
 
 /**
  * Creation date: 07.08.2021
