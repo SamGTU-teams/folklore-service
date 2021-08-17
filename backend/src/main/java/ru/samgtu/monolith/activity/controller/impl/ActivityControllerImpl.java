@@ -13,14 +13,10 @@ import ru.samgtu.monolith.activity.model.persistence.Activity;
 import ru.samgtu.monolith.activity.model.persistence.ScheduledActivity;
 import ru.samgtu.monolith.activity.service.ActivityService;
 import ru.samgtu.monolith.activity.service.ScheduledActivityService;
-import ru.samgtu.monolith.tag.model.dto.TagDto;
-import ru.samgtu.monolith.tag.model.persistence.Tag;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Set;
-
-import static java.util.Objects.isNull;
 
 /**
  * Creation date: 11.08.2021
@@ -42,14 +38,14 @@ public class ActivityControllerImpl implements ActivityController {
     public Page<ActivityDto> findActivitiesByTags(Set<String> tags, int page, int size) {
         PageRequest pageRequest = createPageRequestForActivities(size, page);
         Page<Activity> activities = activityService.findActivitiesByTags(tags, pageRequest);
-        return mapPage(activities);
+        return mapActivityPage(activities);
     }
 
     @Override
     public Page<ActivityDto> findActivitiesByName(String name, int page, int size) {
         PageRequest pageRequest = createPageRequestForActivities(page, size);
         Page<Activity> activities = activityService.findActivitiesByName(name, pageRequest);
-        return mapPage(activities);
+        return mapActivityPage(activities);
     }
 
     @Override
@@ -63,7 +59,7 @@ public class ActivityControllerImpl implements ActivityController {
     public Page<ActivityDto> findActivitiesByPlaceId(Long id, int size, int page) {
         PageRequest pageRequest = createPageRequestForActivities(page, size);
         Page<Activity> activities = activityService.findActivitiesByPlaceId(id, pageRequest);
-        return mapPage(activities);
+        return mapActivityPage(activities);
     }
 
     @Override
@@ -75,7 +71,8 @@ public class ActivityControllerImpl implements ActivityController {
     @Override
     public Page<ScheduledActivityDto> findScheduledActivitiesByActivityId(Long id, int page, int size) {
         PageRequest pageRequest = createPageRequestForActivities(page, size);
-        return scheduledActivityService.findScheduledByActivityId(id, pageRequest).map(o -> mapper.map(o, ScheduledActivityDto.class));
+        Page<ScheduledActivity> scheduledActivities = scheduledActivityService.findScheduledByActivityId(id, pageRequest);
+        return mapScheduledPage(scheduledActivities);
     }
 
     @Override
@@ -86,14 +83,19 @@ public class ActivityControllerImpl implements ActivityController {
 
     @Override
     public Collection<ActivityDto> findActivitiesByIds(Collection<Long> ids) {
-        return mapper.mapAsList(activityService.findActivitiesByIds(ids), ActivityDto.class);
+        Collection<Activity> activities = activityService.findActivitiesByIds(ids);
+        return mapper.mapAsList(activities, ActivityDto.class);
     }
 
     private PageRequest createPageRequestForActivities(int page, int size) {
         return PageRequest.of(page, size);
     }
 
-    private Page<ActivityDto> mapPage(Page<Activity> page) {
+    private Page<ActivityDto> mapActivityPage(Page<Activity> page) {
         return page.map(activity -> mapper.map(activity, ActivityDto.class));
+    }
+
+    private Page<ScheduledActivityDto> mapScheduledPage(Page<ScheduledActivity> page) {
+        return page.map(activity -> mapper.map(activity, ScheduledActivityDto.class));
     }
 }

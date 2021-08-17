@@ -100,7 +100,7 @@ public class ScheduledActivityServiceImpl implements ScheduledActivityService {
 
     @Override
     public Page<ScheduledActivity> findScheduledByActivityId(Long id, Pageable pageable) {
-        return scheduledActivityRepository.findByNumericId(id, pageable);
+        return scheduledActivityRepository.findByActivityId(id, pageable);
     }
 
     private ActivityStatus calcStatus(LocalDateTime now, LocalDateTime dateTime, Duration duration, boolean canVisited) {
