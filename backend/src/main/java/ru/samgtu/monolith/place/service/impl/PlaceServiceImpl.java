@@ -35,10 +35,11 @@ public class PlaceServiceImpl implements PlaceService {
     @Override
     public Page<Place> findPlacesByTags(Collection<String> tags,
                                         Pageable pageable) {
+        if(tags.isEmpty()) {
+            return repository.findAll(pageable);
+        }
         tags = tagUtil.optimizeTags(tags);
-
         String regex = tagUtil.createRegex(tags);
-
         return repository.findByTagIdRegex(regex, pageable);
     }
 

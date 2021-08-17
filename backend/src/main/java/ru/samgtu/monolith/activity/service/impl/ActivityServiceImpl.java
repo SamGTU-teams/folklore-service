@@ -17,26 +17,31 @@ import java.util.Collection;
 @AllArgsConstructor
 @Slf4j
 public class ActivityServiceImpl implements ActivityService {
-    private final ActivityRepository activityRepository;
+    private final ActivityRepository repository;
 
     private final TagUtil tagUtil;
 
     @Override
-    public Page<Activity> findActivitiesByTags(Collection<String> tags, Pageable pageable) {
+    public Page<Activity> findActivitiesByTags(Collection<String> tags,
+                                               Pageable pageable) {
+        if(tags.isEmpty()) {
+            return repository.findAll(pageable);
+        }
         tags = tagUtil.optimizeTags(tags);
         String regex = tagUtil.createRegex(tags);
-        return activityRepository.findByTagIdRegex(regex, pageable);
+        return repository.findByTagIdRegex(regex, pageable);
     }
 
     @Override
-    public Page<Activity> findActivitiesByName(String name, Pageable pageable) {
-        return activityRepository
+    public Page<Activity> findActivitiesByName(String name,
+                                               Pageable pageable) {
+        return repository
                 .findByNameStartsWithIgnoreCase(name, pageable);
     }
 
     @Override
     public Activity findActivityById(Long id) {
-        return activityRepository.findById(id)
+        return repository.findById(id)
                 .orElseThrow(() -> {
                     log.warn("Activity with id = {} does not exists", id);
                     return new NoSuchActivityException("Activity does not exists");
@@ -44,23 +49,24 @@ public class ActivityServiceImpl implements ActivityService {
     }
 
     @Override
-    public Page<Activity> findActivitiesByPlaceId(Long id, Pageable pageable) {
-        return activityRepository.findAllByPlaceId(id, pageable);
+    public Page<Activity> findActivitiesByPlaceId(Long id,
+                                                  Pageable pageable) {
+        return repository.findAllByPlaceId(id, pageable);
     }
 
     @Override
     public Page<Activity> getActivities(Pageable pageable) {
-        return activityRepository.findAll(pageable);
+        return repository.findAll(pageable);
     }
 
     @Override
     public Collection<Activity> findActivitiesByIds(Collection<Long> ids) {
-        return activityRepository.findActivityByIdIn(ids);
+        return repository.findActivityByIdIn(ids);
     }
 
     @Override
     public Activity findActivityInfoById(Long id) {
-        return activityRepository.findInfoById(id).orElseThrow(() -> {
+        return repository.findInfoById(id).orElseThrow(() -> {
             log.warn("Activity with id = {} does not exists", id);
             return new NoSuchActivityException("No activity found");
         });
