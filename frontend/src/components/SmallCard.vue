@@ -18,7 +18,7 @@
 import { defineComponent } from "vue";
 
 export default defineComponent({
-  name: "BigCard",
+  name: "SmallCard",
   props: ["imgUrl", "titleText", "subtitleText"],
 });
 </script>
