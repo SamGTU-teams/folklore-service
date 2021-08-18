@@ -10,27 +10,16 @@
       v-bind:title="'Рекомендовано по профилю'"
     />
 
-    <div class="row">
-      <div class="col s12 m12 l6 xl6 titleRow">
-        Подборки
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col s12 m12 l6" v-for="card in bigCards" v-bind:key="card">
-        <big-card
-          v-bind:imgUrl="card.imgUrl"
-          v-bind:titleText="card.titleText"
-          v-bind:subtitleText="card.subtitleText"
-        />
-      </div>
-    </div>
+    <medium-card-list
+      v-bind:list="bigCards"
+      v-bind:title="'Подборки'"
+    />
   </div>
 </template>
 
 <script lang="ts">
 import SmallCardList from "@/components/SmallCardList.vue";
-import BigCard from "@/components/BigCard.vue";
+import MediumCardList from "@/components/MediumCardList.vue";
 import { MainObject } from "@/model/MainObject";
 import { defineComponent } from "vue";
 
@@ -38,7 +27,7 @@ export default defineComponent({
   name: "Afisha",
   components: {
     SmallCardList,
-    BigCard,
+    MediumCardList,
   },
   data() {
     const nearbyActivities: MainObject[] = [
@@ -76,25 +65,25 @@ export default defineComponent({
       recomendations,
       bigCards: [
         {
-          imgUrl: `https://picsum.photos/1101/600`,
-          titleText: `Экскурсии`,
-          subtitleText: `8 событий`,
+          imageUrl: `https://picsum.photos/1101/600`,
+          name: `Экскурсии`,
+          address: `8 событий`,
         },
         {
-          imgUrl: `https://picsum.photos/1100/601`,
-          titleText: `Шоу`,
-          subtitleText: `11 событий`,
+          imageUrl: `https://picsum.photos/1100/601`,
+          name: `Шоу`,
+          address: `11 событий`,
         },
         {
-          imgUrl: `https://picsum.photos/1102/600`,
-          titleText: `Библиотеки`,
-          subtitleText: `5 событий`,
+          imageUrl: `https://picsum.photos/1102/600`,
+          name: `Библиотеки`,
+          address: `5 событий`,
         },
         {
-          imgUrl: `https://picsum.photos/1100/602`,
+          imageUrl: `https://picsum.photos/1100/602`,
           // titleText: `Развлечения`,
-          titleText: `Спектакли`,
-          subtitleText: `11 событий`,
+          name: `Спектакли`,
+          address: `11 событий`,
         },
       ],
     };
