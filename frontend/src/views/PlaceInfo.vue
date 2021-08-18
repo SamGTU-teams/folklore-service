@@ -1,56 +1,39 @@
 <template>
   <div id="main">
     <loader v-if="loadingMain" />
-
-    <div v-else-if="place" id="PlaceInfo">
-      <div class="container">
-        <div class="row ">
-          <div class="col s12 m12 l6 xl6 ">
-            <div class="img-container">
-              <img v-if="place.imageUrl" :src="place.imageUrl" />
-              <img v-else src="@/assets/no-image.png" />
-            </div>
+    <div v-else-if="place" class="container">
+      <div class="row">
+        <div class="col s12 m12 l6 xl6">
+          <div class="img-container">
+            <img v-if="place.imageUrl" :src="place.imageUrl" />
+            <img v-else src="@/assets/no-image.png" />
           </div>
-          <div id="AboutPlace" class="col s12 m12 l6 xl6 ">
-            <div class="tags">
-              {{ place.tags.map((tag) => "#" + tag.name).join(", ") }}
-            </div>
+        </div>
+        <div id="AboutPlace" class="col s12 m12 l6 xl6">
+          <div class="tags">
+            {{ place.tags.map((tag) => "#" + tag.name).join(", ") }}
+          </div>
 
-            <div id="NamePlace">{{ place.name }}</div>
+          <div id="NamePlace">{{ place.name }}</div>
 
-            <div id="AddressPlace">{{ place.address }}</div>
+          <div id="AddressPlace">{{ place.address }}</div>
 
-            <div
-              id="GoToAfisha"
-              @click="$router.push({ name: 'PlaceActivities', params: { id } })"
-            >
-              Посмотреть на афише
-            </div>
+          <div
+            id="GoToAfisha"
+            @click="$router.push({ name: 'PlaceActivities', params: { id } })"
+          >
+            Посмотреть на афише
           </div>
         </div>
       </div>
-    </div>
-
-    <div class="container">
       <div class="row">
         <div id="Description" v-if="place" v-html="place.description" />
       </div>
-    </div>
-
-    <div class="container">
-      <div class="row">
-        <div
-          class="col s12 m12 l4 xl4"
-          v-for="placeCard in nearbyPlaces"
-          v-bind:key="placeCard"
-        >
-          <small-card
-            v-bind:imgUrl="placeCard.imageUrl"
-            v-bind:titleText="placeCard.name"
-            v-bind:subtitleText="placeCard.address"
-          />
-        </div>
-      </div>
+      <small-card-list
+        v-bind:list="nearbyPlaces"
+        v-bind:title="'Nearby Places'"
+        v-bind:routePage="'PlaceInfo'"
+      />
     </div>
   </div>
 </template>
@@ -62,20 +45,20 @@ import Loader from "@/components/Loader.vue";
 import { Point } from "@/model/Point";
 import { Place } from "@/model/Place";
 import placeApi from "@/api/PlaceApi";
-import SmallCard from "@/components/SmallCard.vue";
+import SmallCardList from "@/components/SmallCardList.vue";
 
 export default defineComponent({
   name: "PlaceInfo",
   props: ["id"],
   components: {
-    SmallCard,
+    SmallCardList,
     Loader,
   },
   data() {
     return {
       place: null as Place | null,
       loadingMain: true,
-      nearbyPlaces: null as Place[] | null,
+      nearbyPlaces: [] as Place[],
     };
   },
   methods: {
@@ -96,6 +79,13 @@ export default defineComponent({
   },
   created() {
     this.loadPlaceInfo(this.id);
+  },
+  beforeRouteUpdate(to: any, from, next) {
+    this.loadingMain = true;
+    this.place = null;
+    this.nearbyPlaces = [];
+    this.loadPlaceInfo(parseInt(to.params.id));
+    next();
   },
   // mounted(){
   //   document.addEventListener("DOMContentLoaded", function() {
@@ -189,10 +179,5 @@ body {
   height: 100%;
   border-width: 0;
   outline-width: 0;
-}
-
-.AboutPlace {
-}
-.GoToAfisha {
 }
 </style>

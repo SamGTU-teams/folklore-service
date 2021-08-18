@@ -1,7 +1,8 @@
 <template>
   <div class="card z-depth-3">
     <div class="img-container">
-      <img v-bind:src="imgUrl" />
+      <img v-if="imgUrl" v-bind:src="imgUrl" />
+      <img v-else src="@/assets/no-image.png" />
     </div>
     <div class="decription">
       <h1 class="titleText flow-text">
@@ -18,7 +19,7 @@
 import { defineComponent } from "vue";
 
 export default defineComponent({
-  name: "BigCard",
+  name: "SmallCard",
   props: ["imgUrl", "titleText", "subtitleText"],
 });
 </script>
