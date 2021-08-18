@@ -26,7 +26,7 @@ import java.util.Set;
 public interface ActivityController {
     String MAPPING = "api/activities";
 
-    @GetMapping
+    @PostMapping
     @ApiOperation(value = "Get activities by tags",
             notes = "If tags is null returns all activities")
     @ApiResponses(value = {
@@ -50,7 +50,7 @@ public interface ActivityController {
                                            @RequestParam(defaultValue = "0") int page,
                                            @RequestParam(defaultValue = "10") int size);
 
-    @GetMapping("/building/{id}")
+    @GetMapping("/place/{id}")
     @ApiOperation(value = "Get activities by place id")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = ""),
@@ -98,7 +98,9 @@ public interface ActivityController {
             @ApiResponse(code = 404, message = "", response = ExceptionInfo.class)
     })
     @JsonView(JacksonViews.DataWithoutLob.class)
-    Page<ScheduledActivityDto> findActivitiesByDateTime(@RequestParam LocalDateTime from, int page, int size);
+    Page<ScheduledActivityDto> findActivitiesByDateTime(@RequestParam LocalDateTime from, 
+                                                        @RequestParam(defaultValue = "0") int page,
+                                                        @RequestParam(defaultValue = "10") int size);
 
 
     @PostMapping("/ids")
