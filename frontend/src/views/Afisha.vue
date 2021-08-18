@@ -1,44 +1,14 @@
 <template>
   <div class="container">
-    <div class="row">
-      <div class="col s12 m12 l12 titleRow">
-        В ближайшие дни
-      </div>
-    </div>
+    <small-card-list
+      v-bind:list="nearbyActivities"
+      v-bind:title="'В ближайшие дни'"
+    />
 
-    <div class="row">
-      <div
-        class="col s12 m12 l4 xl4"
-        v-for="card in smallCards"
-        v-bind:key="card"
-      >
-        <small-card
-          v-bind:imgUrl="card.imgUrl"
-          v-bind:titleText="card.titleText"
-          v-bind:subtitleText="card.subtitleText"
-        />
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col s12 m12 l12 titleRow">
-        Рекомендовано по профилю
-      </div>
-    </div>
-
-    <div class="row">
-      <div
-        class="col s12 m12 l4 xl4"
-        v-for="card in smallCards"
-        v-bind:key="card"
-      >
-        <small-card
-          v-bind:imgUrl="card.imgUrl"
-          v-bind:titleText="card.titleText"
-          v-bind:subtitleText="card.subtitleText"
-        />
-      </div>
-    </div>
+    <small-card-list
+      v-bind:list="recomendations"
+      v-bind:title="'Рекомендовано по профилю'"
+    />
 
     <div class="row">
       <div class="col s12 m12 l6 xl6 titleRow">
@@ -58,36 +28,52 @@
   </div>
 </template>
 
-<script>
-import SmallCard from "@/components/SmallCard.vue";
+<script lang="ts">
+import SmallCardList from "@/components/SmallCardList.vue";
 import BigCard from "@/components/BigCard.vue";
+import { MainObject } from "@/model/MainObject";
 import { defineComponent } from "vue";
 
 export default defineComponent({
   name: "Afisha",
   components: {
-    SmallCard,
+    SmallCardList,
     BigCard,
   },
   data() {
+    const nearbyActivities: MainObject[] = [
+      {
+        id: 1,
+        name: `Экскурсия в Новгородский кремль`,
+        address: `8, Новгородский кремль, Великий Новгород`,
+        point: {lat: 0,lon: 0},
+        labelUrl:"",
+        imageUrl: `https://picsum.photos/1920/1080`,
+        tags:[],
+      },
+      {
+        id: 2,
+        name: `Экскурсия в Софийский собор`,
+        address: `11, Новгородский кремль, Великий Новгород`,
+        point: {lat: 0,lon: 0},
+        labelUrl:"",
+        imageUrl: `https://picsum.photos/1921/1080`,
+        tags:[],
+      },
+      {
+        id: 3,
+        name: `День в мужском монастыре Свято-Юрьев`,
+        address: `Юрьевское ш., 10, Великий Новгород`,
+        point: {lat: 0,lon: 0},
+        labelUrl:"",
+        imageUrl: `https://picsum.photos/1920/1081`,
+        tags:[],
+      }
+    ]
+    const recomendations: MainObject[] = nearbyActivities;
     return {
-      smallCards: [
-        {
-          imgUrl: `https://picsum.photos/1920/1080`,
-          titleText: `Экскурсия в Новгородский кремль`,
-          subtitleText: `8, Новгородский кремль, Великий Новгород`,
-        },
-        {
-          imgUrl: `https://picsum.photos/1920/1080`,
-          titleText: `Экскурсия в Софийский собор`,
-          subtitleText: `11, Новгородский кремль, Великий Новгород, Россия`,
-        },
-        {
-          imgUrl: `https://picsum.photos/1920/1080`,
-          titleText: `День в мужском монастыре Свято-Юрьев`,
-          subtitleText: `Юрьевское ш., 10, Великий Новгород`,
-        },
-      ],
+      nearbyActivities,
+      recomendations,
       bigCards: [
         {
           imgUrl: `https://picsum.photos/1101/600`,
