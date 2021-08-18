@@ -65,15 +65,15 @@ export default defineComponent({
     loadPlaceInfo(id: number) {
       placeApi.getPlaceInfoById(id).then((response) => {
         let data = response.data;
-        this.place = data;
+        this.place = placeApi.castResponse(data);
         this.loadingMain = false;
         this.loadNearbyPlaces(data.point);
       });
     },
     loadNearbyPlaces(point: Point) {
       placeApi.getNerbyPlaces(point, 3, 0).then((response) => {
-        let data = response.data;
-        this.nearbyPlaces = data.content;
+        let data = response.data.content;
+        this.nearbyPlaces = placeApi.castResponses(data);
       });
     },
   },
