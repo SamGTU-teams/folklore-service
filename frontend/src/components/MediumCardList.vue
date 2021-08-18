@@ -1,15 +1,13 @@
 <template>
-  <div v-if="title && list" class="row">
+  <div v-if="title && list && list.length !== 0" class="row">
     <div class="col s12 m12 l6 xl6 titleRow">{{ title }}</div>
   </div>
 
   <div class="row">
     <div class="col s12 m12 l6" v-for="elem in list" v-bind:key="elem.id">
       <medium-card
-        v-bind:imgUrl="elem.imageUrl"
-        v-bind:titleText="elem.name"
-        v-bind:subtitleText="elem.address"
-        @click="routeTo(elem.id)"
+        v-bind:info="elem"
+        @click="routeTo(elem)"
       />
     </div>
   </div>
@@ -18,7 +16,7 @@
 <script lang="ts">
 import { defineComponent, PropType } from "vue";
 import MediumCard from "@/components/MediumCard.vue";
-import { MainObject } from "@/model/MainObject";
+import { CardInfo } from "@/model/CardInfo";
 
 export default defineComponent({
   name: "MediumCardList",
@@ -27,7 +25,7 @@ export default defineComponent({
   },
   props: {
     list: {
-      type: Array as PropType<MainObject[]>,
+      type: Array as PropType<CardInfo[]>,
       required: true,
     },
     title: {
@@ -40,9 +38,9 @@ export default defineComponent({
     },
   },
   methods: {
-    routeTo(id: any) {
+    routeTo(elem: CardInfo): void {
       if (this.routePage)
-        this.$router.push({ name: this.routePage, params: { id } });
+        this.$router.push({ name: this.routePage, params: { id: elem.id } });
     },
   },
 });

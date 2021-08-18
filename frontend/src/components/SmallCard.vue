@@ -1,26 +1,32 @@
 <template>
   <div class="card z-depth-3">
     <div class="img-container">
-      <img v-if="imgUrl" v-bind:src="imgUrl" />
+      <img v-if="info.image" v-bind:src="info.image" />
       <img v-else src="@/assets/no-image.png" />
     </div>
     <div class="decription">
       <h1 class="titleText flow-text">
-        {{ titleText }}
+        {{ info.title }}
       </h1>
       <p class="subtitleText flow-text">
-        {{ subtitleText }}
+        {{ info.subtitle }}
       </p>
     </div>
   </div>
 </template>
 
-<script>
-import { defineComponent } from "vue";
+<script lang="ts">
+import { defineComponent, PropType } from "vue";
+import { CardInfo } from "@/model/CardInfo";
 
 export default defineComponent({
   name: "SmallCard",
-  props: ["imgUrl", "titleText", "subtitleText"],
+  props: {
+    info: {
+      type: Object as PropType<CardInfo>,
+      required: true,
+    }
+  }
 });
 </script>
 
