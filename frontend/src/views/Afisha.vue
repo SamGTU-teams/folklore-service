@@ -10,18 +10,16 @@
       v-bind:title="'Рекомендовано по профилю'"
     />
 
-    <medium-card-list
-      v-bind:list="bigCards"
-      v-bind:title="'Подборки'"
-    />
+    <medium-card-list v-bind:list="compilations" v-bind:title="'Подборки'" />
   </div>
 </template>
 
 <script lang="ts">
 import SmallCardList from "@/components/SmallCardList.vue";
 import MediumCardList from "@/components/MediumCardList.vue";
-import { MainObject } from "@/model/MainObject";
+import { CardInfo } from "@/model/CardInfo";
 import { defineComponent } from "vue";
+import { Activity } from "@/model/Activity";
 
 export default defineComponent({
   name: "Afisha",
@@ -30,62 +28,76 @@ export default defineComponent({
     MediumCardList,
   },
   data() {
-    const nearbyActivities: MainObject[] = [
+    const nearbyActivities: Activity[] = [
+      new Activity(
+        1,
+        "Экскурсия в Новгородский кремль",
+        "8, Новгородский кремль, Великий Новгород",
+        { lat: 0, lon: 0 },
+        "",
+        "https://picsum.photos/1920/1080",
+        [],
+        [],
+        undefined,
+        undefined
+      ),
+      new Activity(
+        2,
+        "Экскурсия в Софийский собор",
+        "11, Новгородский кремль, Великий Новгород",
+        { lat: 0, lon: 0 },
+        "",
+        "https://picsum.photos/1920/1080",
+        [],
+        [],
+        undefined,
+        undefined
+      ),
+      new Activity(
+        3,
+        "День в мужском монастыре Свято-Юрьев",
+        "Юрьевское ш., 10, Великий Новгород",
+        { lat: 0, lon: 0 },
+        "",
+        "https://picsum.photos/1920/1080",
+        [],
+        [],
+        undefined,
+        undefined
+      ),
+    ];
+    const recomendations: Activity[] = nearbyActivities;
+
+    const compilations: CardInfo[] = [
       {
         id: 1,
-        name: `Экскурсия в Новгородский кремль`,
-        address: `8, Новгородский кремль, Великий Новгород`,
-        point: {lat: 0,lon: 0},
-        labelUrl:"",
-        imageUrl: `https://picsum.photos/1920/1080`,
-        tags:[],
+        title: "Экскурсии",
+        subtitle: "8 событий",
+        image: "https://picsum.photos/1101/600",
       },
       {
         id: 2,
-        name: `Экскурсия в Софийский собор`,
-        address: `11, Новгородский кремль, Великий Новгород`,
-        point: {lat: 0,lon: 0},
-        labelUrl:"",
-        imageUrl: `https://picsum.photos/1921/1080`,
-        tags:[],
+        title: "Шоу",
+        subtitle: "11 событий",
+        image: "https://picsum.photos/1101/600",
       },
       {
         id: 3,
-        name: `День в мужском монастыре Свято-Юрьев`,
-        address: `Юрьевское ш., 10, Великий Новгород`,
-        point: {lat: 0,lon: 0},
-        labelUrl:"",
-        imageUrl: `https://picsum.photos/1920/1081`,
-        tags:[],
-      }
-    ]
-    const recomendations: MainObject[] = nearbyActivities;
+        title: "Библиотеки",
+        subtitle: "5 событий",
+        image: "https://picsum.photos/1101/600",
+      },
+      {
+        id: 4,
+        title: "Спектакли",
+        subtitle: "11 событий",
+        image: "https://picsum.photos/1101/600",
+      },
+    ];
     return {
       nearbyActivities,
       recomendations,
-      bigCards: [
-        {
-          imageUrl: `https://picsum.photos/1101/600`,
-          name: `Экскурсии`,
-          address: `8 событий`,
-        },
-        {
-          imageUrl: `https://picsum.photos/1100/601`,
-          name: `Шоу`,
-          address: `11 событий`,
-        },
-        {
-          imageUrl: `https://picsum.photos/1102/600`,
-          name: `Библиотеки`,
-          address: `5 событий`,
-        },
-        {
-          imageUrl: `https://picsum.photos/1100/602`,
-          // titleText: `Развлечения`,
-          name: `Спектакли`,
-          address: `11 событий`,
-        },
-      ],
+      compilations,
     };
   },
 });
