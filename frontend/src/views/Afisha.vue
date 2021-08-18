@@ -90,13 +90,3 @@ export default defineComponent({
   },
 });
 </script>
-
-<style>
-.titleRow {
-  margin-top: 1%;
-  text-align: left;
-  font-size: 1.5em;
-  font-weight: lighter;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-</style>
