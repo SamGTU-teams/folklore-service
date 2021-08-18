@@ -1,5 +1,5 @@
 <template>
-  <div v-if="title" class="row">
+  <div v-if="title && list" class="row">
     <div class="col s12 m12 l12 titleRow">{{ title }}</div>
   </div>
 
