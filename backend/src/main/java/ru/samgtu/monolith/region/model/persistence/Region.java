@@ -34,4 +34,7 @@ public class Region {
     @Column(name = "points", nullable = false)
     @ToString.Exclude
     private String points;
+
+    @Column(name = "image_url", nullable = false)
+    private String imageUrl;
 }
