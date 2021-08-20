@@ -20,7 +20,7 @@ import { defineComponent, PropType } from "vue";
 import { CardInfo } from "@/model/CardInfo";
 
 export default defineComponent({
-  name: "BigCard",
+  name: "MediumCard",
   props: {
     info: {
       type: Object as PropType<CardInfo>,
