@@ -26,7 +26,6 @@ const regionApi = {
     const params = new URLSearchParams();
     params.set("size", size.toString());
     params.set("page", page.toString());
-    // FIXME: create query
     return axiosApi.get(`${regionUrl}?${params.toString()}`);
   },
 };
