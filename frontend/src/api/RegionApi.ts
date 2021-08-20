@@ -6,11 +6,11 @@ import { Region } from "@/model/Region";
 const regionUrl = "/regions";
 
 const regionApi = {
-  getRegionById(id: number): Promise<AxiosResponse<Region>> {
+  findRegionById(id: number): Promise<AxiosResponse<Region>> {
     return axiosApi.get(`${regionUrl}/${id}`);
   },
 
-  getRegionsByName(
+  findRegionsByName(
     name: string,
     size: number,
     page: number

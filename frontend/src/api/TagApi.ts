@@ -35,4 +35,3 @@ const tagApi = {
 };
 
 export default tagApi;
-export { Tag, Page };

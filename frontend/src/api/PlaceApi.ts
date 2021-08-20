@@ -51,7 +51,7 @@ const placeApi = {
     return axiosApi.get(`${placeUrl}/search?${params.toString()}`);
   },
 
-  getPlaceById(id: number): Promise<AxiosResponse<Place>> {
+  findPlaceById(id: number): Promise<AxiosResponse<Place>> {
     return axiosApi.get(`${placeUrl}/${id}`);
   },
 
