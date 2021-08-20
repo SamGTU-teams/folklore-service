@@ -23,7 +23,7 @@ const placeApi = {
     size: number,
     page: number
   ): Promise<AxiosResponse<Page<Place>>> {
-    let tagIds = tags.map((tag) => tag.id);
+    const tagIds = tags.map((tag) => tag.id);
     return this.findPlacesByTagsIds(tagIds, size, page);
   },
 
