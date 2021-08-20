@@ -55,4 +55,7 @@ public class Place {
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "lob_id", referencedColumnName = "id")
     private DescriptionAndUrlsLob lob;
+
+    @Column(name = "region_id", nullable = false)
+    private Long regionId;
 }

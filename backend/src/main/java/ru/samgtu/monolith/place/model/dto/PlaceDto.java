@@ -40,6 +40,9 @@ public class PlaceDto {
     @JsonView(JacksonViews.DataWithoutLob.class)
     private Set<TagDto> tags;
 
+    @JsonView(JacksonViews.DataWithoutLob.class)
+    private Long regionId;
+
     @JsonView(JacksonViews.DataWithLob.class)
     private List<String> urls;
 

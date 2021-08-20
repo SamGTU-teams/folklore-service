@@ -50,6 +50,9 @@ public class ActivityDto {
     @JsonView(JacksonViews.DataWithoutLob.class)
     private Duration duration;
 
+    @JsonView(JacksonViews.DataWithoutLob.class)
+    private Long regionId;
+
     @JsonView(JacksonViews.DataWithLob.class)
     private List<String> urls;
 

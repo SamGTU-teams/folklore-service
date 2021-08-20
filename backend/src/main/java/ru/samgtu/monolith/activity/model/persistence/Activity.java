@@ -73,4 +73,7 @@ public class Activity {
 
     @Column(name = "duration", nullable = false)
     private Duration duration;
+
+    @Column(name = "region_id", nullable = false)
+    private Long regionId;
 }
