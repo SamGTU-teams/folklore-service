@@ -19,7 +19,7 @@ import static com.google.common.base.Predicates.or;
 @Configuration
 public class RegionConfiguration {
     @Bean
-    public Predicate<RequestHandler> activityApis() {
+    public Predicate<RequestHandler> regionApis() {
         ArrayList<Predicate<RequestHandler>> apis = new ArrayList<>();
 
         apis.add(RequestHandlerSelectors.basePackage("ru.samgtu.monolith.region.controller"));
