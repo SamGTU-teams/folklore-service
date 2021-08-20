@@ -1,5 +1,5 @@
 import { CardInfo } from "@/model/CardInfo";
 
-export interface CardWithRationgInfo extends CardInfo {
+export interface CardWithRatingInfo extends CardInfo {
   rating: number;
 }

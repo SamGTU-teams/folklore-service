@@ -2,9 +2,9 @@ import { Tag } from "@/model/Tag";
 import { Place } from "@/model/Place";
 import { Point } from "@/model/Point";
 import { MainObject } from "@/model/MainObject";
-import { CardWithRationgInfo } from "@/model/CardWithRationgInfo";
+import { CardWithRatingInfo } from "@/model/CardWithRatingInfo";
 
-export class Activity extends MainObject implements CardWithRationgInfo {
+export class Activity extends MainObject implements CardWithRatingInfo {
   rating: number;
   canVisit: boolean;
   place?: Place;
