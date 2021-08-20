@@ -7,6 +7,7 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
+import ru.samgtu.monolith.activity.model.ActivityStatus;
 import ru.samgtu.monolith.activity.model.dto.ActivityDto;
 import ru.samgtu.monolith.activity.model.dto.ScheduledActivityDto;
 import ru.samgtu.monolith.config.JacksonViews;
@@ -89,7 +90,8 @@ public interface ActivityController {
     @JsonView(JacksonViews.DataWithoutLob.class)
     Page<ScheduledActivityDto> findScheduledActivitiesByActivityId(@PathVariable("id") Long id,
                                                                    @RequestParam(defaultValue = "0") int page,
-                                                                   @RequestParam(defaultValue = "10") int size);
+                                                                   @RequestParam(defaultValue = "10") int size,
+                                                                   @RequestBody(required = false) Set<String> statuses);
 
     @GetMapping("/search/date")
     @ApiOperation(value = "Get activity by date")
@@ -100,7 +102,8 @@ public interface ActivityController {
     @JsonView(JacksonViews.DataWithoutLob.class)
     Page<ScheduledActivityDto> findActivitiesByDateTime(@RequestParam LocalDateTime from, 
                                                         @RequestParam(defaultValue = "0") int page,
-                                                        @RequestParam(defaultValue = "10") int size);
+                                                        @RequestParam(defaultValue = "10") int size,
+                                                        @RequestBody(required = false) Set<String> statuses);
 
 
     @PostMapping("/ids")
@@ -111,4 +114,16 @@ public interface ActivityController {
     })
     @JsonView(JacksonViews.DataWithoutLob.class)
     Collection<ActivityDto> findActivitiesByIds(@RequestBody Collection<Long> ids);
+
+    @GetMapping("/region/{id}")
+    @ApiOperation(value = "Get activities by region id")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = ""),
+            @ApiResponse(code = 404, message = "", response = ExceptionInfo.class)
+    })
+    @JsonView(JacksonViews.DataWithoutLob.class)
+    Page<ActivityDto> findByRegionId(@PathVariable("id") Long regionId,
+                                     @RequestParam(defaultValue = "0") int page,
+                                     @RequestParam(defaultValue = "10") int size);
+
 }

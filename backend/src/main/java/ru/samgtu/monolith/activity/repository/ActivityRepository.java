@@ -11,6 +11,9 @@ import java.util.Collection;
 import java.util.Optional;
 
 public interface ActivityRepository extends JpaRepository<Activity, Long> {
+
+    Page<Activity> findAllByRegionId(Long regionId, Pageable pageable);
+
     Page<Activity> findByNameStartsWithIgnoreCase(String name, Pageable pageable);
 
     Page<Activity> findAllByPlaceId(Long id, Pageable pageable);
@@ -28,7 +31,7 @@ public interface ActivityRepository extends JpaRepository<Activity, Long> {
             "WHERE at.tag_id SIMILAR TO ?1 " +
             "GROUP BY at.activity_id " +
             "HAVING COUNT(at.tag_id) > 0 " +
-            ") t" +
+            ") t " +
             "ON a.id = t.activity_id " +
             "ORDER BY ?#{#pageable}",
             countQuery = "SELECT COUNT(*) " +
@@ -39,7 +42,7 @@ public interface ActivityRepository extends JpaRepository<Activity, Long> {
                     "WHERE at.tag_id SIMILAR TO ?1 " +
                     "GROUP BY at.activity_id " +
                     "HAVING COUNT(at.tag_id) > 0 " +
-                    ") t" +
+                    ") t " +
                     "ON a.id = t.activity_id ",
             nativeQuery = true)
     Page<Activity> findByTagIdRegex(String regex, Pageable pageable);

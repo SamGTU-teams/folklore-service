@@ -74,4 +74,15 @@ public interface PlaceController {
     })
     @JsonView(JacksonViews.DataWithoutLob.class)
     Collection<PlaceDto> findPlacesByIds(@RequestBody Collection<Long> ids);
+
+    @GetMapping("/region/{id}")
+    @ApiOperation(value = "Get places by region id")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = ""),
+            @ApiResponse(code = 404, message = "", response = ExceptionInfo.class)
+    })
+    @JsonView(JacksonViews.DataWithoutLob.class)
+    Page<PlaceDto> findByRegionId(@PathVariable Long id,
+                            @RequestParam(defaultValue = "0") int page,
+                            @RequestParam(defaultValue = "10") int size);
 }

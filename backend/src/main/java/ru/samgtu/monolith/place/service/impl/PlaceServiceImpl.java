@@ -69,4 +69,9 @@ public class PlaceServiceImpl implements PlaceService {
     public Collection<Place> findPlacesByIds(Collection<Long> ids) {
         return repository.findAllById(ids);
     }
+
+    @Override
+    public Page<Place> findByRegionId(Long id, Pageable pageable) {
+        return repository.findAllByRegionId(id, pageable);
+    }
 }

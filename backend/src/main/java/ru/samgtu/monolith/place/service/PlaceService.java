@@ -26,4 +26,6 @@ public interface PlaceService {
     Place findPlacesInfoById(Long id);
 
     Collection<Place> findPlacesByIds(Collection<Long> ids);
+
+    Page<Place> findByRegionId(Long id, Pageable pageable);
 }

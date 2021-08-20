@@ -29,9 +29,4 @@ public class ActivityConfiguration {
 
         return or(apis);
     }
-
-    @Bean
-    public MapperFactory mapperFactory() {
-        return new DefaultMapperFactory.Builder().build();
-    }
 }

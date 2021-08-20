@@ -60,6 +60,11 @@ public class ActivityServiceImpl implements ActivityService {
     }
 
     @Override
+    public Page<Activity> findByRegionId(Long regionId, Pageable pageable) {
+        return repository.findAllByRegionId(regionId, pageable);
+    }
+
+    @Override
     public Collection<Activity> findActivitiesByIds(Collection<Long> ids) {
         return repository.findActivityByIdIn(ids);
     }

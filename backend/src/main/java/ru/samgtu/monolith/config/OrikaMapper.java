@@ -52,6 +52,7 @@ public class OrikaMapper extends ConfigurableMapper {
                 })
                 .field("lat", "point.lat")
                 .field("lon", "point.lon")
+                .field("region.id", "regionId")
                 .byDefault()
                 .register();
 
@@ -70,6 +71,7 @@ public class OrikaMapper extends ConfigurableMapper {
                 })
                 .field("lat", "point.lat")
                 .field("lon", "point.lon")
+                .field("region.id", "regionId")
                 .byDefault()
                 .register();
     }
