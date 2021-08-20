@@ -6,7 +6,9 @@ import { CardWithRationgInfo } from "@/model/CardWithRationgInfo";
 
 export class Activity extends MainObject implements CardWithRationgInfo {
   rating: number;
+  canVisit: boolean;
   place?: Place;
+  duration: Date;
 
   constructor(
     id: number,
@@ -18,6 +20,8 @@ export class Activity extends MainObject implements CardWithRationgInfo {
     imageUrl: string,
     tags: Tag[],
     rating: number,
+    canVisit: boolean,
+    duration: Date,
     mediaUrls?: string[],
     description?: string,
     place?: Place
@@ -34,7 +38,9 @@ export class Activity extends MainObject implements CardWithRationgInfo {
       mediaUrls,
       description
     );
+    this.canVisit = canVisit;
     this.rating = rating;
+    this.duration = duration;
     this.place = place;
   }
 }
