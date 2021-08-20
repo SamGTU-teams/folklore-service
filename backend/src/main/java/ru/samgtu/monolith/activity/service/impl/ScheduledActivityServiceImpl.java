@@ -22,6 +22,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -66,10 +67,19 @@ public class ScheduledActivityServiceImpl implements ScheduledActivityService {
 
     @Override
     public Page<ScheduledActivity> findByDateAfterThanEqual(LocalDateTime from, Pageable pageable) {
+        Page<Object[]> page = scheduledActivityRepository.findMinDateTimeIsGreaterThanEqualOrderByIdDateTimeAsc(from, pageable);
+        return formActivities(page, pageable);
+    }
+
+    @Override
+    public Page<ScheduledActivity> findByDateAfterThanEqual(LocalDateTime from, Set<ActivityStatus> statuses, Pageable pageable) {
+        Page<Object[]> page = scheduledActivityRepository.findMinDateTimeIsGreaterThanEqualOrderByIdDateTimeAsc(from, statuses, pageable);
+        return formActivities(page, pageable);
+    }
+
+    private Page<ScheduledActivity> formActivities(Page<Object[]> page, Pageable pageable){
         // ToDo: create cache table
         pageable = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize());
-
-        Page<Object[]> page = scheduledActivityRepository.findMinDateTimeIsGreaterThanEqualOrderByIdDateTimeAsc(from, pageable);
         Map<Long, LocalDateTime> map = page.stream()
                 .collect(Collectors.toMap(obj -> (Long) obj[0], obj -> (LocalDateTime) obj[1]));
 
@@ -101,6 +111,11 @@ public class ScheduledActivityServiceImpl implements ScheduledActivityService {
     @Override
     public Page<ScheduledActivity> findScheduledByActivityId(Long id, Pageable pageable) {
         return scheduledActivityRepository.findByActivityId(id, pageable);
+    }
+
+    @Override
+    public Page<ScheduledActivity> findScheduledByActivityId(Long id, Set<ActivityStatus> statuses, Pageable pageable) {
+        return scheduledActivityRepository.findAllByActivityIdAndStatusIn(id, statuses, pageable);
     }
 
     private ActivityStatus calcStatus(LocalDateTime now, LocalDateTime dateTime, Duration duration, boolean canVisited) {

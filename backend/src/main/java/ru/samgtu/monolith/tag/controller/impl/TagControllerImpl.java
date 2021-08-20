@@ -8,6 +8,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.RestController;
+import ru.samgtu.monolith.model.PageJsonImpl;
 import ru.samgtu.monolith.tag.controller.TagController;
 import ru.samgtu.monolith.tag.model.dto.TagDto;
 import ru.samgtu.monolith.tag.model.persistence.Tag;
@@ -54,6 +55,7 @@ public class TagControllerImpl implements TagController {
     }
 
     private Page<TagDto> mapPage(Page<Tag> page) {
+        page = new PageJsonImpl<>(page);
         return page.map(tag -> mapper.map(tag, TagDto.class));
     }
 }

@@ -26,4 +26,6 @@ public interface ActivityService {
     Activity findActivityInfoById(Long id);
 
     Page<Activity> getActivities(Pageable pageable);
+
+    Page<Activity> findByRegionId(Long regionId, Pageable pageable);
 }

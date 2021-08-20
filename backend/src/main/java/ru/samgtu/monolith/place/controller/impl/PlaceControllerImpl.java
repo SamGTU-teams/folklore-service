@@ -65,6 +65,12 @@ public class PlaceControllerImpl implements PlaceController {
         return mapper.mapAsList(places, PlaceDto.class);
     }
 
+    @Override
+    public Page<PlaceDto> findByRegionId(Long id, int page, int size) {
+        PageRequest pageRequest = createPageRequest(page, size);
+        return mapPage(service.findByRegionId(id, pageRequest));
+    }
+
     private PageRequest createPageRequest(int page, int size) {
         return PageRequest.of(page, size);
     }

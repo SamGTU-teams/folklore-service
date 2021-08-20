@@ -40,11 +40,13 @@ public interface PlaceRepository extends JpaRepository<Place, Long> {
                     "WHERE pt.tag_id SIMILAR TO ?1 " +
                     "GROUP BY pt.place_id " +
                     "HAVING COUNT(pt.tag_id) > 0 " +
-                    ") t" +
+                    ") t " +
                     "ON p.id = t.place_id ",
             nativeQuery = true)
     Page<Place> findByTagIdRegex(String regex, Pageable pageable);
 
     @EntityGraph(attributePaths = {"lob"})
     Optional<Place> findInfoById(Long id);
+
+    Page<Place> findAllByRegionId(Long id, Pageable pageable);
 }
