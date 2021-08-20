@@ -18,10 +18,6 @@ import java.util.Collection;
  * @version 1.0
  */
 public interface ScheduledActivityRepository extends JpaRepository<ScheduledActivity, ScheduledId> {
-    @Query(value = "select sa.id from ScheduledActivity sa",
-            countQuery = "select count(*) from ScheduledActivity sa")
-    Page<ScheduledId> findAllIds(Pageable pageable);
-
     @Query("select s.id.activityId, min(s.id.dateTime) as dt " +
             "from ScheduledActivity s " +
             "where s.id.dateTime >= ?1 " +
