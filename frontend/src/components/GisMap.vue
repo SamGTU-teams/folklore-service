@@ -32,18 +32,11 @@ export default defineComponent({
   data() {
     return {
       places: [],
-      AllPlases: [],
-      PersonalPlases: []
     }
   },
   methods:{
-    METOD(){
-      this.AllPlases
-    },
   },
   mounted() {
-    this.AllPlases=[];
-    this.PersonalPlases=[];
     let map = DG.map("map", {
       center: [this.centerLat, this.centerLon],
       zoom: this.zoom,
@@ -69,16 +62,10 @@ export default defineComponent({
                           </div>
                         </div>`;
         // FIXME Обнови точки
-        AllPlases[AllPlases.length]=DG.marker([place.lat, place.lon], { icon: myIcon })
+   DG.marker([place.lat, place.lon], { icon: myIcon })
                                         .addTo(map)
                                         .bindPopup(inPopap);
-        if(place.id % 2 === 0){
-          PersonalPlases[PersonalPlases.length]=DG.marker([place.lat, place.lon], { icon: myIcon })
-            .bindPopup(inPopap);
-        }
       });
-      console.log(PersonalPlases);
-      console.log(AllPlases);
     });
   },
 });
