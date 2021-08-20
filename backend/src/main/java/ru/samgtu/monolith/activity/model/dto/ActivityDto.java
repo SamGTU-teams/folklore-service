@@ -53,6 +53,9 @@ public class ActivityDto {
     @JsonView(JacksonViews.DataWithoutLob.class)
     private Long regionId;
 
+    @JsonView(JacksonViews.DataWithoutLob.class)
+    private Double rating;
+
     @JsonView(JacksonViews.DataWithLob.class)
     private List<String> urls;
 

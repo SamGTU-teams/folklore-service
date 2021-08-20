@@ -44,7 +44,7 @@ public class Activity {
     @Column(name = "address", length = 80, nullable = false)
     private String address;
 
-    @Column(name = "canVisit", nullable = false)
+    @Column(name = "can_visit", nullable = false)
     private boolean canVisit;
 
     @Column(name = "image_url", nullable = false)
@@ -74,6 +74,9 @@ public class Activity {
 
     @Column(name = "duration", nullable = false)
     private Duration duration;
+
+    @Column(name = "rating", nullable = false)
+    private Double rating;
 
     @OneToOne
     @JoinColumn(name = "region_id", referencedColumnName = "id")
