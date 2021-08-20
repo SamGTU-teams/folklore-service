@@ -20,10 +20,12 @@ import java.util.Set;
  */
 public interface ScheduledActivityRepository extends JpaRepository<ScheduledActivity, ScheduledId> {
 
+
     Page<ScheduledActivity> findAllByActivityIdAndStatusIn(Long activityId, Set<ActivityStatus> statuses, Pageable pageable);
 
     @Query("select sa.id from ScheduledActivity sa")
     Page<ScheduledId> findAllIds(Pageable pageable);
+
 
     @Query("select s.id.activityId, min(s.id.dateTime) as dt " +
             "from ScheduledActivity s " +

@@ -49,6 +49,12 @@
                     type="BIGINT">
                 <constraints nullable="false"/>
             </column>
+            <column name="rating"
+                    type="DOUBLE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="region_id"
+                    type="BIGINT"/>
         </createTable>
         <addForeignKeyConstraint baseColumnNames="lob_id"
                                  baseTableName="activity"
@@ -60,6 +66,12 @@
                                  constraintName="FK_ACTIVITY_ON_PLACE"
                                  referencedColumnNames="id"
                                  referencedTableName="place"/>
+        <addForeignKeyConstraint baseColumnNames="region_id"
+                                 baseTableName="activity"
+                                 constraintName="FK_ACTIVITY_ON_REGION"
+                                 referencedColumnNames="id"
+                                 referencedTableName="region"/>
+
 
         <createTable tableName="activity_scheduled">
             <column name="status"

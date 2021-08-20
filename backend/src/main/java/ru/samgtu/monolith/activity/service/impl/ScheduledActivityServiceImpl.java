@@ -19,6 +19,7 @@ import ru.samgtu.monolith.activity.service.ScheduledActivityService;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -44,22 +45,31 @@ public class ScheduledActivityServiceImpl implements ScheduledActivityService {
     public void checkStatuses() {
         log.info("Start check statuses");
         LocalDateTime now = LocalDateTime.now();
-        Pageable pageRequest = PageRequest.of(0, 100);
-        Page<ScheduledId> ids = scheduledActivityRepository.findAllIds(pageRequest);
-        while (ids.hasContent()) {
-            for (ScheduledId id : ids.getContent()) {
-                Optional<ScheduledActivity> optionalScheduledActivity = scheduledActivityRepository.findById(id);
-                if (!optionalScheduledActivity.isPresent()) {
-                    continue;
+        Pageable pageRequest = PageRequest.of(0, 200);
+        Page<ScheduledActivity> activities = scheduledActivityRepository.findAll(pageRequest);
+        while (activities.hasContent()) {
+            List<ScheduledActivity> updateActivities = new LinkedList<>();
+            for (ScheduledActivity activity : activities.getContent()) {
+                LocalDateTime dateTime = activity.getId().getDateTime();
+                Duration duration = activity.getActivity().getDuration();
+                boolean canVisit = activity.getActivity().isCanVisit();
+                ActivityStatus currentStatus = activity.getStatus();
+                ActivityStatus newStatus = calcStatus(now, dateTime, duration, canVisit);
+
+                if (!currentStatus.equals(newStatus)) {
+                    log.debug("Changing the status of the object with id = {} from {} to {} ",
+                            activity.getId(), currentStatus, newStatus);
+                    activity.setStatus(newStatus);
+                    updateActivities.add(activity);
                 }
-                ScheduledActivity scheduledActivity = optionalScheduledActivity.get();
-                LocalDateTime dateTime = scheduledActivity.getId().getDateTime();
-                Duration duration = scheduledActivity.getActivity().getDuration();
-                boolean canVisit = scheduledActivity.getActivity().isCanVisit();
-                setStatus(scheduledActivity, calcStatus(now, dateTime, duration, canVisit));
             }
-            pageRequest = ids.nextPageable();
-            ids = scheduledActivityRepository.findAllIds(pageRequest);
+            scheduledActivityRepository.saveAll(updateActivities);
+            if(activities.hasNext()) {
+                pageRequest = activities.nextPageable();
+                activities = scheduledActivityRepository.findAll(pageRequest);
+            } else {
+                break;
+            }
         }
 
         log.info("Finish check statuses");

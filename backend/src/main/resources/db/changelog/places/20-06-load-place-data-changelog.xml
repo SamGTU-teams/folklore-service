@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+    <changeSet id="load-place-data" author="rassafel">
+        <loadData tableName="place" file="db/csv/place.csv">
+            <column name="id" header="id" type="numeric"/>
+            <column name="name" header="name" type="string"/>
+            <column name="address" header="address" type="string"/>
+            <column name="lat" header="lat" type="numeric"/>
+            <column name="lon" header="lon" type="numeric"/>
+            <column name="region_id" header="region_id" type="numeric"/>
+            <column name="lob_id" header="lob_id" type="numeric"/>
+            <column name="image_url" header="image_url" type="string"/>
+            <column name="label_url" header="label_url" type="string"/>
+        </loadData>
+    </changeSet>
+</databaseChangeLog>

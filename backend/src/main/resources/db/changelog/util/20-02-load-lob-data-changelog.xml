@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+    <changeSet id="load-lob-data" author="rassafel">
+        <loadData tableName="description_url"
+                  file="db/csv/description_url.csv"
+                  usePreparedStatements="true">
+            <column name="id" header="id" type="numeric"/>
+            <column name="description" header="description" type="string"/>
+            <column name="media_urls" header="media_urls" type="string"/>
+        </loadData>
+    </changeSet>
+</databaseChangeLog>

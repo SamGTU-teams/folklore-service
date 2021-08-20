@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="load-region-data" author="rassafel">
+        <loadData tableName="region" file="db/csv/region.csv">
+            <column name="id" header="id" type="numeric"/>
+            <column name="name" header="name" type="string"/>
+            <column name="image_url" header="image_url" type="string"/>
+            <column name="points" header="points" type="string"/>
+        </loadData>
+    </changeSet>
+</databaseChangeLog>
