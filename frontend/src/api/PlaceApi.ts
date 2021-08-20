@@ -22,11 +22,15 @@ const placeApi = {
     return axiosApi.get(`${placeUrl}/${id}`);
   },
 
-  getPlaceInfoById(id: number): Promise<AxiosResponse<Place>> {
+  findPlaceInfoById(id: number): Promise<AxiosResponse<Place>> {
     return axiosApi.get(`${placeUrl}/${id}/info`);
   },
 
-  getPlacesByName(
+  findPlacesByIds(ids: number[]): Promise<AxiosResponse<Place[]>> {
+    return axiosApi.post(`${placeUrl}/ids`, ids);
+  },
+
+  findPlacesByName(
     name: string,
     size: number,
     page: number
@@ -38,24 +42,34 @@ const placeApi = {
     return axiosApi.get(`${placeUrl}/search?${params.toString()}`);
   },
 
-  getPlacesByTags(
-    tags: Tag[] | null,
+  findPlacesByTags(
+    tags: Tag[],
     size: number,
     page: number
   ): Promise<AxiosResponse<Page<Place>>> {
+    let tagIds = tags.map((tag) => tag.id);
+    return this.findPlacesByTagsIds(tagIds, size, page);
+  },
+
+  findPlacesByTagsIds(
+    tags: string[] | null,
+    size: number,
+    page: number
+  ): Promise<AxiosResponse<Page<Place>>> {
+    if (tags === null) tags = [];
     const params = new URLSearchParams();
     params.set("size", size.toString());
     params.set("page", page.toString());
     return axiosApi.post(`${placeUrl}?${params.toString()}`, tags);
   },
 
-  getNerbyPlaces(
+  findNearbyPlaces(
     point: Point,
     size: number,
     page: number
   ): Promise<AxiosResponse<Page<Place>>> {
     // FIXME: crete query
-    return this.getPlacesByTags(null, size, page);
+    return this.findPlacesByTagsIds(null, size, page);
   },
 };
 

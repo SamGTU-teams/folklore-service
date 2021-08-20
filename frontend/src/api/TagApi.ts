@@ -6,14 +6,7 @@ import { Tag } from "@/model/Tag";
 const tagUrl = "/tags";
 
 const tagApi = {
-  getTags(size: number, page: number): Promise<AxiosResponse<Page<Tag>>> {
-    const params = new URLSearchParams();
-    params.set("size", size.toString());
-    params.set("page", page.toString());
-    return axiosApi.get(`${tagUrl}?${params.toString()}`);
-  },
-
-  getTagsByName(
+  findTagsByName(
     name: string,
     size: number,
     page: number
@@ -25,7 +18,18 @@ const tagApi = {
     return axiosApi.get(`${tagUrl}/search?${params.toString()}`);
   },
 
-  getTagById(id: number): Promise<AxiosResponse<Tag>> {
+  findChildrenById(
+    id: string,
+    size: number,
+    page: number): Promise<AxiosResponse<Page<Tag>>> {
+    const params = new URLSearchParams();
+    params.set("size", size.toString());
+    params.set("page", page.toString());
+    return axiosApi.get(`${tagUrl}/${id}/children?${params.toString()}`);
+
+  },
+
+  findTagById(id: string): Promise<AxiosResponse<Tag>> {
     return axiosApi.get(`${tagUrl}/${id}`);
   },
 };
