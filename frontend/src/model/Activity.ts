@@ -2,8 +2,10 @@ import { Tag } from "@/model/Tag";
 import { Place } from "@/model/Place";
 import { Point } from "@/model/Point";
 import { MainObject } from "@/model/MainObject";
+import { CardWithRationgInfo } from "@/model/CardWithRationgInfo";
 
-export class Activity extends MainObject {
+export class Activity extends MainObject implements CardWithRationgInfo {
+  rating: number;
   place?: Place;
 
   constructor(
@@ -15,6 +17,7 @@ export class Activity extends MainObject {
     labelUrl: string,
     imageUrl: string,
     tags: Tag[],
+    rating: number,
     mediaUrls?: string[],
     description?: string,
     place?: Place
@@ -31,6 +34,7 @@ export class Activity extends MainObject {
       mediaUrls,
       description
     );
+    this.rating = rating;
     this.place = place;
   }
 }
