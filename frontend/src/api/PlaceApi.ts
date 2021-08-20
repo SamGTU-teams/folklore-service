@@ -1,5 +1,7 @@
 import axiosApi, { AxiosResponse } from "@/api/AxiosApi";
 
+import { plainToClass } from 'class-transformer';
+
 import { Page } from "@/model/Page";
 import { Tag } from "@/model/Tag";
 import { Point } from "@/model/Point";
@@ -8,6 +10,14 @@ import { Place } from "@/model/Place";
 const placeUrl = "/folklores";
 
 const placeApi = {
+  castResponse(data: Place): Place {
+    return plainToClass(Place, data);
+  },
+
+  castResponses(data: Place[]): Place[] {
+    return data.map(val => this.castResponse(val));
+  },
+
   getPlaceById(id: number): Promise<AxiosResponse<Place>> {
     return axiosApi.get(`${placeUrl}/${id}`);
   },

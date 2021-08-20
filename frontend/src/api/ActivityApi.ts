@@ -1,5 +1,7 @@
 import axiosApi, { AxiosResponse } from "@/api/AxiosApi";
 
+import { plainToClass } from 'class-transformer';
+
 import { Page } from "@/model/Page";
 import { Tag } from "@/model/Tag";
 import { Activity } from "@/model/Activity";
@@ -7,6 +9,14 @@ import { Activity } from "@/model/Activity";
 const activityUrl = "/activities";
 
 const activityApi = {
+  castResponse(data: Activity): Activity {
+    return plainToClass(Activity, data);
+  },
+
+  castResponses(data: Activity[]): Activity[] {
+    return data.map(val => this.castResponse(val));
+  },
+
   getActivityById(id: number): Promise<AxiosResponse<Activity>> {
     return axiosApi.get(`${activityUrl}/${id}`);
   },

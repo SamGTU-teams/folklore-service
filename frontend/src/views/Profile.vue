@@ -1,3 +1,11 @@
 <template>
-    <div class="Profile">Profile</div>
+    <div>
+
+    </div>
 </template>
+<script>
+    
+</script>
+<style>
+    
+</style>
