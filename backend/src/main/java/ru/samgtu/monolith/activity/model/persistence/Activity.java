@@ -3,6 +3,7 @@ package ru.samgtu.monolith.activity.model.persistence;
 import lombok.*;
 import ru.samgtu.monolith.model.persistence.DescriptionAndUrlsLob;
 import ru.samgtu.monolith.place.model.persistence.Place;
+import ru.samgtu.monolith.region.model.persistence.Region;
 import ru.samgtu.monolith.tag.model.persistence.Tag;
 
 import javax.persistence.*;
@@ -74,6 +75,7 @@ public class Activity {
     @Column(name = "duration", nullable = false)
     private Duration duration;
 
-    @Column(name = "region_id", nullable = false)
-    private Long regionId;
+    @OneToOne
+    @JoinColumn(name = "region_id", referencedColumnName = "id")
+    private Region region;
 }

@@ -2,6 +2,7 @@ package ru.samgtu.monolith.place.model.persistence;
 
 import lombok.*;
 import ru.samgtu.monolith.model.persistence.DescriptionAndUrlsLob;
+import ru.samgtu.monolith.region.model.persistence.Region;
 import ru.samgtu.monolith.tag.model.persistence.Tag;
 
 import javax.persistence.*;
@@ -56,6 +57,7 @@ public class Place {
     @JoinColumn(name = "lob_id", referencedColumnName = "id")
     private DescriptionAndUrlsLob lob;
 
-    @Column(name = "region_id", nullable = false)
-    private Long regionId;
+    @OneToOne
+    @JoinColumn(name = "region_id", referencedColumnName = "id")
+    private Region region;
 }
