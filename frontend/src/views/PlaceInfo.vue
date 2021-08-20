@@ -11,7 +11,7 @@
         </div>
         <div id="AboutPlace" class="col s12 m12 l6 xl6">
           <div class="tags">
-            {{ place.tags.map((tag) => "#" + tag.name).join(", ") }}
+            {{ place.tags.map(tag => "#" + tag.name).join(", ") }}
           </div>
 
           <div id="NamePlace">{{ place.name }}</div>
@@ -63,7 +63,7 @@ export default defineComponent({
   },
   methods: {
     loadPlaceInfo(id: number) {
-      placeApi.getPlaceInfoById(id).then((response) => {
+      placeApi.findPlaceInfoById(id).then((response) => {
         let data = response.data;
         this.place = placeApi.castResponse(data);
         this.loadingMain = false;
@@ -71,7 +71,7 @@ export default defineComponent({
       });
     },
     loadNearbyPlaces(point: Point) {
-      placeApi.getNerbyPlaces(point, 3, 0).then((response) => {
+      placeApi.findNearbyPlaces(point, 3, 0).then((response) => {
         let data = response.data.content;
         this.nearbyPlaces = placeApi.castResponses(data);
       });
