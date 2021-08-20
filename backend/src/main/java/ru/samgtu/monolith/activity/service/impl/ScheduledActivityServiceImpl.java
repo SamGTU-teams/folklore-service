@@ -110,6 +110,7 @@ public class ScheduledActivityServiceImpl implements ScheduledActivityService {
                     ScheduledActivity scheduledActivity = new ScheduledActivity();
                     ActivityStatus status = calcStatus(now, dateTime, duration, canVisit);
                     scheduledActivity.setActivity(activity);
+                    scheduledActivity.setId(id);
                     scheduledActivity.setStatus(status);
 
                     return scheduledActivity;

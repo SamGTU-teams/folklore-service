@@ -81,7 +81,7 @@ public interface ActivityController {
     ActivityDto findActivityInfoById(@PathVariable("id") Long id);
 
 
-    @GetMapping("/{id}/scheduled")
+    @PostMapping("/{id}/scheduled")
     @ApiOperation(value = "Get scheduled activities by id")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = ""),
@@ -93,7 +93,7 @@ public interface ActivityController {
                                                                    @RequestParam(defaultValue = "10") int size,
                                                                    @RequestBody(required = false) Set<String> statuses);
 
-    @GetMapping("/search/date")
+    @PostMapping("/search/date")
     @ApiOperation(value = "Get activity by date")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = ""),

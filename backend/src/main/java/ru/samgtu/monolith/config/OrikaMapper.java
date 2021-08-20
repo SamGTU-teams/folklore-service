@@ -7,7 +7,9 @@ import ma.glasnost.orika.impl.ConfigurableMapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import ru.samgtu.monolith.activity.model.dto.ActivityDto;
+import ru.samgtu.monolith.activity.model.dto.ScheduledActivityDto;
 import ru.samgtu.monolith.activity.model.persistence.Activity;
+import ru.samgtu.monolith.activity.model.persistence.ScheduledActivity;
 import ru.samgtu.monolith.model.persistence.DescriptionAndUrlsLob;
 import ru.samgtu.monolith.place.model.dto.PlaceDto;
 import ru.samgtu.monolith.place.model.persistence.Place;
@@ -72,6 +74,11 @@ public class OrikaMapper extends ConfigurableMapper {
                 .field("lat", "point.lat")
                 .field("lon", "point.lon")
                 .field("region.id", "regionId")
+                .byDefault()
+                .register();
+
+        factory.classMap(ScheduledActivity.class, ScheduledActivityDto.class)
+                .field("id.dateTime", "dateTime")
                 .byDefault()
                 .register();
     }

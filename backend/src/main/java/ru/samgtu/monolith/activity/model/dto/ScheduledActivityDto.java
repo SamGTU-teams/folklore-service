@@ -18,7 +18,7 @@ import java.time.LocalDateTime;
 @Data
 public class ScheduledActivityDto {
     @JsonView(JacksonViews.DataWithoutLob.class)
-    private ActivityDto activityDto;
+    private ActivityDto activity;
 
     @JsonView(JacksonViews.DataWithoutLob.class)
     private LocalDateTime dateTime;

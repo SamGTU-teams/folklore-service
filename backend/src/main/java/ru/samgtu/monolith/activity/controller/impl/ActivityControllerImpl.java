@@ -60,11 +60,11 @@ public class ActivityControllerImpl implements ActivityController {
         PageRequest pageRequest = createPageRequestForActivities(page, size);
         Page<ScheduledActivity> scheduledActivities;
         if(mappedStatuses.size() == 0) {
-         scheduledActivities = scheduledActivityService.findByDateAfterThanEqual(from, pageRequest);
+            scheduledActivities = scheduledActivityService.findByDateAfterThanEqual(from, pageRequest);
         }else {
             scheduledActivities = scheduledActivityService.findByDateAfterThanEqual(from, mappedStatuses, pageRequest);
         }
-        return scheduledActivities.map(activity -> mapper.map(activity, ScheduledActivityDto.class));
+        return mapScheduledPage(scheduledActivities);
     }
 
     @Override
