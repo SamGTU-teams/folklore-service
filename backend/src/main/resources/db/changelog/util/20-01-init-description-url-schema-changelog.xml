@@ -6,7 +6,8 @@
                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
     <changeSet id="init-description-url-table" author="rassafel">
         <createTable tableName="description_url">
-            <column autoIncrement="true" name="id" type="BIGINT">
+            <column autoIncrement="true" name="id"
+                    type="BIGINT">
                 <constraints nullable="false"
                              primaryKey="true"
                              primaryKeyName="pk_description_url"/>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+    <changeSet id="load-activity-data" author="rassafel">
+        <loadData tableName="activity" file="db/csv/activity.csv">
+            <column name="id" header="id" type="numeric"/>
+            <column name="name" header="name" type="string"/>
+            <column name="address" header="address" type="string"/>
+            <column name="lat" header="lat" type="numeric"/>
+            <column name="lon" header="lon" type="numeric"/>
+            <column name="region_id" header="region_id" type="numeric"/>
+            <column name="lob_id" header="lob_id" type="numeric"/>
+            <column name="image_url" header="image_url" type="string"/>
+            <column name="label_url" header="label_url" type="string"/>
+            <column name="place_id" header="place_id" type="numeric"/>
+            <column name="duration" header="duration" type="numeric"/>
+            <column name="can_visit" header="can_visit" type="boolean"/>
+            <column name="rating" header="rating" type="numeric"/>
+        </loadData>
+
+        <loadData tableName="activity_scheduled" file="db/csv/activity_scheduled.csv">
+            <column name="activity_id" header="activity_id" type="numeric"/>
+            <column name="date_time" header="date_time" type="date"/>
+            <column name="status" header="status" type="string"/>
+        </loadData>
+    </changeSet>
+</databaseChangeLog>
