@@ -7,6 +7,7 @@ export class MainObject implements CardInfo {
   name: string;
   address: string;
   point: Point;
+  regionId: number;
   labelUrl: string;
   imageUrl: string;
   tags: Tag[];
@@ -18,6 +19,7 @@ export class MainObject implements CardInfo {
     name: string,
     address: string,
     point: Point,
+    regionId: number,
     labelUrl: string,
     imageUrl: string,
     tags: Tag[],
@@ -28,6 +30,7 @@ export class MainObject implements CardInfo {
     this.name = name;
     this.address = address;
     this.point = point;
+    this.regionId = regionId;
     this.labelUrl = labelUrl;
     this.imageUrl = imageUrl;
     this.tags = tags;
