@@ -7,7 +7,7 @@ import { Tag } from "@/model/Tag";
 import { Point } from "@/model/Point";
 import { Place } from "@/model/Place";
 
-const placeUrl = "/folklores";
+const placeUrl = "/places";
 
 const placeApi = {
   castResponse(data: Place): Place {
@@ -16,30 +16,6 @@ const placeApi = {
 
   castResponses(data: Place[]): Place[] {
     return data.map(val => this.castResponse(val));
-  },
-
-  getPlaceById(id: number): Promise<AxiosResponse<Place>> {
-    return axiosApi.get(`${placeUrl}/${id}`);
-  },
-
-  findPlaceInfoById(id: number): Promise<AxiosResponse<Place>> {
-    return axiosApi.get(`${placeUrl}/${id}/info`);
-  },
-
-  findPlacesByIds(ids: number[]): Promise<AxiosResponse<Place[]>> {
-    return axiosApi.post(`${placeUrl}/ids`, ids);
-  },
-
-  findPlacesByName(
-    name: string,
-    size: number,
-    page: number
-  ): Promise<AxiosResponse<Page<Place>>> {
-    const params = new URLSearchParams();
-    params.set("name", name);
-    params.set("size", size.toString());
-    params.set("page", page.toString());
-    return axiosApi.get(`${placeUrl}/search?${params.toString()}`);
   },
 
   findPlacesByTags(
@@ -61,6 +37,34 @@ const placeApi = {
     params.set("size", size.toString());
     params.set("page", page.toString());
     return axiosApi.post(`${placeUrl}?${params.toString()}`, tags);
+  },
+
+  findPlacesByName(
+    name: string,
+    size: number,
+    page: number
+  ): Promise<AxiosResponse<Page<Place>>> {
+    const params = new URLSearchParams();
+    params.set("name", name);
+    params.set("size", size.toString());
+    params.set("page", page.toString());
+    return axiosApi.get(`${placeUrl}/search?${params.toString()}`);
+  },
+
+  getPlaceById(id: number): Promise<AxiosResponse<Place>> {
+    return axiosApi.get(`${placeUrl}/${id}`);
+  },
+
+  findPlaceInfoById(id: number): Promise<AxiosResponse<Place>> {
+    return axiosApi.get(`${placeUrl}/${id}/info`);
+  },
+
+  findPlacesByIds(ids: number[]): Promise<AxiosResponse<Place[]>> {
+    return axiosApi.post(`${placeUrl}/ids`, ids);
+  },
+
+  findByRegionId(regionId: number): Promise<AxiosResponse<Place[]>> {
+    return axiosApi.get(`${placeUrl}/region/${regionId}`)
   },
 
   findNearbyPlaces(
