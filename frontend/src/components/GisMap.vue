@@ -1,12 +1,11 @@
 <template>
-  <div class="container">
     <div class="row">
       <div id="map" class="col s12 m12 l12"></div>
     </div>
-    <div class="row tags">
+    <!-- <div class="row tags">
       <div class="col s12 m12 l12"></div>
-    </div>
-  </div>
+    </div> -->
+
 </template>
 
 <script>
@@ -33,9 +32,18 @@ export default defineComponent({
   data() {
     return {
       places: [],
-    };
+      AllPlases: [],
+      PersonalPlases: []
+    }
+  },
+  methods:{
+    METOD(){
+      this.AllPlases
+    },
   },
   mounted() {
+    this.AllPlases=[];
+    this.PersonalPlases=[];
     let map = DG.map("map", {
       center: [this.centerLat, this.centerLon],
       zoom: this.zoom,
@@ -61,10 +69,16 @@ export default defineComponent({
                           </div>
                         </div>`;
         // FIXME Обнови точки
-        DG.marker([place.lat, place.lon], { icon: myIcon })
-          .addTo(map)
-          .bindPopup(inPopap);
+        AllPlases[AllPlases.length]=DG.marker([place.lat, place.lon], { icon: myIcon })
+                                        .addTo(map)
+                                        .bindPopup(inPopap);
+        if(place.id % 2 === 0){
+          PersonalPlases[PersonalPlases.length]=DG.marker([place.lat, place.lon], { icon: myIcon })
+            .bindPopup(inPopap);
+        }
       });
+      console.log(PersonalPlases);
+      console.log(AllPlases);
     });
   },
 });
