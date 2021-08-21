@@ -11,7 +11,9 @@
 <script>
 import { defineComponent } from "vue";
 import DG from "2gis-maps";
-import Api from "@/api/PlaceApi";
+import placeApi from "@/api/PlaceApi";
+import regionApi from "@/api/RegionApi";
+import activityApi from "@/api/ActivityApi";
 
 export default defineComponent({
   name: "GisMap",
@@ -32,24 +34,46 @@ export default defineComponent({
   data() {
     return {
       places: [],
+      map: null,
+      regions: [],
     }
   },
-  methods:{
-  },
   mounted() {
-    let map = DG.map("map", {
+    this.map = DG.map("map", {
       center: [this.centerLat, this.centerLon],
       zoom: this.zoom,
     });
-    Api.getPlacesByTags(null, 20, 0).then((response) => {
-      console.log(1);
+    regionApi.getRegions(30, 0).then(response => {
+      this.regions = response.data.content;
+      this.regions.forEach(region => this.createRegion(region));
+    });
+    placeApi.findPlacesByTags([], 30, 0).then(response => {
       this.places = response.data.content;
-      this.places.forEach((place) => {
-        var myIcon = DG.icon({
-          iconUrl: place.labelUrl,
+      this.places.forEach(place => this.createMarker(place));
+    });
+  },
+  methods:{
+    loadContentByRegion(region) {
+      return;
+    },
+
+    createMarker(place) {
+      const icon = DG.icon({
+        iconUrl: place.labelUrl,
           iconSize: [30, 30],
-        });
-        var inPopap = `<div class='Popup'>
+      });
+      const popup = this.buildPopup(place);
+      DG.marker([place.point.lat, place.point.lon], { icon })
+                                        .addTo(this.map)
+                                        .bindPopup(popup);
+    },
+
+    createRegion(region) {
+      return;
+    },
+
+    buildPopup(place) {
+      return `<div class='Popup'>
                           <div class="lable-container">
                             <img class="img"style src='${place.imageUrl}' width="100%"><br>
                             <div class="place-name">${place.name}<br></div>
@@ -61,12 +85,7 @@ export default defineComponent({
                             </a>
                           </div>
                         </div>`;
-        // FIXME Обнови точки
-   DG.marker([place.lat, place.lon], { icon: myIcon })
-                                        .addTo(map)
-                                        .bindPopup(inPopap);
-      });
-    });
+    }
   },
 });
 </script>
