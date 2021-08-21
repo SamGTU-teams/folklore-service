@@ -29,7 +29,7 @@ logging:
     level:
         org:
             hibernate:
-                SQL: DEBUG
+                SQL: OFF
 activity.status.rate: 30000
 ---
 spring:

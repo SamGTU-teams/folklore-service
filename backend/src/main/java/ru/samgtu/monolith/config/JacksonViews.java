@@ -15,4 +15,6 @@ public final class JacksonViews {
 
     public interface DataWithLob extends DataWithoutLob {
     }
+
+    public interface DataWithLobExcludedPlaceLob extends DataWithoutLob {}
 }

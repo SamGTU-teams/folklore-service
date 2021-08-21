@@ -56,9 +56,9 @@ public class ActivityDto {
     @JsonView(JacksonViews.DataWithoutLob.class)
     private Double rating;
 
-    @JsonView(JacksonViews.DataWithLob.class)
+    @JsonView({JacksonViews.DataWithLob.class, JacksonViews.DataWithLobExcludedPlaceLob.class})
     private List<String> urls;
 
-    @JsonView(JacksonViews.DataWithLob.class)
+    @JsonView({JacksonViews.DataWithLob.class, JacksonViews.DataWithLobExcludedPlaceLob.class})
     private String description;
 }

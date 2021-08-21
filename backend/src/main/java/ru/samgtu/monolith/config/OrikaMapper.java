@@ -13,6 +13,8 @@ import ru.samgtu.monolith.activity.model.persistence.ScheduledActivity;
 import ru.samgtu.monolith.model.persistence.DescriptionAndUrlsLob;
 import ru.samgtu.monolith.place.model.dto.PlaceDto;
 import ru.samgtu.monolith.place.model.persistence.Place;
+import ru.samgtu.monolith.region.model.dto.RegionDto;
+import ru.samgtu.monolith.region.model.persistence.Region;
 import ru.samgtu.monolith.tag.model.dto.TagDto;
 import ru.samgtu.monolith.tag.model.persistence.Tag;
 
@@ -79,6 +81,10 @@ public class OrikaMapper extends ConfigurableMapper {
 
         factory.classMap(ScheduledActivity.class, ScheduledActivityDto.class)
                 .field("id.dateTime", "dateTime")
+                .byDefault()
+                .register();
+
+        factory.classMap(Region.class, RegionDto.class)
                 .byDefault()
                 .register();
     }

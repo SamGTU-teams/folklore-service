@@ -1,4 +1,4 @@
-package ru.samgtu.monolith.activity;
+package ru.samgtu.monolith.activity.exception;
 
 import java.util.NoSuchElementException;
 

@@ -19,11 +19,8 @@ import ru.samgtu.monolith.activity.service.ScheduledActivityService;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
+import java.time.ZoneOffset;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -114,7 +111,8 @@ public class ScheduledActivityServiceImpl implements ScheduledActivityService {
                     scheduledActivity.setStatus(status);
 
                     return scheduledActivity;
-                }).collect(Collectors.toList());
+                }).sorted(Comparator.comparingLong(o -> o.getId().getDateTime().toInstant(ZoneOffset.UTC).toEpochMilli()))
+                        .collect(Collectors.toList());
 
         return new PageImpl<>(scheduledActivities, pageable, page.getTotalElements());
     }

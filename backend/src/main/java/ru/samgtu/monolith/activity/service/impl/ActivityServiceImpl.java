@@ -5,7 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import ru.samgtu.monolith.activity.NoSuchActivityException;
+import ru.samgtu.monolith.activity.exception.NoSuchActivityException;
 import ru.samgtu.monolith.activity.model.persistence.Activity;
 import ru.samgtu.monolith.activity.repository.ActivityRepository;
 import ru.samgtu.monolith.activity.service.ActivityService;
