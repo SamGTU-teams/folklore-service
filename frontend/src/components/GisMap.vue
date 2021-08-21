@@ -32,36 +32,36 @@
                 <i class="material-icons">filter_drama</i>
                 First
               </div>
-              <div class="collapsible-body" style="padding: 0px 0px;">
+              <div class="collapsible-body" style="padding: 0px 0px">
                 <form action="#">
                   <p>
                     <label>
                       <input type="checkbox" />
-                      <span style="font-size: 18px;">1</span>
+                      <span style="font-size: 18px">1</span>
                     </label>
                   </p>
                   <p>
                     <label>
                       <input type="checkbox" />
-                      <span style="font-size: 18px;">2</span>
+                      <span style="font-size: 18px">2</span>
                     </label>
                   </p>
                   <p>
                     <label>
                       <input type="checkbox" />
-                      <span style="font-size: 18px;">3</span>
+                      <span style="font-size: 18px">3</span>
                     </label>
                   </p>
                   <p>
                     <label>
                       <input type="checkbox" />
-                      <span style="font-size: 18px;">4</span>
+                      <span style="font-size: 18px">4</span>
                     </label>
                   </p>
                   <p>
                     <label>
                       <input type="checkbox" />
-                      <span style="font-size: 18px;">5</span>
+                      <span style="font-size: 18px">5</span>
                     </label>
                   </p>
                 </form>
@@ -92,20 +92,23 @@
   </div>
 </template>
 
-<script>
-import { defineComponent } from "vue";
+<script lang="ts">
+import { defineComponent, PropType } from "vue";
 import M from "materialize-css";
 import DG from "2gis-maps";
+
+import { Point } from "@/model/Point";
+import { Region } from "@/model/Region";
+import { MainObject } from "@/model/MainObject";
+
+import regionApi from "@/api/RegionApi";
+import placeApi from "@/api/PlaceApi";
 
 export default defineComponent({
   name: "GisMap",
   props: {
-    centerLat: {
-      type: Number,
-      required: true,
-    },
-    centerLon: {
-      type: Number,
+    center: {
+      type: Object as PropType<Point>,
       required: true,
     },
     zoom: {
@@ -116,17 +119,63 @@ export default defineComponent({
   data() {
     return {
       map: null,
+      regions: [] as Region[],
+      isActivity: false,
+      markers: DG.featureGroup(),
     };
   },
   mounted() {
-    this.map = DG.map("map", {
-      center: [this.centerLat, this.centerLon],
-      zoom: this.zoom,
-    });
+    this.loadMap(this.center, this.zoom, "map");
+  },
+  methods: {
+    loadMap(center: Point, zoom: number, container: string): any {
+      this.map = DG.map(container, { center, zoom });
+      this.markers.addTo(this.map);
+      regionApi.getRegions(30, 0).then((response) => {
+        const content = response.data.content;
+        this.regions = regionApi.castResponses(content);
+        this.regions.forEach((region) => this.drawRegion(region));
+      });
+    },
+    drawRegion(region: Region) {
+      const polygon = DG.polygon(region.points);
+      polygon.addTo(this.map);
+      const center = polygon.getCenter();
+      polygon.on("click", () => this.regionClick(region, center));
+    },
+    regionClick(region: Region, center) {
+      this.map.setView(center, this.zoom);
+      this.removeMarkers();
+      this.loadMarkers(region);
+    },
+    loadMarkers(region: Region) {
+      if (this.isActivity) {
+        return;
+      } else {
+        placeApi.findByRegionId(region.id, 20, 0).then((response) => {
+          const content = response.data.content;
+          const places = placeApi.castResponses(content);
+          places.forEach((place) => this.createMarker(place));
+        });
+      }
+    },
+
+    createMarker(obj: MainObject) {
+      const icon = DG.icon({
+        iconUrl: obj.labelUrl,
+        iconSize: [30, 30],
+      });
+      const marker = DG.marker(obj.point, { icon });
+      
+      marker.addTo(this.markers);
+    },
+    removeMarkers() {
+      this.markers.clearLayers();
+    },
   },
 });
 
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
   var elems = document.querySelectorAll(".collapsible");
   var options = { accordion: false };
   var instances = M.Collapsible.init(elems, options);
