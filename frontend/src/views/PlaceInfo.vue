@@ -31,7 +31,6 @@
       </div>
       <small-card-list
         v-bind:list="nearbyPlaces"
-        v-bind:title="'Nearby Places'"
         v-bind:routePage="'PlaceInfo'"
       />
     </div>
@@ -113,20 +112,27 @@ body {
 .tags {
   padding-bottom: 2rem;
   height: 4rem;
+  color: #e300ff;
+  font-weight: 700;
   font-size: calc(20px + (15 - 20) * ((100vw - 500px) / (1920 - 500)));
   /* margin-bottom: max(1.3rem, min(2.8rem, calc(100vw * 4 / 350))); */
   margin-bottom: 0;
 }
 
 #NamePlace {
-  text-transform: uppercase;
+  
+  color: #201F1C;
+  font-weight: 700;
   font-size: calc(40px + (35 - 40) * ((100vw - 500px) / (1920 - 500)));
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   margin-top: calc(50px + (0 - 50) * ((100vw - 500px) / (1920 - 500)));
   margin-bottom: max(1.5rem, min(2.8rem, calc(100vw * 4 / 350)));
+  text-transform: uppercase;
   /* margin-bottom: 1%; */
 }
 #AddressPlace {
+  color: #201F1C;
+  font-weight: 500;
   font-size: calc(20px + (15 - 20) * ((100vw - 500px) / (1920 - 500)));
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   margin-bottom: max(1.5rem, min(2.8rem, calc(100vw * 4 / 350)));
@@ -134,23 +140,30 @@ body {
 }
 #GoToAfisha {
   width: 100%;
-  background-color: #e8edff;
+  background-color: #e300ff;
   padding: 15px 0px;
   margin: 0 0;
   border-radius: 5px;
   text-transform: uppercase;
-  color: #2b3f8d;
+  color: #FEFBF7;
   text-align: center;
   font-size: calc(20px + (25 - 20) * ((100vw - 500px) / (1920 - 500)));
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
+
+#GoToAfisha:hover {
+  cursor: pointer;
+  font-weight: bold;
+}
+
 #Description {
   padding: 0 0.75rem;
-  text-indent: 20px;
+  color: #201F1C;
+  font-weight: lighter;
   font-size: calc(25px + (20 - 25) * ((100vw - 500px) / (1920 - 500)));
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  color: #fff;
   text-align: justify;
+  text-indent: 20px;
 }
 #NearbyPlaces {
   width: calc(100% - 8px);

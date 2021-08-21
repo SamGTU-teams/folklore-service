@@ -128,9 +128,9 @@ export default defineComponent({
   /* padding: calc(10px + (8 - 10) * ((100vw - 500px) / (1920 - 500))) 0; */
   font-size: 18px;
   /* font-size: calc(18px + (16 - 18) * ((100vw - 500px) / (1920 - 500))); */
-  color: #fff;
+  color: #201F1C;
   font-weight: lighter;
-  background: #2b3f8d;
+  background: #FFBD00;
 }
 .button:hover {
   cursor: pointer;
