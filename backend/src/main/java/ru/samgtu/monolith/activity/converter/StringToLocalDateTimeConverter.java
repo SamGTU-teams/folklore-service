@@ -9,7 +9,7 @@ import static java.time.LocalDateTime.parse;
 
 @Component
 public class StringToLocalDateTimeConverter implements Converter<String, LocalDateTime> {
-    private final static String PATTERN = "\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}";
+    private final static String PATTERN = "\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}(:\\d{2})?";
 
     @Override
     public LocalDateTime convert(String s) {
