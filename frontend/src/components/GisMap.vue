@@ -1,28 +1,12 @@
 <template>
   <div class="container main">
     <div id="TopMapFilters" class="row">
-      <div class="switch TopMapFilterSwitcher">
-        <label class="swithText">
-          Все
-          <input type="checkbox" />
-          <span class="lever"></span>
-          Рекомендовано
-        </label>
-      </div>
-      <div class="switch TopMapFilterSwitcher">
-        <label class="swithText">
-          Объекты
-          <input type="checkbox" />
-          <span class="lever"></span>
-          События
-        </label>
-      </div>
+      <switcher :firstValue="'Все'" :secondValue="'Рекомендовано'" />
+      <switcher :firstValue="'Объекты'" :secondValue="'События'" @changed-value="changedType"/>
     </div>
     <div class="row">
       <div id="MapContainer" class="col s12">
-        <div class="row">
           <div id="map" class="col s12 m12 l12"></div>
-        </div>
       </div>
       <div id="MapControll">
         <div id="MapFilters">
@@ -97,15 +81,21 @@ import { defineComponent, PropType } from "vue";
 import M from "materialize-css";
 import DG from "2gis-maps";
 
+import Switcher from "@/components/Switcher.vue";
+
 import { Point } from "@/model/Point";
 import { Region } from "@/model/Region";
 import { MainObject } from "@/model/MainObject";
 
 import regionApi from "@/api/RegionApi";
 import placeApi from "@/api/PlaceApi";
+import activityApi from "@/api/ActivityApi";
 
 export default defineComponent({
   name: "GisMap",
+  components: {
+    Switcher
+  },
   props: {
     center: {
       type: Object as PropType<Point>,
@@ -119,7 +109,6 @@ export default defineComponent({
   data() {
     return {
       map: null,
-      regions: [] as Region[],
       isActivity: false,
       markers: DG.featureGroup(),
     };
@@ -128,34 +117,48 @@ export default defineComponent({
     this.loadMap(this.center, this.zoom, "map");
   },
   methods: {
-    loadMap(center: Point, zoom: number, container: string): any {
+    changedType(value: boolean) {
+      this.isActivity = value;
+      this.removeMarkers();
+    },
+
+    loadMap(center: Point, zoom: number, container: string) {
       this.map = DG.map(container, { center, zoom });
       this.markers.addTo(this.map);
       regionApi.getRegions(30, 0).then((response) => {
         const content = response.data.content;
-        this.regions = regionApi.castResponses(content);
-        this.regions.forEach((region) => this.drawRegion(region));
+        const regions = regionApi.castResponses(content);
+        regions.forEach(region => this.drawRegion(region));
       });
     },
+
     drawRegion(region: Region) {
       const polygon = DG.polygon(region.points);
       polygon.addTo(this.map);
       const center = polygon.getCenter();
       polygon.on("click", () => this.regionClick(region, center));
     },
+
     regionClick(region: Region, center) {
       this.map.setView(center, this.zoom);
       this.removeMarkers();
       this.loadMarkers(region);
     },
+
     loadMarkers(region: Region) {
       if (this.isActivity) {
-        return;
+        activityApi.findByRegionId(region.id, 20, 0)
+        .then(response => {
+          const content = response.data.content;
+          const activities = activityApi.castResponses(content);
+          activities.forEach(activity => this.createMarker(activity, "ActivityInfo"))
+        })
       } else {
-        placeApi.findByRegionId(region.id, 20, 0).then((response) => {
+        placeApi.findByRegionId(region.id, 20, 0)
+        .then(response => {
           const content = response.data.content;
           const places = placeApi.castResponses(content);
-          places.forEach((place) => this.createMarker(place, "PlaceInfo"));
+          places.forEach(place => this.createMarker(place, "PlaceInfo"));
         });
       }
     },
@@ -295,20 +298,6 @@ document.addEventListener("DOMContentLoaded", function () {
   bottom: 15px;
 }
 
-.swithText {
-  color: #00028b !important;
-}
-
-.switch label input[type="checkbox"]:checked + .lever:before,
-.swithText {
-  font-weight: bold;
-}
-
-.switch label input[type="checkbox"]:checked + .lever:before,
-.swithText {
-  font-weight: normal;
-}
-
 #MapControll {
   position: absolute;
   height: 75vh;
@@ -371,43 +360,5 @@ document.addEventListener("DOMContentLoaded", function () {
 
 li.active .collapsible-header {
   font-weight: bold;
-}
-.switch label {
-  color: #fefbf7;
-  font-size: 18px;
-}
-
-.switch label input[type="checkbox"]:checked + .lever {
-  background-color: #ec79fc !important;
-}
-
-.switch label input[type="checkbox"]:checked + .lever:after {
-  background-color: #e300ff !important;
-}
-
-/* [type="checkbox"]+span:not(.lever):after, [type="checkbox"]:not(.filled-in)+span:not(.lever):after {
-    border: 2px solid #FEFBF7 !important;
-} */
-
-[type="checkbox"]:not(.filled-in) + span:not(.lever):before,
-.collapsible-body p:hover span:before {
-  border-right: 2px solid #ffbd00 !important;
-  border-bottom: 2px solid #ffbd00 !important;
-  border-left: 2px solid #ffbd00 !important;
-  border-top: 2px solid #ffbd00 !important;
-}
-
-[type="checkbox"]:not(.filled-in) + span:not(.lever):before {
-  border-right: 2px solid #fcd56b !important;
-  border-bottom: 2px solid #fcd56b !important;
-  border-left: 2px solid #fcd56b !important;
-  border-top: 2px solid #fcd56b !important;
-}
-
-[type="checkbox"]:checked + span:not(.lever):before {
-  border-right: 2px solid #e300ff !important;
-  border-bottom: 2px solid #e300ff !important;
-  border-left: 2px solid #ffbb0000 !important;
-  border-top: 2px solid #ffbb0000 !important;
 }
 </style>
