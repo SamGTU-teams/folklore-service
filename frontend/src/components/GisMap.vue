@@ -1,19 +1,101 @@
 <template>
-    <div class="row">
-      <div id="map" class="col s12 m12 l12"></div>
+  <div class="container main">
+    <div id="TopMapFilters" class="row">
+      <div class="switch TopMapFilterSwitcher">
+        <label class="swithText">
+          Все
+          <input type="checkbox" />
+          <span class="lever"></span>
+          Рекомендовано
+        </label>
+      </div>
+      <div class="switch TopMapFilterSwitcher">
+        <label class="swithText">
+          Объекты
+          <input type="checkbox" />
+          <span class="lever"></span>
+          События
+        </label>
+      </div>
     </div>
-    <!-- <div class="row tags">
-      <div class="col s12 m12 l12"></div>
-    </div> -->
-
+    <div class="row">
+      <div id="MapContainer" class="col s12">
+        <div class="row">
+          <div id="map" class="col s12 m12 l12"></div>
+        </div>
+      </div>
+      <div id="MapControll">
+        <div id="MapFilters">
+          <ul class="collapsible">
+            <li>
+              <div class="collapsible-header">
+                <i class="material-icons">filter_drama</i>
+                First
+              </div>
+              <div class="collapsible-body" style="padding: 0px 0px;">
+                <form action="#">
+                  <p>
+                    <label>
+                      <input type="checkbox" />
+                      <span style="font-size: 18px;">1</span>
+                    </label>
+                  </p>
+                  <p>
+                    <label>
+                      <input type="checkbox" />
+                      <span style="font-size: 18px;">2</span>
+                    </label>
+                  </p>
+                  <p>
+                    <label>
+                      <input type="checkbox" />
+                      <span style="font-size: 18px;">3</span>
+                    </label>
+                  </p>
+                  <p>
+                    <label>
+                      <input type="checkbox" />
+                      <span style="font-size: 18px;">4</span>
+                    </label>
+                  </p>
+                  <p>
+                    <label>
+                      <input type="checkbox" />
+                      <span style="font-size: 18px;">5</span>
+                    </label>
+                  </p>
+                </form>
+              </div>
+            </li>
+            <li>
+              <div class="collapsible-header">
+                <i class="material-icons">place</i>Second
+              </div>
+              <div class="collapsible-body">
+                <span>Lorem ipsum dolor sit amet.</span>
+              </div>
+            </li>
+            <li>
+              <div class="collapsible-header">
+                <i class="material-icons">whatshot</i>Third
+              </div>
+              <div class="collapsible-body">
+                <span>Lorem ipsum dolor sit amet.</span>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div id="InfoRegion"></div>
+        <div id="PokaHz"></div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
 import { defineComponent } from "vue";
+import M from "materialize-css";
 import DG from "2gis-maps";
-import placeApi from "@/api/PlaceApi";
-import regionApi from "@/api/RegionApi";
-import activityApi from "@/api/ActivityApi";
 
 export default defineComponent({
   name: "GisMap",
@@ -33,83 +115,24 @@ export default defineComponent({
   },
   data() {
     return {
-      places: [],
       map: null,
-      regions: [],
-    }
+    };
   },
   mounted() {
     this.map = DG.map("map", {
       center: [this.centerLat, this.centerLon],
       zoom: this.zoom,
     });
-    regionApi.getRegions(30, 0).then(response => {
-      this.regions = response.data.content;
-      this.regions.forEach(region => this.createRegion(region));
-    });
-    placeApi.findPlacesByTags([], 30, 0).then(response => {
-      this.places = response.data.content;
-      this.places.forEach(place => this.createMarker(place));
-    });
   },
-  methods:{
-    loadContentByRegion(region) {
-      return;
-    },
+});
 
-    createMarker(place) {
-      const icon = DG.icon({
-        iconUrl: place.labelUrl,
-          iconSize: [30, 30],
-      });
-      const popup = this.buildPopup(place);
-      DG.marker([place.point.lat, place.point.lon], { icon })
-                                        .addTo(this.map)
-                                        .bindPopup(popup);
-    },
-
-    createRegion(region) {
-      return;
-    },
-
-    buildPopup(place) {
-      return `<div class='Popup'>
-                          <div class="lable-container">
-                            <img class="img" style src='${place.imageUrl}' width="100%">
-                            <div class="place-name">${place.name}</div>
-                            <div class="place-address">${place.address}</div>                         
-                            <a href="/place/${place.id}">
-                                <div class="button">
-                                Подробнее                         
-                                </div>
-                            </a>
-                          </div>
-                        </div>`;
-        // FIXME Обнови точки
-        DG.marker([place.lat, place.lon], { icon: myIcon })
-                                        .addTo(map)
-                                        .bindPopup(inPopap);
-      });
-      // this.regions.forEach((region) => {
-      //   var poligon = DG.polygon(region.points).on('click', function() {
-      //     document.querySelectorAll("#NameSelectedRegion").forEach((elem)=> { //Переписать Название района
-      //       elem.setAttribute("innerHTML",region.name);
-      //     });
-      //     document.querySelectorAll("#ImgSelectedRegion").forEach((elem)=> { //Переписать URL картинки
-      //       elem.setAttribute("src",region.imgUrl);
-      //     });
-      //     document.querySelectorAll("#InfoRegion").forEach((elem)=> { //Открыть инормацию района
-      //       elem.setAttribute("style","display: block");
-      //     });
-      //     document.querySelectorAll("#MapFilters").forEach((elem)=> { //Скрыть фильтры
-      //       elem.setAttribute("style","display: none");
-      //     });
-      //     map.setView(poligon.getCenter(),9); //Зум на район
-      //   })
-      //   .addTo(map);
-      // });
-    });
-  },
+document.addEventListener("DOMContentLoaded", function() {
+  var elems = document.querySelectorAll(".collapsible");
+  var options = { accordion: false };
+  var instances = M.Collapsible.init(elems, options);
+  document.querySelectorAll(".collapsible-body").forEach((elem) => {
+    elem.setAttribute("style", "padding: 0px 0px");
+  });
 });
 </script>
 
@@ -170,12 +193,133 @@ export default defineComponent({
   /* padding: calc(10px + (8 - 10) * ((100vw - 500px) / (1920 - 500))) 0; */
   font-size: 18px;
   /* font-size: calc(18px + (16 - 18) * ((100vw - 500px) / (1920 - 500))); */
-  color: #201F1C;
+  color: #201f1c;
   font-weight: lighter;
-  background: #FFBD00;
+  background: #ffbd00;
 }
 .button:hover {
   cursor: pointer;
   font-weight: bold;
+}
+.TopMapFilterSwitcher {
+  float: right;
+  margin-right: 30px;
+  bottom: 15px;
+}
+
+.swithText {
+  color: #00028b !important;
+}
+
+.switch label input[type="checkbox"]:checked + .lever:before,
+.swithText {
+  font-weight: bold;
+}
+
+.switch label input[type="checkbox"]:checked + .lever:before,
+.swithText {
+  font-weight: normal;
+}
+
+#MapControll {
+  position: absolute;
+  height: 75vh;
+  width: 20%;
+  overflow: auto;
+  border-radius: 3px;
+  /* margin: 10px; */
+  background: #201f1c;
+}
+#MapFilters,
+#InfoRegion,
+#PokaHz {
+  padding-top: 30px;
+  width: 100%;
+  height: 100%;
+  display: none;
+}
+#MapFilters {
+  color: #201f1c;
+  display: block;
+}
+
+.collapsible {
+  border: 0px solid #201f1c !important;
+  color: #fcd56b !important;
+}
+
+.collapsible-body {
+  padding: 0px 0px !important;
+  text-align: left;
+}
+.collapsible-body p {
+  margin: 0px;
+  padding: 7px 19px;
+}
+.collapsible-body p:hover {
+  cursor: pointer;
+  background-color: #fefbf7 !important;
+  color: #00028b !important;
+}
+
+.collapsible-body p:hover span {
+  color: #201f1c !important;
+}
+
+.collapsible-body p span {
+  color: #fcd56b !important;
+}
+
+.collapsible-header:hover {
+  background-color: #fefbf7 !important;
+  color: #201f1c !important;
+}
+
+.collapsible-header {
+  background-color: #201f1c !important;
+
+  border-bottom: 1px solid #201f1c !important;
+}
+
+li.active .collapsible-header {
+  font-weight: bold;
+}
+.switch label {
+  color: #fefbf7;
+  font-size: 18px;
+}
+
+.switch label input[type="checkbox"]:checked + .lever {
+  background-color: #ec79fc !important;
+}
+
+.switch label input[type="checkbox"]:checked + .lever:after {
+  background-color: #e300ff !important;
+}
+
+/* [type="checkbox"]+span:not(.lever):after, [type="checkbox"]:not(.filled-in)+span:not(.lever):after {
+    border: 2px solid #FEFBF7 !important;
+} */
+
+[type="checkbox"]:not(.filled-in) + span:not(.lever):before,
+.collapsible-body p:hover span:before {
+  border-right: 2px solid #ffbd00 !important;
+  border-bottom: 2px solid #ffbd00 !important;
+  border-left: 2px solid #ffbd00 !important;
+  border-top: 2px solid #ffbd00 !important;
+}
+
+[type="checkbox"]:not(.filled-in) + span:not(.lever):before {
+  border-right: 2px solid #fcd56b !important;
+  border-bottom: 2px solid #fcd56b !important;
+  border-left: 2px solid #fcd56b !important;
+  border-top: 2px solid #fcd56b !important;
+}
+
+[type="checkbox"]:checked + span:not(.lever):before {
+  border-right: 2px solid #e300ff !important;
+  border-bottom: 2px solid #e300ff !important;
+  border-left: 2px solid #ffbb0000 !important;
+  border-top: 2px solid #ffbb0000 !important;
 }
 </style>
