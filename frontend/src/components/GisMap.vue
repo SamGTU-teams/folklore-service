@@ -155,20 +155,59 @@ export default defineComponent({
         placeApi.findByRegionId(region.id, 20, 0).then((response) => {
           const content = response.data.content;
           const places = placeApi.castResponses(content);
-          places.forEach((place) => this.createMarker(place));
+          places.forEach((place) => this.createMarker(place, "PlaceInfo"));
         });
       }
     },
 
-    createMarker(obj: MainObject) {
+    createMarker(elem: MainObject, routePage: string) {
       const icon = DG.icon({
-        iconUrl: obj.labelUrl,
+        iconUrl: elem.labelUrl,
         iconSize: [30, 30],
       });
-      const marker = DG.marker(obj.point, { icon });
+      const marker = DG.marker(elem.point, { icon });
       
+      const popup = this.createPopup(elem, routePage);
+
+      marker.bindPopup(popup);
+
       marker.addTo(this.markers);
     },
+
+    createPopup(elem: MainObject, routePage: string): HTMLDivElement {
+      const root = document.createElement('div');
+      root.setAttribute('class', "Popup");
+
+      const label = document.createElement("div");
+      label.setAttribute('class', "lable-container");
+      root.append(label);
+
+      const image = document.createElement("img");
+      image.setAttribute('class', "img");
+      image.setAttribute('width', "100%");
+      image.setAttribute('src', elem.image);
+      label.append(image);
+
+      const name = document.createElement("div");
+      name.setAttribute('class', "place-name");
+      name.innerText = elem.name;
+      label.append(name);
+
+      const address = document.createElement("div");
+      address.setAttribute('class', "place-address");
+      address.innerText = elem.address;
+      label.append(address);
+
+      const button = document.createElement("div");
+      button.setAttribute('class', "button");
+      button.innerText = 'Подробнее';
+      button.onclick = () => this.$router.push({ name: routePage, params: { id: elem.id } });
+
+      label.append(button);
+
+      return root;
+    },
+
     removeMarkers() {
       this.markers.clearLayers();
     },
