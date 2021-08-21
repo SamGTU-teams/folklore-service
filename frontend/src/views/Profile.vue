@@ -1,6 +1,9 @@
 <template>
     <div id="Contet" class="container">
-        <div id="SelectedTags">
+        <div class="row">
+            <div id="SelectedTags" class="m2">
+                <span>Ваши теги:</span>
+            </div>
         </div>
         <div id="TagsSelector" class="row">
             <div id="VectorSelector" class="col s12 m5 l4">
@@ -24,13 +27,17 @@
                     <g id="svg_2">
                         <rect id="svg_1" height="266" width="500" y="0" x="0" fill-opacity="null" stroke-opacity="null" stroke-width="1.5" stroke="#000" fill="#fca"/>
                         <rect v-on:click="AddTagToList(' #1')" class="SelectTagButton" height="50" width="50" y="100" x="50" stroke-width="1.5" stroke="#000" fill="#fff"/>
-                        <rect class="SelectTagButton" height="50" width="50" y="100" x="120" fill-opacity="null" stroke-opacity="null" stroke-width="1.5" stroke="#000" fill="#fff"/>
+                        <rect v-on:click="AddTagToList(' #2')" class="SelectTagButton" height="50" width="50" y="100" x="120" stroke-width="1.5" stroke="#000" fill="#fff"/>
                     </g>
                     <g id="svg_3">
                         <rect id="svg_1" height="266" width="500" y="266" x="0" fill-opacity="null" stroke-opacity="null" stroke-width="1.5" stroke="#000" fill="#acf"/>
+                        <rect v-on:click="AddTagToList(' #3')" class="SelectTagButton" height="50" width="50" y="310" x="50" stroke-width="1.5" stroke="#000" fill="#fff"/>
+                        <rect v-on:click="AddTagToList(' #4')" class="SelectTagButton" height="50" width="50" y="310" x="120" stroke-width="1.5" stroke="#000" fill="#fff"/>
                     </g>
                     <g id="svg_4">
                         <rect id="svg_1" height="266" width="500" y="532" x="0" fill-opacity="null" stroke-opacity="null" stroke-width="1.5" stroke="#000" fill="#faf"/>
+                        <rect v-on:click="AddTagToList(' #5')" class="SelectTagButton" height="50" width="50" y="600" x="300" stroke-width="1.5" stroke="#000" fill="#fff"/>
+                        <rect v-on:click="AddTagToList(' #6')" class="SelectTagButton" height="50" width="50" y="730" x="20" stroke-width="1.5" stroke="#000" fill="#fff"/>
                     </g>
                     <g id="svg_4">
                         <rect id="svg_1" height="266" width="500" y="798" x="0" fill-opacity="null" stroke-opacity="null" stroke-width="1.5" stroke="#000" fill="#fcf"/>

@@ -232,4 +232,7 @@ li.active .collapsible-header {
   border-left: 2px solid #ffbb0000 !important;
   border-top: 2px solid #ffbb0000 !important;
 }
+#Conteiner{
+  overflow: hidden;
+}
 </style>

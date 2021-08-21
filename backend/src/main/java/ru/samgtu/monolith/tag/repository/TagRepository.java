@@ -11,6 +11,8 @@ import ru.samgtu.monolith.tag.model.persistence.Tag;
  * @author rassafel
  * @version 1.0
  */
-public interface TagRepository extends JpaRepository<Tag, Long> {
+public interface TagRepository extends JpaRepository<Tag, String> {
     Page<Tag> findByNameStartsWithIgnoreCase(String name, Pageable pageable);
+
+    Page<Tag> findByIdIsStartingWith(String id, Pageable pageable);
 }

@@ -1,0 +1,6 @@
+export enum ActivityStatus{
+    SCHEDULED = "SCHEDULED",
+    STARTED_CANT_VISIT = "STARTED_CANT_VISIT",
+    STARTED_CAN_VISIT = "STARTED_CAN_VISIT",
+    ENDED = "ENDED"
+}

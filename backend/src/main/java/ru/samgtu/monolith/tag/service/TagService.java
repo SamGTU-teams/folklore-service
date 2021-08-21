@@ -11,10 +11,10 @@ import ru.samgtu.monolith.tag.model.persistence.Tag;
  * @version 1.0
  */
 public interface TagService {
-    Page<Tag> getTags(Pageable pageable);
+    Page<Tag> findChildrenTagsById(String id, Pageable pageable);
 
-    Page<Tag> getTagsByName(String name,
-                            Pageable pageable);
+    Page<Tag> findTagsByName(String name,
+                             Pageable pageable);
 
-    Tag getTagById(Long id);
+    Tag findTagById(String id);
 }

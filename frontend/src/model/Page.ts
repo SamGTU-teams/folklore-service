@@ -4,5 +4,7 @@ export interface Page<Type> {
     totalElements: number,
     numberOfElements: number,
     size: number,
-    number: number
+    number: number,
+    hasNext: boolean,
+    hasContent: boolean
 }

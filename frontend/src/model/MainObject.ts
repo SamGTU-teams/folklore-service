@@ -7,10 +7,11 @@ export class MainObject implements CardInfo {
   name: string;
   address: string;
   point: Point;
+  regionId: number;
   labelUrl: string;
   imageUrl: string;
   tags: Tag[];
-  mediaUrls?: string[];
+  urls?: string[];
   description?: string;
 
   constructor(
@@ -18,20 +19,22 @@ export class MainObject implements CardInfo {
     name: string,
     address: string,
     point: Point,
+    regionId: number,
     labelUrl: string,
     imageUrl: string,
     tags: Tag[],
-    mediaUrls?: string[],
+    urls?: string[],
     description?: string
   ) {
     this.id = id;
     this.name = name;
     this.address = address;
     this.point = point;
+    this.regionId = regionId;
     this.labelUrl = labelUrl;
     this.imageUrl = imageUrl;
     this.tags = tags;
-    this.mediaUrls = mediaUrls;
+    this.urls = urls;
     this.description = description;
   }
 

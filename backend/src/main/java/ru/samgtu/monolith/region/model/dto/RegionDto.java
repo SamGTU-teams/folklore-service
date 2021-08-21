@@ -15,4 +15,6 @@ public class RegionDto {
     private String name;
 
     private String points;
+
+    private String imageUrl;
 }
