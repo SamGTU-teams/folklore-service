@@ -3,8 +3,11 @@ package ru.samgtu.monolith.region.controller.impl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import ma.glasnost.orika.MapperFacade;
-import org.springframework.data.domain.*;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.RestController;
+import ru.samgtu.monolith.model.PageJsonImpl;
 import ru.samgtu.monolith.region.controller.RegionController;
 import ru.samgtu.monolith.region.model.dto.RegionDto;
 import ru.samgtu.monolith.region.model.persistence.Region;
@@ -45,6 +48,7 @@ public class RegionControllerImpl implements RegionController {
     }
 
     private Page<RegionDto> mapPage(Page<Region> page) {
+        page = new PageJsonImpl<>(page);
         return page.map(region -> mapper.map(region, RegionDto.class));
     }
 

@@ -23,18 +23,22 @@ public class TagServiceImpl implements TagService {
     private final TagRepository repository;
 
     @Override
-    public Page<Tag> getTags(Pageable pageable) {
-        return repository.findAll(pageable);
+    public Page<Tag> findChildrenTagsById(String id, Pageable pageable) {
+        id = id.trim();
+        if(!id.isEmpty() && !id.endsWith(".")) {
+            id += ".";
+        }
+        return repository.findByIdIsStartingWith(id, pageable);
     }
 
     @Override
-    public Page<Tag> getTagsByName(String name,
-                                   Pageable pageable) {
+    public Page<Tag> findTagsByName(String name,
+                                    Pageable pageable) {
         return repository.findByNameStartsWithIgnoreCase(name, pageable);
     }
 
     @Override
-    public Tag getTagById(Long id) {
+    public Tag findTagById(String id) {
         return repository
                 .findById(id)
                 .orElseThrow(() -> {

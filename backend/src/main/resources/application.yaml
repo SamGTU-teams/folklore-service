@@ -1,4 +1,6 @@
 server.port: ${PORT}
+# Activity properties
+activity.status.rate: 300000
 spring:
     application.name: folklore-service
     # DB properties
@@ -10,10 +12,29 @@ spring:
     jpa:
         database-platform: org.hibernate.dialect.PostgreSQLDialect
         hibernate.ddl-auto: validate
-    liquibase.change-log: classpath:db/changelog/changelog-master.xml
-springfox.documentation.swagger.v2.path: /api/v2/api-docs
-springdoc.documentation.swagger-ui.base-url: /api
+    liquibase:
+        contexts: prod
+        change-log: classpath:db/changelog/changelog-master.xml
+    jackson:
+        default-property-inclusion: non_null
+springfox.documentation.swagger.v2.path: /api/v2/docs
 ---
 spring:
-    config.activate.on-profile: dev
-    liquibase.change-log: classpath:db/changelog/changelog-master-dev.xml
+    config:
+        activate:
+            on-profile: dev
+    liquibase:
+        contexts: dev
+logging:
+    level:
+        org:
+            hibernate:
+                SQL: OFF
+activity.status.rate: 30000
+---
+spring:
+    config:
+        activate:
+            on-profile: test
+    liquibase:
+        contexts: test

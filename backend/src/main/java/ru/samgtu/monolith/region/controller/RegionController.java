@@ -1,10 +1,15 @@
 package ru.samgtu.monolith.region.controller;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.data.domain.Page;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import ru.samgtu.monolith.config.JacksonViews;
 import ru.samgtu.monolith.model.ExceptionInfo;
 import ru.samgtu.monolith.region.model.dto.RegionDto;
 

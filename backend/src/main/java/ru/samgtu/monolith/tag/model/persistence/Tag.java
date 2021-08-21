@@ -1,10 +1,11 @@
 package ru.samgtu.monolith.tag.model.persistence;
 
 import lombok.*;
-import ru.samgtu.monolith.folklore.model.persistence.Building;
 
-import javax.persistence.*;
-import java.util.Set;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  * Creation date: 07.08.2021
@@ -21,15 +22,10 @@ import java.util.Set;
 @ToString
 public class Tag {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
+    @Column(name = "id", length = 14, nullable = false)
     @EqualsAndHashCode.Include
-    private Long id;
+    private String id;
 
-    @Column(name = "name", nullable = false, length = 20, unique = true)
+    @Column(name = "name", nullable = false, length = 31)
     private String name;
-
-    @ManyToMany(mappedBy = "tags")
-    @ToString.Exclude
-    private Set<Building> buildings;
 }
