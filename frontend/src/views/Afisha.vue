@@ -3,11 +3,13 @@
     <small-card-list
       v-bind:list="nearbyActivities"
       v-bind:title="'В ближайшие дни'"
+      v-bind:routePage="'ActivityInfo'"
     />
 
     <small-card-list
       v-bind:list="recomendations"
       v-bind:title="'Рекомендовано по профилю'"
+      v-bind:routePage="'ActivityInfo'"
     />
 
     <medium-card-list v-bind:list="compilations" v-bind:title="'Подборки'" />
@@ -20,6 +22,8 @@ import MediumCardList from "@/components/MediumCardList.vue";
 import { CardInfo } from "@/model/CardInfo";
 import { defineComponent } from "vue";
 import { Activity } from "@/model/Activity";
+import activityApi from "@/api/ActivityApi";
+import { ActivityStatus } from "@/model/ActivityStatus";
 
 export default defineComponent({
   name: "Afisha",
@@ -28,57 +32,8 @@ export default defineComponent({
     MediumCardList,
   },
   data() {
-    const nearbyActivities: Activity[] = [
-      new Activity(
-        1,
-        "Экскурсия в Новгородский кремль",
-        "8, Новгородский кремль, Великий Новгород",
-        { lat: 0, lon: 0 },
-        1,
-        "",
-        "https://picsum.photos/1920/1080",
-        [],
-        3,
-        true,
-        new Date(),
-        undefined,
-        undefined,
-        undefined
-      ),
-      new Activity(
-        2,
-        "Экскурсия в Софийский собор",
-        "11, Новгородский кремль, Великий Новгород",
-        { lat: 0, lon: 0 },
-        1,
-        "",
-        "https://picsum.photos/1921/1080",
-        [],
-        3,
-        true,
-        new Date(),
-        undefined,
-        undefined,
-        undefined
-      ),
-      new Activity(
-        3,
-        "День в мужском монастыре Свято-Юрьев",
-        "Юрьевское ш., 10, Великий Новгород",
-        { lat: 0, lon: 0 },
-        2,
-        "",
-        "https://picsum.photos/1920/1081",
-        [],
-        3,
-        true,
-        new Date(),
-        undefined,
-        undefined,
-        undefined
-      ),
-    ];
-    const recomendations: Activity[] = nearbyActivities;
+    const nearbyActivities: Activity[] = [];
+    const recomendations: Activity[] = [];
 
     const compilations: CardInfo[] = [
       {
@@ -112,5 +67,19 @@ export default defineComponent({
       compilations,
     };
   },
+  mounted() {
+    this.nearbyActivities = [];
+    activityApi.findActivitiesByDateTime(new Date(), 3, 0, [])
+    .then(response => {
+      const scheduleds = response.data.content;
+      const activities = scheduleds.map(scheduled => scheduled.activity);
+      this.nearbyActivities = activityApi.castResponses(activities);
+    });
+    activityApi.findActivitiesByTagsIds([], 3, 0)
+    .then(response => {
+      const activities = response.data.content;
+      this.recomendations = activityApi.castResponses(activities);
+    })
+  }
 });
 </script>
