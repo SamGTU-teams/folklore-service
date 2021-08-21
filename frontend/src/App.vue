@@ -1,11 +1,11 @@
 <template>
   <div id="nav">
     <div class="container">
-      <div class="row hide-on-small-only hide-on-med-only">
-        <div id="Logo">
+      <div id="header" class="row hide-on-small-only hide-on-med-only valign-wrapper">
+        <div id="Logo" class="col l1 xl1 Logo">
           LOGO
         </div>
-        <div id="MenuPuncts">
+        <div id="MenuPuncts" class="col offset-l2 offset-xl2 l9 xl9 right-align ">
           <router-link to="/login"
             ><div class="MenuElement">Войти</div></router-link
           >
@@ -23,16 +23,16 @@
       <div class="row show-on-medium hide-on-med-and-up" id="MenuGrid">
         <div class="col s12 ">LOGO</div>
         <router-link to="/"
-          ><div class="col offset-m4 m4 s12">Главная</div></router-link
+          ><div class="col offset-m4 m4 offset-s4 s4">Главная</div></router-link
         >
         <router-link to="/afisha"
-          ><div class="col offset-m4 m4 s12">Афиша</div></router-link
+          ><div class="col offset-m4 m4 offset-s4 s4">Афиша</div></router-link
         >
         <router-link to="/profile"
-          ><div class="col offset-m4 m4 s12">Профиль</div></router-link
+          ><div class="col offset-m4 m4 offset-s4 s4">Профиль</div></router-link
         >
         <router-link to="/login"
-          ><div class="col offset-m4 m4 s12">Войти</div></router-link
+          ><div class="col offset-m4 m4 offset-s4 s4">Войти</div></router-link
         >
       </div>
     </div>
@@ -40,12 +40,13 @@
   <router-view />
 </template>
 <script>
-import { defineComponent } from "vue";
-import M from "materialize-css";
+import Vue, { defineComponent } from "vue";
+import * as Materialize from "materialize-css";
+
 export default defineComponent({
   name: "App",
   mounted() {
-    M.AutoInit();
+    Materialize.AutoInit();
   },
 });
 </script>
@@ -69,20 +70,41 @@ export default defineComponent({
   font-size: 18px;
   color: #fff;
 }
+#header {
+  padding: 0.75rem 0;
+}
+.Logo {
+}
 #Logo {
-  width: 35%;
+  /* transform: translate(0%, 0%);
+  position: relative;
+  top: 50%; */
+
+  height: 100%;
+  /* width: 35%; */
   float: left;
-  text-align: left;
+  padding: 0 0.75rem;
+  text-align: center;
+  font-weight: bold;
+  font-size: 2em;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 #MenuPuncts {
-  width: 65%;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  /* width: 65%; */
   float: right;
+  font-size: 1em;
+  padding: 0;
+ 
 }
 .MenuElement {
   color: #fff;
   margin-left: 15px;
   padding: 0px 15px;
   float: right;
+  /* transform: translate(0%, -50%);
+  position: relative;
+  top: 50%; */
 }
 #MenuGrid {
   color: #fff;

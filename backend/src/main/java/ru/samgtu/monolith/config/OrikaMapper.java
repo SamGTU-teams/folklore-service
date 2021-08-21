@@ -6,9 +6,13 @@ import ma.glasnost.orika.MappingContext;
 import ma.glasnost.orika.impl.ConfigurableMapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import ru.samgtu.monolith.folklore.model.dto.BuildingDto;
-import ru.samgtu.monolith.folklore.model.persistence.Building;
-import ru.samgtu.monolith.folklore.model.persistence.BuildingLob;
+import ru.samgtu.monolith.activity.model.dto.ActivityDto;
+import ru.samgtu.monolith.activity.model.dto.ScheduledActivityDto;
+import ru.samgtu.monolith.activity.model.persistence.Activity;
+import ru.samgtu.monolith.activity.model.persistence.ScheduledActivity;
+import ru.samgtu.monolith.model.persistence.DescriptionAndUrlsLob;
+import ru.samgtu.monolith.place.model.dto.PlaceDto;
+import ru.samgtu.monolith.place.model.persistence.Place;
 import ru.samgtu.monolith.tag.model.dto.TagDto;
 import ru.samgtu.monolith.tag.model.persistence.Tag;
 
@@ -35,29 +39,52 @@ public class OrikaMapper extends ConfigurableMapper {
                 .byDefault()
                 .register();
 
-        factory.classMap(Building.class, BuildingDto.class)
+        factory.classMap(Place.class, PlaceDto.class)
+                .customize(new CustomMapper<Place, PlaceDto>() {
+                    @Override
+                    public void mapAtoB(Place place, PlaceDto placeDto, MappingContext context) {
+                        DescriptionAndUrlsLob lob = place.getLob();
+                        if (isNull(lob)) {
+                            return;
+                        }
+                        placeDto.setDescription(lob.getDescription());
+                        List<String> urls = splitUrls(lob.getMediaUrls());
+                        placeDto.setUrls(urls);
+                    }
+                })
+                .field("lat", "point.lat")
+                .field("lon", "point.lon")
+                .field("region.id", "regionId")
                 .byDefault()
                 .register();
 
-        factory.classMap(BuildingLob.class, BuildingDto.class)
-                .customize(new CustomMapper<BuildingLob, BuildingDto>() {
+        factory.classMap(Activity.class, ActivityDto.class)
+                .customize(new CustomMapper<Activity, ActivityDto>() {
                     @Override
-                    public void mapAtoB(BuildingLob building, BuildingDto buildingDto, MappingContext context) {
-                        String clob = building.getMediaUrls();
-                        List<String> urls = (isNull(clob) || (clob = clob.trim()).isEmpty()) ?
-                                Collections.emptyList() : Arrays.asList(clob.split(urlSeparator));
-                        buildingDto.setUrls(urls);
+                    public void mapAtoB(Activity activity, ActivityDto activityDto, MappingContext context) {
+                        DescriptionAndUrlsLob lob = activity.getLob();
+                        if (isNull(lob)) {
+                            return;
+                        }
+                        activityDto.setDescription(lob.getDescription());
+                        List<String> urls = splitUrls(lob.getMediaUrls());
+                        activityDto.setUrls(urls);
                     }
                 })
-                .field("building.id", "id")
-                .field("building.name", "name")
-                .field("building.lon", "lon")
-                .field("building.lat", "lat")
-                .field("building.address", "address")
-                .field("building.imageUrl", "imageUrl")
-                .field("building.labelUrl", "labelUrl")
-                .field("building.tags", "tags")
+                .field("lat", "point.lat")
+                .field("lon", "point.lon")
+                .field("region.id", "regionId")
                 .byDefault()
                 .register();
+
+        factory.classMap(ScheduledActivity.class, ScheduledActivityDto.class)
+                .field("id.dateTime", "dateTime")
+                .byDefault()
+                .register();
+    }
+
+    private List<String> splitUrls(String clob) {
+        return (isNull(clob) || (clob = clob.trim()).isEmpty()) ?
+                Collections.emptyList() : Arrays.asList(clob.split(urlSeparator));
     }
 }

@@ -1,14 +1,3 @@
-import { Tag } from "@/model/Tag";
+import { MainObject } from "@/model/MainObject";
 
-export interface Place {
-  id: number;
-  name: string;
-  address: string;
-  lat: number;
-  lon: number;
-  labelUrl: string;
-  imageUrl: string;
-  tags: Tag[];
-  mediaUrls?: string[];
-  description?: string;
-}
+export class Place extends MainObject {}
