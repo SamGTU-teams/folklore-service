@@ -25,8 +25,8 @@ export default defineComponent({
   },
   methods: {
     loadActivityInfo(id: number) {
-      activityApi.getActivityInfoById(id).then((response) => {
-        let data = response.data;
+      activityApi.findActivityById(id).then((response) => {
+        const data = response.data;
         this.place = activityApi.castResponse(data);
         this.loadingMain = false;
       });
