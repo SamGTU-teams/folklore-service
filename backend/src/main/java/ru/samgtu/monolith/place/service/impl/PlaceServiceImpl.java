@@ -2,8 +2,7 @@ package ru.samgtu.monolith.place.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import ru.samgtu.monolith.place.exception.NoSuchPlaceException;
 import ru.samgtu.monolith.place.model.persistence.Place;
@@ -35,6 +34,7 @@ public class PlaceServiceImpl implements PlaceService {
     @Override
     public Page<Place> findPlacesByTags(Collection<String> tags,
                                         Pageable pageable) {
+        pageable = makeSort(pageable, "id");
         if(tags.isEmpty()) {
             return repository.findAll(pageable);
         }
@@ -43,9 +43,14 @@ public class PlaceServiceImpl implements PlaceService {
         return repository.findByTagIdRegex(regex, pageable);
     }
 
+    private Pageable makeSort(Pageable pageable, String field){
+        return PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), Sort.by(field));
+    }
+
     @Override
     public Page<Place> findPlacesByName(String name,
                                         Pageable pageable) {
+        pageable = makeSort(pageable, "id");
         return repository.findByNameStartsWithIgnoreCase(name, pageable);
     }
 
@@ -72,6 +77,7 @@ public class PlaceServiceImpl implements PlaceService {
 
     @Override
     public Page<Place> findByRegionId(Long id, Pageable pageable) {
+        pageable = makeSort(pageable, "id");
         return repository.findAllByRegionId(id, pageable);
     }
 }

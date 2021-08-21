@@ -20,10 +20,6 @@ public class PageJsonImpl<T> extends PageImpl<T> {
         super(content, pageable, total);
     }
 
-    public PageJsonImpl(List<T> content) {
-        super(content);
-    }
-
     public PageJsonImpl(Page<T> page, Pageable pageable) {
         super(page.getContent(), pageable, page.getTotalElements());
     }
@@ -64,6 +60,6 @@ public class PageJsonImpl<T> extends PageImpl<T> {
 
     @Override
     public <U> Page<U> map(Function<? super T, ? extends U> converter) {
-        return new PageJsonImpl<>(getConvertedContent(converter));
+        return new PageJsonImpl<>(getConvertedContent(converter), getPageable(), getTotalElements());
     }
 }
