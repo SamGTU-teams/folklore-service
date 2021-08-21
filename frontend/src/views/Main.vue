@@ -1,5 +1,5 @@
 <template>
-  <gis-map :centerLat="58.522875" :zoom="8" :centerLon="31.269739" />
+  <gis-map :center="{lat:58.522875, lon: 31.269739}" :zoom="8" />
 </template>
 
 <script lang="ts">
@@ -13,6 +13,3 @@ export default defineComponent({
   },
 });
 </script>
-<style>
-
-</style>
