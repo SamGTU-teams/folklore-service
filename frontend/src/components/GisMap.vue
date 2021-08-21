@@ -85,7 +85,30 @@ export default defineComponent({
                             </a>
                           </div>
                         </div>`;
-    }
+        // FIXME Обнови точки
+        DG.marker([place.lat, place.lon], { icon: myIcon })
+                                        .addTo(map)
+                                        .bindPopup(inPopap);
+      });
+      // this.regions.forEach((region) => {
+      //   var poligon = DG.polygon(region.points).on('click', function() {
+      //     document.querySelectorAll("#NameSelectedRegion").forEach((elem)=> { //Переписать Название района
+      //       elem.setAttribute("innerHTML",region.name);
+      //     });
+      //     document.querySelectorAll("#ImgSelectedRegion").forEach((elem)=> { //Переписать URL картинки
+      //       elem.setAttribute("src",region.imgUrl);
+      //     });
+      //     document.querySelectorAll("#InfoRegion").forEach((elem)=> { //Открыть инормацию района
+      //       elem.setAttribute("style","display: block");
+      //     });
+      //     document.querySelectorAll("#MapFilters").forEach((elem)=> { //Скрыть фильтры
+      //       elem.setAttribute("style","display: none");
+      //     });
+      //     map.setView(poligon.getCenter(),9); //Зум на район
+      //   })
+      //   .addTo(map);
+      // });
+    });
   },
 });
 </script>
