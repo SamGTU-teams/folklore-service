@@ -7,7 +7,6 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
-import ru.samgtu.monolith.activity.model.ActivityStatus;
 import ru.samgtu.monolith.activity.model.dto.ActivityDto;
 import ru.samgtu.monolith.activity.model.dto.ScheduledActivityDto;
 import ru.samgtu.monolith.config.JacksonViews;
@@ -77,7 +76,7 @@ public interface ActivityController {
             @ApiResponse(code = 200, message = ""),
             @ApiResponse(code = 404, message = "", response = ExceptionInfo.class)
     })
-    @JsonView(JacksonViews.DataWithLob.class)
+    @JsonView({JacksonViews.DataWithLobExcludedPlaceLob.class})
     ActivityDto findActivityInfoById(@PathVariable("id") Long id);
 
 
