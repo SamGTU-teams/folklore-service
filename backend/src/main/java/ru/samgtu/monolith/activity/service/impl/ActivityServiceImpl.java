@@ -36,7 +36,7 @@ public class ActivityServiceImpl implements ActivityService {
     public Page<Activity> findActivitiesByName(String name,
                                                Pageable pageable) {
         return repository
-                .findByNameStartsWithIgnoreCase(name, pageable);
+                .findByNameStartsWithIgnoreCaseOrderById(name, pageable);
     }
 
     @Override
@@ -51,7 +51,7 @@ public class ActivityServiceImpl implements ActivityService {
     @Override
     public Page<Activity> findActivitiesByPlaceId(Long id,
                                                   Pageable pageable) {
-        return repository.findAllByPlaceId(id, pageable);
+        return repository.findAllByPlaceIdOrderById(id, pageable);
     }
 
     @Override
@@ -61,12 +61,12 @@ public class ActivityServiceImpl implements ActivityService {
 
     @Override
     public Page<Activity> findByRegionId(Long regionId, Pageable pageable) {
-        return repository.findAllByRegionId(regionId, pageable);
+        return repository.findAllByRegionIdOrderById(regionId, pageable);
     }
 
     @Override
     public Collection<Activity> findActivitiesByIds(Collection<Long> ids) {
-        return repository.findActivityByIdIn(ids);
+        return repository.findActivityByIdInOrderById(ids);
     }
 
     @Override

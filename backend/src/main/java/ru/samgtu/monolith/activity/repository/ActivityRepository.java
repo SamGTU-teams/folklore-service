@@ -12,13 +12,13 @@ import java.util.Optional;
 
 public interface ActivityRepository extends JpaRepository<Activity, Long> {
 
-    Page<Activity> findAllByRegionId(Long regionId, Pageable pageable);
+    Page<Activity> findAllByRegionIdOrderById(Long regionId, Pageable pageable);
 
-    Page<Activity> findByNameStartsWithIgnoreCase(String name, Pageable pageable);
+    Page<Activity> findByNameStartsWithIgnoreCaseOrderById(String name, Pageable pageable);
 
-    Page<Activity> findAllByPlaceId(Long id, Pageable pageable);
+    Page<Activity> findAllByPlaceIdOrderById(Long id, Pageable pageable);
 
-    Collection<Activity> findActivityByIdIn(Collection<Long> ids);
+    Collection<Activity> findActivityByIdInOrderById(Collection<Long> ids);
 
     @EntityGraph(attributePaths = "lob")
     Optional<Activity> findInfoById(Long id);

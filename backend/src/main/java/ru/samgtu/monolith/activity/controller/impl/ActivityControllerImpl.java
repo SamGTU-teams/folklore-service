@@ -42,7 +42,7 @@ public class ActivityControllerImpl implements ActivityController {
 
     @Override
     public Page<ActivityDto> findActivitiesByTags(Set<String> tags, int page, int size) {
-        PageRequest pageRequest = createPageRequestForActivities(size, page);
+        PageRequest pageRequest = createPageRequestForActivities(page, size);
         Page<Activity> activities = activityService.findActivitiesByTags(tags, pageRequest);
         return mapActivityPage(activities);
     }
