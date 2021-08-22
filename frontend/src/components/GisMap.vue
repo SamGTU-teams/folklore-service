@@ -76,7 +76,7 @@
   </div>
 </template>
 
-<script lang="ts">
+<script>
 import { defineComponent, PropType } from "vue";
 import M from "materialize-css";
 import DG from "2gis-maps";
@@ -98,7 +98,6 @@ export default defineComponent({
   },
   props: {
     center: {
-      type: Object as PropType<Point>,
       required: true,
     },
     zoom: {
@@ -117,12 +116,12 @@ export default defineComponent({
     this.loadMap(this.center, this.zoom, "map");
   },
   methods: {
-    changedType(value: boolean) {
+    changedType(value) {
       this.isActivity = value;
       this.removeMarkers();
     },
 
-    loadMap(center: Point, zoom: number, container: string) {
+    loadMap(center, zoom, container) {
       this.map = DG.map(container, { center, zoom });
       this.markers.addTo(this.map);
       regionApi.getRegions(30, 0).then((response) => {
@@ -132,20 +131,20 @@ export default defineComponent({
       });
     },
 
-    drawRegion(region: Region) {
+    drawRegion(region) {
       const polygon = DG.polygon(region.points);
       polygon.addTo(this.map);
       const center = polygon.getCenter();
       polygon.on("click", () => this.regionClick(region, center));
     },
 
-    regionClick(region: Region, center) {
+    regionClick(region, center) {
       this.map.setView(center, this.zoom);
       this.removeMarkers();
       this.loadMarkers(region);
     },
 
-    loadMarkers(region: Region) {
+    loadMarkers(region) {
       if (this.isActivity) {
         activityApi.findByRegionId(region.id, 20, 0)
         .then(response => {
@@ -163,7 +162,7 @@ export default defineComponent({
       }
     },
 
-    createMarker(elem: MainObject, routePage: string) {
+    createMarker(elem, routePage) {
       const icon = DG.icon({
         iconUrl: elem.labelUrl,
         iconSize: [30, 30],
@@ -177,7 +176,7 @@ export default defineComponent({
       marker.addTo(this.markers);
     },
 
-    createPopup(elem: MainObject, routePage: string): HTMLDivElement {
+    createPopup(elem, routePage) {
       const root = document.createElement('div');
       root.setAttribute('class', "Popup");
 
