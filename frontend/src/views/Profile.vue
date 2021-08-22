@@ -20,8 +20,8 @@
                         <path d="M352.99 354.91l0 338.12c-191.53,0 -346.79,-151.38 -346.79,-338.12 0,-59.36 16.02,-117.67 46.46,-169.07l300.33 169.07z"/>
                         <text transform="rotate(60 186.2,180) " font-family="Helvetica, Arial, sans-serif" font-size="60" y="380" x="305">Районы</text>
                     </g>
-                    <g id="acceptChanges">                  
-                        <circle v-on:click="SetViewFindResult" class="Circle" cx="353.16" cy="354.5" r="169.38"/>
+                    <g v-on:click="SetViewFindResult" id="acceptChanges">                  
+                        <circle  class="Circle" cx="353.16" cy="354.5" r="169.38"/>
                         <text font-family="Helvetica, Arial, sans-serif" font-size="80" y="370" x="200">Принять</text>
                     </g> 
                 </svg>
