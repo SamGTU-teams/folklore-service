@@ -1,6 +1,6 @@
 import axiosApi, { AxiosResponse } from "@/api/AxiosApi";
 
-import { plainToClass } from 'class-transformer';
+import { plainToClass } from "class-transformer";
 
 import { Page } from "@/model/Page";
 import { Tag } from "@/model/Tag";
@@ -15,7 +15,7 @@ const placeApi = {
   },
 
   castResponses(data: Place[]): Place[] {
-    return data.map(val => this.castResponse(val));
+    return data.map((val) => this.castResponse(val));
   },
 
   findPlacesByTags(
@@ -63,8 +63,15 @@ const placeApi = {
     return axiosApi.post(`${placeUrl}/ids`, ids);
   },
 
-  findByRegionId(regionId: number): Promise<AxiosResponse<Place[]>> {
-    return axiosApi.get(`${placeUrl}/region/${regionId}`)
+  findByRegionId(
+    regionId: number,
+    size: number,
+    page: number
+  ): Promise<AxiosResponse<Page<Place>>> {
+    const params = new URLSearchParams();
+    params.set("size", size.toString());
+    params.set("page", page.toString());
+    return axiosApi.get(`${placeUrl}/region/${regionId}?${params.toString()}`);
   },
 
   findNearbyPlaces(

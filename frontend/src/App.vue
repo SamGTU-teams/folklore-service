@@ -57,9 +57,7 @@ export default defineComponent({
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
 }
-#nav {
-  margin-top: 10px;
-}
+
 .router-link-exact-active > div,
 .router-link-active > div {
   border-radius: 15px;
@@ -114,6 +112,16 @@ export default defineComponent({
   color: #fff;
 }
 body {
-  background-color: #2b3f8d;
+  /* background-color: #201F1C;
+  background-color: #fcd56b;
+  background-color: #00028B;
+  background-color: #FEFBF7; */
+  background-color: #BACEE2;
+}
+#nav {
+  /* background-color: #BACEE2;
+  background-color: #FEFBF7;
+  background-color: #00028B; */
+  background-color: #201F1C;
 }
 </style>

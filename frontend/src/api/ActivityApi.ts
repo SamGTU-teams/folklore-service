@@ -67,7 +67,7 @@ const activityApi = {
     const params = new URLSearchParams();
     params.set("size", size.toString());
     params.set("page", page.toString());
-    return axiosApi.get(`${activityUrl}/place/${placeId}?${params.toString}`);
+    return axiosApi.get(`${activityUrl}/place/${placeId}?${params.toString()}`);
   },
 
   findActivityById(id: number): Promise<AxiosResponse<Activity>> {
@@ -88,7 +88,7 @@ const activityApi = {
     params.set("size", size.toString());
     params.set("page", page.toString());
     return axiosApi.post(
-      `${activityUrl}/${activityId}/scheduled?${params.toString}`,
+      `${activityUrl}/${activityId}/scheduled?${params.toString()}`,
       statuses
     );
   },
@@ -98,19 +98,32 @@ const activityApi = {
     size: number,
     page: number,
     statuses: ActivityStatus[] = []
-  ): Promise<AxiosResponse<ScheduledActivity>> {
+  ): Promise<AxiosResponse<Page<ScheduledActivity>>> {
     const params = new URLSearchParams();
-    params.set("from", datetime.toISOString());
+    params.set("from", datetime.toISOString().split('.')[0]);
     params.set("size", size.toString());
     params.set("page", page.toString());
     return axiosApi.post(
-      `${activityUrl}/search/date?${params.toString}`,
+      `${activityUrl}/search/date?${params.toString()}`,
       statuses
     );
   },
 
   findActivitiesByIds(ids: number[]): Promise<AxiosResponse<Activity[]>> {
     return axiosApi.post(`${activityUrl}/ids`, ids);
+  },
+
+  findByRegionId(
+    regionId: number,
+    size: number,
+    page: number
+  ): Promise<AxiosResponse<Page<Activity>>> {
+    const params = new URLSearchParams();
+    params.set("size", size.toString());
+    params.set("page", page.toString());
+    return axiosApi.get(
+      `${activityUrl}/region/${regionId}?${params.toString()}`
+    );
   },
 };
 
