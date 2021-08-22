@@ -4,7 +4,9 @@
       <div class="slider">
         <ul class="slides">
           <li>
+            <a href="/profile">
             <img src="https://cdn.discordapp.com/attachments/747497720926699573/878857519701843998/TITLE-BANNER.jpg"> <!-- random image -->
+            </a>
           </li>          
           <li>
               <a href="#TopMapFilters">
