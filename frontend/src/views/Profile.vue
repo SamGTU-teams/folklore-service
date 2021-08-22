@@ -21,7 +21,7 @@
                         <text transform="rotate(60 186.2,180) " font-family="Helvetica, Arial, sans-serif" font-size="60" y="380" x="305">Районы</text>
                     </g>
                     <g id="acceptChanges">                  
-                        <circle class="Circle" cx="353.16" cy="354.5" r="169.38"/>
+                        <circle v-on:click="SetViewFindResult" class="Circle" cx="353.16" cy="354.5" r="169.38"/>
                         <text font-family="Helvetica, Arial, sans-serif" font-size="80" y="370" x="200">Принять</text>
                     </g> 
                 </svg>
@@ -146,6 +146,88 @@
                 </svg>
             </div>
         </div>
+        <div class="row DisplayController" id="FindResult">
+            <span>Произведения для вас:</span>
+            <div id="FolcArts">
+                <div id="HitrayaLisa" class="Art">
+                    <div class="ArtName">Хитрая лиса</div>
+                    <div class="ArtPreview"><p>Жили себе дед да баба. Вот однажды поехал дед рыбу ловить. Богатый был улов. Много рыбы поймал. Сложил дед все в сани и отправился
+                    домой. Потихоньку трухает...</p>
+                    </div>
+                    <div class="readMore" v-on:click="OpenFullInfo('HitrayaLisa')">Читать далее...</div>
+                    <div class="fullContent DisplayController">
+                        <p>Жили себе дед да баба. Вот однажды поехал дед рыбу ловить. Богатый был улов. Много рыбы поймал. Сложил дед все в сани и отправился
+                        домой. Потихоньку трухает да трухает. Вдруг глядит – лежит на дороге
+                        лиса, обрадовался дед:
+                        </p><p>– Хороший будет бабе воротник.
+                        </p><p>А лисичка прокопала в санях дырочку да всю рыбку и перекидала на
+                        дорогу, и сама сбежала. Приехал дед домой, глядь – ни лисы, ни рыбы
+                        нет. Погоревал, погоревал, да делать неча. А дело было на масляной
+                        неделе.
+                        </p><p>Собрала лиса всю рыбу, сидит и ест. Приходит к ней серый волк и
+                        говорит:
+                        </p><p>– Лисонька, дай мне рыбки.
+                        </p><p>– Эван-то* ты какой! Пойди сам да и налови. Иди на реку, сунь хвост
+                        в прорубь, вот и поймаешь рыбу.
+                        </p><p>Пошел волк на реку, сунул хвост в прорубь, сидит и ждет. Долго сидел – хвост у нево и примерз. Смотрит – идут бабы за водой. Увидели
+                        волка и кричат:
+                        </p><p>– Волк, волк! Бейте его!
+                        </p><p>Прибежала вся деревня, и начали они ево колотить – кто коромыслом, кто ведром, кто чем попадя. Волк прыгат, прыгат, а хвост-то не выташшыть. Оторвал волк себе хвост да и пустился бежать без оглядки.
+                        </p><p>А лиса в это время побежала в деревню вылизала все тесто, съела
+                        все блины.
+                        </p><p>Вот кака была лиса: и рыбки поисть сумела, и блинов. Сказка вся,
+                        говорить нельзя, налейте рюмочку винца, расскажу до конца.
+                        </p>
+                    </div>
+                </div>
+                <div id="PetrushkaIKuriysa" class="Art">
+                    <div class="ArtName">Про петушка и курочку</div>
+                    <div class="ArtPreview"><p>Как жили дид и баба, и была у них курочка и петушок. Они жили
+                    бедно-бедно, не было им даже червячка...</p>
+                    </div>
+                    <div class="readMore" v-on:click="OpenFullInfo('PetrushkaIKuriysa')">Читать далее...</div>
+                    <div class="fullContent DisplayController">
+                        <p>Как жили дид и баба, и была у них курочка и петушок. Они жили
+                        бедно-бедно, не было им даже червячка курочке посыпаться.
+                        </p><p>Пошли курочка да петушок на сметячко гребтися, греблись там, греблись: петушок выгреб золоту периночку, а курочка – золоту копеечку,
+                        и пришли домой. Кричит петух:
+                        </p><p>– Открывай, диду, дверь!
+                        </p><p>Дед открыл.
+                       </p><p> – Открывай, диду, други!
+                        </p><p>Дед открыл.
+                        </p><p>– Простилай, диду, рядно!
+                        </p><p>Дед простлал.
+                        </p><p>– Бери, дед, палку!
+                        </p><p>Дед взял.
+                        </p><p>– Бий меня, диду, по ушах!
+                        </p><p>Дед как ударил петуха по ушах, а там как посыпалися деньги золотыи, потом обратно петух кричит:
+                        </p><p>– Бий меня по жопи!
+                        </p><p>Дед как ударил петуха по жопи, оттуда деньги белые как посыпалися, а петух опять кричит:
+                        </p><p>– Ку-ку-ре-ку! Простилай, дед, рядно!
+                        </p><p>Дед простлал.
+                        </p><p>– Бери, деду, палку!
+                        </p><p>Дед взял.
+                        </p><p>– Бей меня по носу!
+                        </p><p>Дед как ударил петушка по носу, а петушок как рыгнет золотыми
+                        деньгами, много-много денег наблювал дедке да бабке. И они из этого
+                        забогатели, пошли на базар, купили курочке зерна и стали богатыми.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <span>Рекомендуемые произведения:</span>
+                <div class="Art">
+                    <div class="ArtName">"ФОЛЬКЛОР НОВГОРОДСКОЙ ОБЛАСТИ История и современность "</div>
+                    <div class="ArtPreview">Издание представляет собой публикацию уникальных материалов фольклорного
+                        архива НовГУ. Сборник включает тексты разных жанров: свадебные лирические песни, похоронные причитания, сказки, былички, мемораты, заговоры, народную драму
+                        и другие.
+                    </div>
+                    <a href="https://dl.booksee.org/genesis/235000/319945b34f3033ae8497f4244458d341/_as/[O._S._Berdyaeva]_Folklor_Novgorodskoi_oblasti._Is(BookSee.org).pdf"><div class="readMore">Перейти к произведению</div></a>
+                </div>
+            <div id="InfoSourses">
+
+            </div>
+        </div>
     </div>
 </template>
 <script>
@@ -200,6 +282,9 @@ export default defineComponent({
                 Folcler.classList.add("SelectedFolcler");
             } 
         },
+        SetViewFindResult: function(){
+           document.getElementById("FindResult").classList.remove("DisplayController");
+        },
         SelectGroup: function(id){
             let Group = document.getElementById(id);
             if( Group.classList.contains("ActiveGroupSelector") ){
@@ -207,6 +292,13 @@ export default defineComponent({
             }else{
                 Group.classList.add("ActiveGroupSelector");
             }  
+        },
+        OpenFullInfo: function(id){
+            let Obgect = document.getElementById(id);
+            Obgect.getElementsByClassName("readMore")[0].classList.add('DisplayController');
+            Obgect.getElementsByClassName("ArtPreview")[0].classList.add('DisplayController');
+            Obgect.getElementsByClassName("fullContent")[0].classList.remove('DisplayController')
+            ;
         }
     },
 });
@@ -309,5 +401,43 @@ export default defineComponent({
     }
     #SelectedTags{
         color: #201F1C;
+    }
+    .Art{
+        margin: 15px 0px;
+        width: 100%;
+        padding: 15px 40px;
+        background: #fcebb6;
+        border-radius: 7px;
+        text-indent:30px;
+    }
+    .ArtName{
+        font-weight: bold;
+        color:#00006c;
+        font-size: 24px;
+    }
+    .ArtPreview,.fullContent{
+        color: #01012d;
+        text-align:justify;
+    }
+    .readMore{
+        color:#00006c;
+        text-align:left;
+        left: 50px;
+    }
+    .readMore:hover{
+        font-weight: bold;
+        cursor: pointer;
+        color:#0002A2;
+    }
+    .DisplayController{
+        display:none;
+    }
+    #FindResult{
+        text-align:left;
+    }
+    #FindResult span{
+        color: #01012d;
+        text-align:left;
+        font-size: 30px;
     }
 </style>
