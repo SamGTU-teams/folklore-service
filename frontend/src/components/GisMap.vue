@@ -18,10 +18,6 @@ import DG from "2gis-maps";
 
 import Switcher from "@/components/Switcher.vue";
 
-import { Point } from "@/model/Point";
-import { Region } from "@/model/Region";
-import { MainObject } from "@/model/MainObject";
-
 import regionApi from "@/api/RegionApi";
 import placeApi from "@/api/PlaceApi";
 import activityApi from "@/api/ActivityApi";
@@ -45,6 +41,12 @@ export default defineComponent({
       map: null,
       isActivity: false,
       markers: DG.featureGroup(),
+      enabledTags: [],
+      tags: [
+        {id: '1.1', name: 'test tag 1'},
+        {id: '1.2', name: 'test tag 2'},
+        {id: '1.3', name: 'test tag 3'},
+      ]
     };
   },
   mounted() {
