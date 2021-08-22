@@ -117,6 +117,7 @@ export default defineComponent({
         for(var i=0;i<this.places.length; i++){
           this.setplases[i] = this.createMarker(this.places[i])
           this.setplases[i].addTo(this.map);
+          console.log(1);
         }
         });
         // this.places.map(place =>{
