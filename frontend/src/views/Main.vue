@@ -127,7 +127,6 @@ export default defineComponent({
     GisMap,
   },
 });
-<<<<<<< HEAD
 document.addEventListener('DOMContentLoaded', function() {    
     var elems = document.querySelectorAll('.slider');
     var options ={
@@ -284,6 +283,3 @@ li.active .collapsible-header {
     background-color: #00028b !important;
 }
 </style>
-=======
-</script>
->>>>>>> origin/create-gis
