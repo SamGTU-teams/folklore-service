@@ -9,34 +9,67 @@
                 src="https://cultnaslediesamregion.ru/wp-content/Novgorod/1.jpg"
               />
               <div class="caption left-align">
-                <h3 style="font-weight: bold; color: #252422">Настрой умный профиль</h3>
-                <h5 style="font-weight: bold; color: #252422 !important" class=" light grey-text text-lighten-3">С фильтрами</h5>
+                <h3 style="font-weight: bold; color: #252422">
+                  Настрой умный профиль
+                </h3>
+                <h5
+                  style="font-weight: bold; color: #252422 !important"
+                  class="light grey-text text-lighten-3"
+                >
+                  С фильтрами
+                </h5>
               </div>
               <!-- random image -->
             </a>
           </li>
           <li>
             <a href="#TopMapFilters">
-              <img src="https://cultnaslediesamregion.ru/wp-content/Novgorod/2.jpg" />
+              <img
+                src="https://cultnaslediesamregion.ru/wp-content/Novgorod/2.jpg"
+              />
+
               <!-- random image -->
               <div class="caption left-align">
-                <h3 style="font-weight: bold; color: #252422">Найди весь фольклор области</h3>
-                <h5 style="font-weight: bold; color: #252422 !important" class=" light grey-text text-lighten-3">С фильтрами</h5>
+                <h3 style="font-weight: bold; color: #252422">
+                  Найди весь фольклор области
+                </h3>
+                <h5
+                  style="font-weight: bold; color: #252422 !important"
+                  class="light grey-text text-lighten-3"
+                >
+                  С фильтрами
+                </h5>
               </div>
             </a>
           </li>
           <li>
-            <img src="https://cultnaslediesamregion.ru/wp-content/Novgorod/3.jpg" />
-            <!-- random image -->
-            <div class="caption right-align">
-              <h3 style="font-weight: bold; color: #c200fb !important" class="titleMAIN">Погрузись в мир сказок</h3>
-              <h5 style="font-weight: bold; color: #c200fb !important" class="titleMAIN light grey-text text-lighten-3">с AR-приложением и журналом</h5>
-            </div>
+            <a
+              href="https://drive.google.com/file/d/1est8G0WkOFtzGp2cKXqKNf3eMDdnH5tB/view"
+            >
+              <img
+                src="https://cultnaslediesamregion.ru/wp-content/Novgorod/3.jpg"
+              />
+              <!-- random image -->
+              <div class="caption right-align">
+                <h3
+                  style="font-weight: bold; color: #c200fb !important"
+                  class="titleMAIN"
+                >
+                  Погрузись в мир сказок
+                </h3>
+                <h5
+                  style="font-weight: bold; color: #c200fb !important"
+                  class="titleMAIN light grey-text text-lighten-3"
+                >
+                  с AR-приложением и журналом
+                </h5>
+              </div>
+            </a>
           </li>
         </ul>
       </div>
     </div>
-    <gis-map :center="{lat: 58.522875, lon: 32.269739}" :zoom="7" />
+    <gis-map :center="{ lat: 58.522875, lon: 32.269739 }" :zoom="7" />
   </div>
 </template>
 
