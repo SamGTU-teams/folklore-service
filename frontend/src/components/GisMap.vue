@@ -1,7 +1,6 @@
 <template>
   <div class="container main">
     <div id="TopMapFilters" class="row">
-      <switcher :firstValue="'Все'" :secondValue="'Рекомендовано'" />
       <switcher :firstValue="'Объекты'" :secondValue="'События'" @changed-value="changedType"/>
     </div>
     <div class="row">
