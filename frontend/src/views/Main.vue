@@ -1,5 +1,29 @@
 <template>
   <div class="container main">
+    Найди фольклер для себя
+    <div class="row">
+      <div class="col s12 m6 MetodSelector">
+        <div class="MetodSelectorPart">
+          
+          Поиск на карте
+        </div>
+      </div>
+      <div class="col s12 m6 MetodSelector">
+        <div class="MetodSelectorPart">
+        Профильный подбор фольклера
+        </div>
+      </div>
+      <div class="col s12 m6 MetodSelector">
+        <div class="MetodSelectorPart">
+        Наиболее популярные
+        </div>
+      </div>
+      <div class="col s12 m6 MetodSelector">
+        <div class="MetodSelectorPart">
+          AR приложение
+        </div>
+      </div>
+    </div>
     <div id="TopMapFilters" class="row">
       <div class="switch TopMapFilterSwitcher">
         <label class="swithText">
@@ -234,5 +258,16 @@ li.active .collapsible-header {
 }
 #Conteiner{
   overflow: hidden;
+}
+.MetodSelector{
+  height: 200px;
+  padding: 5px !important;
+}
+.MetodSelectorPart{
+  font-size: 26px;
+  width: 100%;
+  height: 100%;
+  border-radius: 15px;
+  background: #fcd56b;
 }
 </style>
