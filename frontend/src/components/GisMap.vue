@@ -8,76 +8,12 @@
       <div id="MapContainer" class="col s12">
           <div id="map" class="col s12 m12 l12"></div>
       </div>
-      <div id="MapControll">
-        <div id="MapFilters">
-          <ul class="collapsible">
-            <li>
-              <div class="collapsible-header">
-                <i class="material-icons">filter_drama</i>
-                First
-              </div>
-              <div class="collapsible-body" style="padding: 0px 0px">
-                <form action="#">
-                  <p>
-                    <label>
-                      <input type="checkbox" />
-                      <span style="font-size: 18px">1</span>
-                    </label>
-                  </p>
-                  <p>
-                    <label>
-                      <input type="checkbox" />
-                      <span style="font-size: 18px">2</span>
-                    </label>
-                  </p>
-                  <p>
-                    <label>
-                      <input type="checkbox" />
-                      <span style="font-size: 18px">3</span>
-                    </label>
-                  </p>
-                  <p>
-                    <label>
-                      <input type="checkbox" />
-                      <span style="font-size: 18px">4</span>
-                    </label>
-                  </p>
-                  <p>
-                    <label>
-                      <input type="checkbox" />
-                      <span style="font-size: 18px">5</span>
-                    </label>
-                  </p>
-                </form>
-              </div>
-            </li>
-            <li>
-              <div class="collapsible-header">
-                <i class="material-icons">place</i>Second
-              </div>
-              <div class="collapsible-body">
-                <span>Lorem ipsum dolor sit amet.</span>
-              </div>
-            </li>
-            <li>
-              <div class="collapsible-header">
-                <i class="material-icons">whatshot</i>Third
-              </div>
-              <div class="collapsible-body">
-                <span>Lorem ipsum dolor sit amet.</span>
-              </div>
-            </li>
-          </ul>
-        </div>
-        <div id="InfoRegion"></div>
-        <div id="PokaHz"></div>
-      </div>
     </div>
   </div>
 </template>
 
 <script>
-import { defineComponent, PropType } from "vue";
+import { defineComponent } from "vue";
 import M from "materialize-css";
 import DG from "2gis-maps";
 
@@ -94,7 +30,7 @@ import activityApi from "@/api/ActivityApi";
 export default defineComponent({
   name: "GisMap",
   components: {
-    Switcher
+    Switcher,
   },
   props: {
     center: {
@@ -127,7 +63,7 @@ export default defineComponent({
       regionApi.getRegions(30, 0).then((response) => {
         const content = response.data.content;
         const regions = regionApi.castResponses(content);
-        regions.forEach(region => this.drawRegion(region));
+        regions.forEach((region) => this.drawRegion(region));
       });
     },
 
@@ -146,18 +82,18 @@ export default defineComponent({
 
     loadMarkers(region) {
       if (this.isActivity) {
-        activityApi.findByRegionId(region.id, 20, 0)
-        .then(response => {
+        activityApi.findByRegionId(region.id, 20, 0).then((response) => {
           const content = response.data.content;
           const activities = activityApi.castResponses(content);
-          activities.forEach(activity => this.createMarker(activity, "ActivityInfo"))
-        })
+          activities.forEach((activity) =>
+            this.createMarker(activity, "ActivityInfo")
+          );
+        });
       } else {
-        placeApi.findByRegionId(region.id, 20, 0)
-        .then(response => {
+        placeApi.findByRegionId(region.id, 20, 0).then((response) => {
           const content = response.data.content;
           const places = placeApi.castResponses(content);
-          places.forEach(place => this.createMarker(place, "PlaceInfo"));
+          places.forEach((place) => this.createMarker(place, "PlaceInfo"));
         });
       }
     },
@@ -168,7 +104,7 @@ export default defineComponent({
         iconSize: [30, 30],
       });
       const marker = DG.marker(elem.point, { icon });
-      
+
       const popup = this.createPopup(elem, routePage);
 
       marker.bindPopup(popup);
@@ -177,33 +113,34 @@ export default defineComponent({
     },
 
     createPopup(elem, routePage) {
-      const root = document.createElement('div');
-      root.setAttribute('class', "Popup");
+      const root = document.createElement("div");
+      root.setAttribute("class", "Popup");
 
       const label = document.createElement("div");
-      label.setAttribute('class', "lable-container");
+      label.setAttribute("class", "lable-container");
       root.append(label);
 
       const image = document.createElement("img");
-      image.setAttribute('class', "img");
-      image.setAttribute('width', "100%");
-      image.setAttribute('src', elem.image);
+      image.setAttribute("class", "img");
+      image.setAttribute("width", "100%");
+      image.setAttribute("src", elem.image);
       label.append(image);
 
       const name = document.createElement("div");
-      name.setAttribute('class', "place-name");
+      name.setAttribute("class", "place-name");
       name.innerText = elem.name;
       label.append(name);
 
       const address = document.createElement("div");
-      address.setAttribute('class', "place-address");
+      address.setAttribute("class", "place-address");
       address.innerText = elem.address;
       label.append(address);
 
       const button = document.createElement("div");
-      button.setAttribute('class', "button");
-      button.innerText = 'Подробнее';
-      button.onclick = () => this.$router.push({ name: routePage, params: { id: elem.id } });
+      button.setAttribute("class", "button");
+      button.innerText = "Подробнее";
+      button.onclick = () =>
+        this.$router.push({ name: routePage, params: { id: elem.id } });
 
       label.append(button);
 
