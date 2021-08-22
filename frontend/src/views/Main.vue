@@ -5,120 +5,77 @@
         <ul class="slides">
           <li>
             <a href="/profile">
-            <img src="https://cdn.discordapp.com/attachments/747497720926699573/878857519701843998/TITLE-BANNER.jpg"> <!-- random image -->
-            </a>
-          </li>          
-          <li>
-              <a href="#TopMapFilters">
-              <img src="https://lorempixel.com/580/250/nature/2"> <!-- random image -->
+              <img
+                src="https://cultnaslediesamregion.ru/wp-content/Novgorod/1.jpg"
+              />
               <div class="caption left-align">
-                <h3>Ультра пиздатая карта</h3>
-                <h5 class="light grey-text text-lighten-3">С фильтрами</h5>
+                <h3 style="font-weight: bold; color: #252422">
+                  Настрой умный профиль
+                </h3>
+                <h5
+                  style="font-weight: bold; color: #252422 !important"
+                  class="light grey-text text-lighten-3"
+                >
+                  С фильтрами
+                </h5>
               </div>
-              </a>
-          </li>          
+              <!-- random image -->
+            </a>
+          </li>
           <li>
-            <img src="https://lorempixel.com/580/250/nature/3"> <!-- random image -->
-            <div class="caption right-align">
-              <h3>Ахуенное AR приложение</h3>
-              <h5 class="light grey-text text-lighten-3">С журнальчиком :D</h5>
-            </div>
+            <a href="#TopMapFilters">
+              <img
+                src="https://cultnaslediesamregion.ru/wp-content/Novgorod/2.jpg"
+              />
+
+              <!-- random image -->
+              <div class="caption left-align">
+                <h3 style="font-weight: bold; color: #252422">
+                  Найди весь фольклор области
+                </h3>
+                <h5
+                  style="font-weight: bold; color: #252422 !important"
+                  class="light grey-text text-lighten-3"
+                >
+                  С фильтрами
+                </h5>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://drive.google.com/file/d/1est8G0WkOFtzGp2cKXqKNf3eMDdnH5tB/view"
+            >
+              <img
+                src="https://cultnaslediesamregion.ru/wp-content/Novgorod/3.jpg"
+              />
+              <!-- random image -->
+              <div class="caption right-align">
+                <h3
+                  style="font-weight: bold; color: #c200fb !important"
+                  class="titleMAIN"
+                >
+                  Погрузись в мир сказок
+                </h3>
+                <h5
+                  style="font-weight: bold; color: #c200fb !important"
+                  class="titleMAIN light grey-text text-lighten-3"
+                >
+                  с AR-приложением и журналом
+                </h5>
+              </div>
+            </a>
           </li>
         </ul>
       </div>
     </div>
-    <div id="TopMapFilters" class="row">
-      <div class="switch TopMapFilterSwitcher">
-        <label class="swithText">
-          Все
-          <input type="checkbox" />
-          <span class="lever"></span>
-          Рекомендовано
-        </label>
-      </div>
-      <div class="switch TopMapFilterSwitcher">
-        <label class="swithText">
-          Объекты
-          <input type="checkbox" />
-          <span class="lever"></span>
-          События
-        </label>
-      </div>
-    </div>
-    <div class="row">
-      <div id="MapContainer" class="col s12">
-        <gis-map :centerLat="58.522875" :zoom="8" :centerLon="31.269739" />
-      </div>
-      <div id="MapControll">
-        <div id="MapFilters">
-          <ul class="collapsible">
-            <li>
-              <div class="collapsible-header">
-                <i class="material-icons">filter_drama</i>
-                First
-              </div>
-              <div class="collapsible-body" style="padding: 0px 0px;">
-                <form action="#">
-                  <p>
-                    <label>
-                      <input type="checkbox" />
-                      <span style="font-size: 18px;">1</span>
-                    </label>
-                  </p>
-                  <p>
-                    <label>
-                      <input type="checkbox" />
-                      <span style="font-size: 18px;">2</span>
-                    </label>
-                  </p>
-                  <p>
-                    <label>
-                      <input type="checkbox" />
-                      <span style="font-size: 18px;">3</span>
-                    </label>
-                  </p>
-                  <p>
-                    <label>
-                      <input type="checkbox" />
-                      <span style="font-size: 18px;">4</span>
-                    </label>
-                  </p>
-                  <p>
-                    <label>
-                      <input type="checkbox" />
-                      <span style="font-size: 18px;">5</span>
-                    </label>
-                  </p>
-                </form>
-              </div>
-            </li>
-            <li>
-              <div class="collapsible-header">
-                <i class="material-icons">place</i>Second
-              </div>
-              <div class="collapsible-body">
-                <span>Lorem ipsum dolor sit amet.</span>
-              </div>
-            </li>
-            <li>
-              <div class="collapsible-header">
-                <i class="material-icons">whatshot</i>Third
-              </div>
-              <div class="collapsible-body">
-                <span>Lorem ipsum dolor sit amet.</span>
-              </div>
-            </li>
-          </ul>
-        </div>
-        <div id="InfoRegion"></div>
-        <div id="PokaHz"></div>
-      </div>
-    </div>
+    <gis-map :center="{ lat: 58.522875, lon: 32.269739 }" :zoom="7" />
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import M from "materialize-css";
 import GisMap from "@/components/GisMap.vue";
 
 export default defineComponent({
@@ -127,15 +84,15 @@ export default defineComponent({
     GisMap,
   },
 });
-document.addEventListener('DOMContentLoaded', function() {    
-    var elems = document.querySelectorAll('.slider');
-    var options ={
-      indicators: true,
-      height: 450,
-    };
-    var instances = M.Slider.init(elems, options);
-  });
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
+  var elems = document.querySelectorAll(".slider");
+  var options = {
+    indicators: true,
+    height: 800,
+  };
+  var instances = M.Slider.init(elems, options);
+});
+document.addEventListener("DOMContentLoaded", function () {
   var elems = document.querySelectorAll(".collapsible");
   var options = { accordion: false };
   var instances = M.Collapsible.init(elems, options);
@@ -151,15 +108,17 @@ document.addEventListener("DOMContentLoaded", function() {
   bottom: 15px;
 }
 
-.swithText{
-  color:#00028b !important;
+.swithText {
+  color: #00028b !important;
 }
 
-.switch label input[type="checkbox"]:checked + .lever:before, .swithText{
+.switch label input[type="checkbox"]:checked + .lever:before,
+.swithText {
   font-weight: bold;
 }
 
-.switch label input[type="checkbox"]:checked +.lever:before, .swithText{
+.switch label input[type="checkbox"]:checked + .lever:before,
+.swithText {
   font-weight: normal;
 }
 
@@ -184,8 +143,6 @@ document.addEventListener("DOMContentLoaded", function() {
   color: #201f1c;
   display: block;
 }
-
-
 
 .collapsible {
   border: 0px solid #201f1c !important;
@@ -245,7 +202,8 @@ li.active .collapsible-header {
     border: 2px solid #FEFBF7 !important;
 } */
 
-[type="checkbox"]:not(.filled-in) + span:not(.lever):before, .collapsible-body p:hover span:before {
+[type="checkbox"]:not(.filled-in) + span:not(.lever):before,
+.collapsible-body p:hover span:before {
   border-right: 2px solid #ffbd00 !important;
   border-bottom: 2px solid #ffbd00 !important;
   border-left: 2px solid #ffbd00 !important;
@@ -265,14 +223,14 @@ li.active .collapsible-header {
   border-left: 2px solid #ffbb0000 !important;
   border-top: 2px solid #ffbb0000 !important;
 }
-#Conteiner{
+#Conteiner {
   overflow: hidden;
 }
-.MetodSelector{
+.MetodSelector {
   height: 200px;
   padding: 5px !important;
 }
-.MetodSelectorPart{
+.MetodSelectorPart {
   font-size: 26px;
   width: 100%;
   height: 100%;
@@ -280,6 +238,6 @@ li.active .collapsible-header {
   background: #fcd56b;
 }
 .slider .indicators .indicator-item.active {
-    background-color: #00028b !important;
+  background-color: #00028b !important;
 }
 </style>

@@ -66,15 +66,18 @@ export default defineComponent({
       });
     },
 
+
     drawRegion(region) {
-      const polygon = DG.polygon(region.points);
+      const colors = ["#c200fb", "#020887", "#6a6a6a"];
+      const color = colors[region.id % colors.length];
+      const polygon = DG.polygon(region.points, {color});
       polygon.addTo(this.map);
       const center = polygon.getCenter();
       polygon.on("click", () => this.regionClick(region, center));
     },
 
     regionClick(region, center) {
-      this.map.setView(center, this.zoom);
+      this.map.setView(center, 9);
       this.removeMarkers();
       this.loadMarkers(region);
     },
