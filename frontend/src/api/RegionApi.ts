@@ -14,7 +14,7 @@ const regionApi = {
   },
 
   castResponses(data: Region[]): Region[] {
-    return data.map(val => this.castResponse(val));
+    return data.map((val) => this.castResponse(val));
   },
 
   findRegionById(id: number): Promise<AxiosResponse<Region>> {

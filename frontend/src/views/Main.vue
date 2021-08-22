@@ -120,7 +120,6 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import GisMap from "@/components/GisMap.vue";
-import M from "materialize-css";
 
 export default defineComponent({
   name: "Main",
