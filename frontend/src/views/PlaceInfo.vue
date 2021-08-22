@@ -86,16 +86,6 @@ export default defineComponent({
     this.loadPlaceInfo(parseInt(to.params.id));
     next();
   },
-  // mounted(){
-  //   document.addEventListener("DOMContentLoaded", function() {
-  //     var elems = document.querySelectorAll(".slider");
-  //     var options = {
-  //       indicators: false,
-  //       height: "300",
-  //     };
-  //      var instances = M.Slider.init(elems, options);
-  //   },
-  // },
 });
 </script>
 

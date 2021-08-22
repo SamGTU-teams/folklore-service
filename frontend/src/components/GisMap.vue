@@ -1,29 +1,38 @@
 <template>
-    <div class="row">
-      <div id="map" class="col s12 m12 l12"></div>
+  <div class="container main">
+    <div id="TopMapFilters" class="row">
+      <switcher :firstValue="'Объекты'" :secondValue="'События'" @changed-value="changedType"/>
     </div>
-    <!-- <div class="row tags">
-      <div class="col s12 m12 l12"></div>
-    </div> -->
-
+    <div class="row">
+      <div id="MapContainer" class="col s12">
+          <div id="map" class="col s12 m12 l12"></div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
 import { defineComponent } from "vue";
+import M from "materialize-css";
 import DG from "2gis-maps";
-import placeApi from "@/api/PlaceApi";
+
+import Switcher from "@/components/Switcher.vue";
+
+import { Point } from "@/model/Point";
+import { Region } from "@/model/Region";
+import { MainObject } from "@/model/MainObject";
+
 import regionApi from "@/api/RegionApi";
+import placeApi from "@/api/PlaceApi";
 import activityApi from "@/api/ActivityApi";
 
 export default defineComponent({
   name: "GisMap",
+  components: {
+    Switcher,
+  },
   props: {
-    centerLat: {
-      type: Number,
-      required: true,
-    },
-    centerLon: {
-      type: Number,
+    center: {
       required: true,
     },
     zoom: {
@@ -33,104 +42,123 @@ export default defineComponent({
   },
   data() {
     return {
-      places: [],
       map: null,
-      regions: [],
-      setplases: []
-    }
+      isActivity: false,
+      markers: DG.featureGroup(),
+    };
   },
   mounted() {
-    this.map = DG.map("map", {
-      center: [this.centerLat, this.centerLon],
-      zoom: this.zoom,
-    });
-    // placeApi.findPlacesByTags([], 60, 0).then(response => {
-    //   this.places = response.data.content;
-    //   this.places.forEach(place => this.createMarker(place));
-    // });
-    regionApi.getRegions(30, 0).then(response => {
-      const data = response.data.content;
-      this.regions = regionApi.castResponses(data);
-      this.regions.forEach(region => this.createRegion(region));
-    });
+    this.loadMap(this.center, this.zoom, "map");
   },
-  methods:{
-    loadContentByRegion(region) {
-      return;
+  methods: {
+    changedType(value) {
+      this.isActivity = value;
+      this.removeMarkers();
     },
-    createMarker(place) {
-      const icon = DG.icon({
-        iconUrl: place.labelUrl,
-          iconSize: [30, 30],
-      });
-      const popup = this.buildPopup(place);
-      var marker = DG.marker([place.point.lat, place.point.lon], { icon })
-                                        .bindPopup(popup);
-      return marker;
-    },
-    OnClickByRegion(region,Center){
-      document.querySelectorAll("#NameSelectedRegion").forEach((elem)=> { //Переписать Название района
-        elem.setAttribute("innerHTML",region.name);
-      });
-      document.querySelectorAll("#ImgSelectedRegion").forEach((elem)=> { //Переписать URL картинки
-        elem.setAttribute("src",region.imgUrl);
-      });
-      this.map.setView([Center.lat,Center.lng],9);
-      this.clearMapByMarcers();
-      this.CreateRegionMarcers(region.id);
-    },
-    createRegion(region) {
-          var pointsLayer = [];
-          region.points.forEach( point =>{
-            pointsLayer[pointsLayer.length]=[point.lat, point.lon];
-          });          
-          // console.log(pointsLayer);
-          const func = () => this.OnClickByRegion(region,poligon.getCenter());
-          var poligon = DG.polygon(pointsLayer).addTo(this.map);
-          poligon.on('click', func)
-        .addTo(this.map);
-        //this.CreateRegionMarcers(region.id);
-    },
-    buildPopup(place) {
-      return `<div class='Popup'>
-                          <div class="lable-container">
-                            <img class="img" style src='${place.imageUrl}' width="100%">
-                            <div class="place-name">${place.name}</div>
-                            <div class="place-address">${place.address}</div>                         
-                            <a href="/place/${place.id}">
-                                <div class="button">
-                                Подробнее                         
-                                </div>
-                            </a>
-                          </div>
-                        </div>`;
-    },
-    LoadAllMarcers(){
-      placeApi.findPlacesByTags([], 60, 0).then(response => {
-        this.places = response.data.content;
-        this.places.forEach(place => this.createMarker(place));
+
+    loadMap(center, zoom, container) {
+      this.map = DG.map(container, { center, zoom });
+      this.markers.addTo(this.map);
+      regionApi.getRegions(30, 0).then((response) => {
+        const content = response.data.content;
+        const regions = regionApi.castResponses(content);
+        regions.forEach((region) => this.drawRegion(region));
       });
     },
-    CreateRegionMarcers(IdRegion){ 
-      placeApi.findByRegionId(IdRegion).then(response => {
-        this.places= response.data.content;
-        for(var i=0;i<this.places.length; i++){
-          this.setplases[i] = this.createMarker(this.places[i])
-          this.setplases[i].addTo(this.map);
-          console.log(1);
-        }
+
+    drawRegion(region) {
+      const polygon = DG.polygon(region.points);
+      polygon.addTo(this.map);
+      const center = polygon.getCenter();
+      polygon.on("click", () => this.regionClick(region, center));
+    },
+
+    regionClick(region, center) {
+      this.map.setView(center, this.zoom);
+      this.removeMarkers();
+      this.loadMarkers(region);
+    },
+
+    loadMarkers(region) {
+      if (this.isActivity) {
+        activityApi.findByRegionId(region.id, 20, 0).then((response) => {
+          const content = response.data.content;
+          const activities = activityApi.castResponses(content);
+          activities.forEach((activity) =>
+            this.createMarker(activity, "ActivityInfo")
+          );
         });
-        // this.places.map(place =>{
-        //   this.setplases[0] = this.createMarker(place);
-        //   console.log(this.setplases);
-        //  
-    },
-    clearMapByMarcers(){
-      if(this.map.markers){
-        this.map.markers.removeAll();
+      } else {
+        placeApi.findByRegionId(region.id, 20, 0).then((response) => {
+          const content = response.data.content;
+          const places = placeApi.castResponses(content);
+          places.forEach((place) => this.createMarker(place, "PlaceInfo"));
+        });
       }
-    }
+    },
+
+    createMarker(elem, routePage) {
+      const icon = DG.icon({
+        iconUrl: elem.labelUrl,
+        iconSize: [30, 30],
+      });
+      const marker = DG.marker(elem.point, { icon });
+
+      const popup = this.createPopup(elem, routePage);
+
+      marker.bindPopup(popup);
+
+      marker.addTo(this.markers);
+    },
+
+    createPopup(elem, routePage) {
+      const root = document.createElement("div");
+      root.setAttribute("class", "Popup");
+
+      const label = document.createElement("div");
+      label.setAttribute("class", "lable-container");
+      root.append(label);
+
+      const image = document.createElement("img");
+      image.setAttribute("class", "img");
+      image.setAttribute("width", "100%");
+      image.setAttribute("src", elem.image);
+      label.append(image);
+
+      const name = document.createElement("div");
+      name.setAttribute("class", "place-name");
+      name.innerText = elem.name;
+      label.append(name);
+
+      const address = document.createElement("div");
+      address.setAttribute("class", "place-address");
+      address.innerText = elem.address;
+      label.append(address);
+
+      const button = document.createElement("div");
+      button.setAttribute("class", "button");
+      button.innerText = "Подробнее";
+      button.onclick = () =>
+        this.$router.push({ name: routePage, params: { id: elem.id } });
+
+      label.append(button);
+
+      return root;
+    },
+
+    removeMarkers() {
+      this.markers.clearLayers();
+    },
   },
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+  var elems = document.querySelectorAll(".collapsible");
+  var options = { accordion: false };
+  var instances = M.Collapsible.init(elems, options);
+  document.querySelectorAll(".collapsible-body").forEach((elem) => {
+    elem.setAttribute("style", "padding: 0px 0px");
+  });
 });
 </script>
 
@@ -191,12 +219,81 @@ export default defineComponent({
   /* padding: calc(10px + (8 - 10) * ((100vw - 500px) / (1920 - 500))) 0; */
   font-size: 18px;
   /* font-size: calc(18px + (16 - 18) * ((100vw - 500px) / (1920 - 500))); */
-  color: #201F1C;
+  color: #201f1c;
   font-weight: lighter;
-  background: #FFBD00;
+  background: #ffbd00;
 }
 .button:hover {
   cursor: pointer;
+  font-weight: bold;
+}
+.TopMapFilterSwitcher {
+  float: right;
+  margin-right: 30px;
+  bottom: 15px;
+}
+
+#MapControll {
+  position: absolute;
+  height: 75vh;
+  width: 20%;
+  overflow: auto;
+  border-radius: 3px;
+  /* margin: 10px; */
+  background: #201f1c;
+}
+#MapFilters,
+#InfoRegion,
+#PokaHz {
+  padding-top: 30px;
+  width: 100%;
+  height: 100%;
+  display: none;
+}
+#MapFilters {
+  color: #201f1c;
+  display: block;
+}
+
+.collapsible {
+  border: 0px solid #201f1c !important;
+  color: #fcd56b !important;
+}
+
+.collapsible-body {
+  padding: 0px 0px !important;
+  text-align: left;
+}
+.collapsible-body p {
+  margin: 0px;
+  padding: 7px 19px;
+}
+.collapsible-body p:hover {
+  cursor: pointer;
+  background-color: #fefbf7 !important;
+  color: #00028b !important;
+}
+
+.collapsible-body p:hover span {
+  color: #201f1c !important;
+}
+
+.collapsible-body p span {
+  color: #fcd56b !important;
+}
+
+.collapsible-header:hover {
+  background-color: #fefbf7 !important;
+  color: #201f1c !important;
+}
+
+.collapsible-header {
+  background-color: #201f1c !important;
+
+  border-bottom: 1px solid #201f1c !important;
+}
+
+li.active .collapsible-header {
   font-weight: bold;
 }
 </style>

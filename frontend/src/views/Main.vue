@@ -120,7 +120,6 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import GisMap from "@/components/GisMap.vue";
-import M from "materialize-css";
 
 export default defineComponent({
   name: "Main",
@@ -128,6 +127,7 @@ export default defineComponent({
     GisMap,
   },
 });
+<<<<<<< HEAD
 document.addEventListener('DOMContentLoaded', function() {    
     var elems = document.querySelectorAll('.slider');
     var options ={
@@ -284,3 +284,6 @@ li.active .collapsible-header {
     background-color: #00028b !important;
 }
 </style>
+=======
+</script>
+>>>>>>> origin/create-gis

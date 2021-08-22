@@ -112,6 +112,19 @@ const activityApi = {
   findActivitiesByIds(ids: number[]): Promise<AxiosResponse<Activity[]>> {
     return axiosApi.post(`${activityUrl}/ids`, ids);
   },
+
+  findByRegionId(
+    regionId: number,
+    size: number,
+    page: number
+  ): Promise<AxiosResponse<Page<Activity>>> {
+    const params = new URLSearchParams();
+    params.set("size", size.toString());
+    params.set("page", page.toString());
+    return axiosApi.get(
+      `${activityUrl}/region/${regionId}?${params.toString()}`
+    );
+  },
 };
 
 export default activityApi;
