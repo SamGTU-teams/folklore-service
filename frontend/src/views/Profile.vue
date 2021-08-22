@@ -225,7 +225,7 @@
                     <a href="https://dl.booksee.org/genesis/235000/319945b34f3033ae8497f4244458d341/_as/[O._S._Berdyaeva]_Folklor_Novgorodskoi_oblasti._Is(BookSee.org).pdf"><div class="readMore">Перейти к произведению</div></a>
                 </div>
             <div id="InfoSourses">
-
+                
             </div>
         </div>
     </div>
