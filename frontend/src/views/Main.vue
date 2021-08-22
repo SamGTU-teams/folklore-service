@@ -1,27 +1,28 @@
 <template>
   <div class="container main">
-    Найди фольклер для себя
     <div class="row">
-      <div class="col s12 m6 MetodSelector">
-        <div class="MetodSelectorPart">
-          
-          Поиск на карте
-        </div>
-      </div>
-      <div class="col s12 m6 MetodSelector">
-        <div class="MetodSelectorPart">
-        Профильный подбор фольклера
-        </div>
-      </div>
-      <div class="col s12 m6 MetodSelector">
-        <div class="MetodSelectorPart">
-        Наиболее популярные
-        </div>
-      </div>
-      <div class="col s12 m6 MetodSelector">
-        <div class="MetodSelectorPart">
-          AR приложение
-        </div>
+      <div class="slider">
+        <ul class="slides">
+          <li>
+            <img src="https://cdn.discordapp.com/attachments/747497720926699573/878857519701843998/TITLE-BANNER.jpg"> <!-- random image -->
+          </li>          
+          <li>
+              <a href="#TopMapFilters">
+              <img src="https://lorempixel.com/580/250/nature/2"> <!-- random image -->
+              <div class="caption left-align">
+                <h3>Ультра пиздатая карта</h3>
+                <h5 class="light grey-text text-lighten-3">С фильтрами</h5>
+              </div>
+              </a>
+          </li>          
+          <li>
+            <img src="https://lorempixel.com/580/250/nature/3"> <!-- random image -->
+            <div class="caption right-align">
+              <h3>Ахуенное AR приложение</h3>
+              <h5 class="light grey-text text-lighten-3">С журнальчиком :D</h5>
+            </div>
+          </li>
+        </ul>
       </div>
     </div>
     <div id="TopMapFilters" class="row">
@@ -125,7 +126,14 @@ export default defineComponent({
     GisMap,
   },
 });
-
+document.addEventListener('DOMContentLoaded', function() {    
+    var elems = document.querySelectorAll('.slider');
+    var options ={
+      indicators: true,
+      height: 450,
+    };
+    var instances = M.Slider.init(elems, options);
+  });
 document.addEventListener("DOMContentLoaded", function() {
   var elems = document.querySelectorAll(".collapsible");
   var options = { accordion: false };
@@ -269,5 +277,8 @@ li.active .collapsible-header {
   height: 100%;
   border-radius: 15px;
   background: #fcd56b;
+}
+.slider .indicators .indicator-item.active {
+    background-color: #00028b !important;
 }
 </style>
